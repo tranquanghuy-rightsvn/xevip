@@ -643,6 +643,23 @@ p {
   margin: 0;
   font-weight: 600;
 }
+.car-type-item .car-price {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-top: 2px;
+}
+.price-unavailable-note {
+  font-size: 13px;
+  color: var(--color-alert);
+  font-weight: 600;
+  background: #fff4f4;
+  border: 1px solid #ffd7d7;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 0 0 12px;
+}
 .modal-note {
   font-size: 13px;
   color: var(--color-primary-dark);

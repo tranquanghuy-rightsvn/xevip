@@ -105,6 +105,12 @@
             </select>
           </div>
         </div>
+        <div class="form-row start-point-locality-freetext-row" hidden>
+          <label>Thôn/Xóm:</label>
+          <div class="input-wrap">
+            <input type="text" class="input-locality-freetext" placeholder="Nhập thôn/xóm/số nhà cụ thể (nếu có)">
+          </div>
+        </div>
         <div class="form-row start-point-road" hidden>
           <label>Bạn đi từ:</label>
           <div class="input-wrap">
@@ -479,22 +485,27 @@
     <span class="modal-close">&times;</span>
     <h2>XÁC NHẬN THÔNG TIN</h2>
     <p style="font-size:13px;color:#777;">Giá cước đã bao gồm phí ra, vào sân bay Cam Ranh, chưa bao gồm phí cầu đường khác.</p>
+    <p class="price-unavailable-note" hidden>Giá xe ở địa chỉ này chưa được cập nhật chúng tôi sẽ liên hệ và báo giá.</p>
     <div class="car-type-grid">
       <div class="car-type-item" data-value="Xe 4 chỗ">
         <img src="images/4seat.png" alt="Xe 4 chỗ">
         <p>Xe 4 chỗ</p>
+        <span class="car-price"></span>
       </div>
       <div class="car-type-item selected" data-value="Xe 5 chỗ">
         <img src="images/5seat.png" alt="Xe 5 chỗ">
         <p>Xe 5 chỗ</p>
+        <span class="car-price"></span>
       </div>
       <div class="car-type-item" data-value="Xe 7 chỗ">
         <img src="images/Layer-3.png" alt="Xe 7 chỗ">
         <p>Xe 7 chỗ</p>
+        <span class="car-price"></span>
       </div>
       <div class="car-type-item" data-value="Xe 16 chỗ">
         <img src="images/16seat.png" alt="Xe 16 chỗ">
         <p>Xe 16 chỗ</p>
+        <span class="car-price"></span>
       </div>
     </div>
     <span class="modal-note">Đặt xe sớm để được ưu đãi tốt nhất!</span>

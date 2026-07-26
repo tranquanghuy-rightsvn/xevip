@@ -82,6 +82,28 @@ function initBookingWidget() {
   document.querySelectorAll('.booking-widget, .footer-booking').forEach(setupBookingWidget);
 }
 
+const CAR_PRICES_KHANH_HOA = {
+  'Xe 4 chỗ': 450000,
+  'Xe 5 chỗ': 500000,
+  'Xe 7 chỗ': 650000,
+  'Xe 16 chỗ': 900000,
+};
+
+function formatVnd(amount) {
+  return amount.toLocaleString('vi-VN') + 'đ';
+}
+
+function updateModalPricing(modal, isKhanhHoa) {
+  const note = modal.querySelector('.price-unavailable-note');
+  modal.querySelectorAll('.car-type-item').forEach((item) => {
+    const priceEl = item.querySelector('.car-price');
+    if (!priceEl) return;
+    const price = CAR_PRICES_KHANH_HOA[item.dataset.value];
+    priceEl.textContent = isKhanhHoa && price ? formatVnd(price) : '';
+  });
+  if (note) note.hidden = isKhanhHoa;
+}
+
 function setupBookingWidget(widget) {
   const airportTab = widget.querySelector('.tab-airport');
   const roadTab = widget.querySelector('.tab-road');
@@ -89,8 +111,10 @@ function setupBookingWidget(widget) {
   const startAirport = widget.querySelector('.start-point-airport');
   const startWardRow = widget.querySelector('.start-point-ward-row');
   const startLocalityRow = widget.querySelector('.start-point-locality-row');
+  const startLocalityFreetextRow = widget.querySelector('.start-point-locality-freetext-row');
   const startRoad = widget.querySelector('.start-point-road');
   const provinceSelect = widget.querySelector('.select-province');
+  const wardSelect = widget.querySelector('.select-ward');
   const localitySelect = widget.querySelector('.select-locality');
 
   if (airportTab && roadTab) {
@@ -105,6 +129,10 @@ function setupBookingWidget(widget) {
       if (startRoad) startRoad.hidden = true;
       if (startWardRow) startWardRow.hidden = !(provinceSelect && provinceSelect.value);
       if (startLocalityRow) startLocalityRow.hidden = !(localitySelect && localitySelect.options.length > 1);
+      if (startLocalityFreetextRow) {
+        const showFreetext = wardSelect && wardSelect.value && wardSelect.dataset.isKhanhHoa !== '1';
+        startLocalityFreetextRow.hidden = !showFreetext;
+      }
     });
     roadTab.addEventListener('click', () => {
       roadTab.classList.add('active');
@@ -117,6 +145,7 @@ function setupBookingWidget(widget) {
       if (startAirport) startAirport.hidden = true;
       if (startWardRow) startWardRow.hidden = true;
       if (startLocalityRow) startLocalityRow.hidden = true;
+      if (startLocalityFreetextRow) startLocalityFreetextRow.hidden = true;
       if (startRoad) startRoad.hidden = false;
     });
   }
@@ -137,6 +166,9 @@ function setupBookingWidget(widget) {
   if (submitBtn && modal) {
     submitBtn.addEventListener('click', (e) => {
       e.preventDefault();
+      const isAirportTab = !airportTab || airportTab.classList.contains('active');
+      const isKhanhHoa = !!(isAirportTab && wardSelect && wardSelect.value && wardSelect.dataset.isKhanhHoa === '1');
+      updateModalPricing(modal, isKhanhHoa);
       modal.classList.add('open');
     });
   }
@@ -161,12 +193,19 @@ function initProvinceWardSelect() {
   const wardRow = document.querySelector('.start-point-ward-row');
   const localitySelect = document.querySelector('.select-locality');
   const localityRow = document.querySelector('.start-point-locality-row');
+  const localityFreetextRow = document.querySelector('.start-point-locality-freetext-row');
+  const localityFreetextInput = document.querySelector('.input-locality-freetext');
   if (!provinceSelect || !wardSelect || !wardRow) return;
 
   function resetLocality() {
-    if (!localitySelect || !localityRow) return;
-    localitySelect.innerHTML = '<option value="">-- Chọn thôn/tổ dân phố --</option>';
-    localityRow.hidden = true;
+    if (localitySelect && localityRow) {
+      localitySelect.innerHTML = '<option value="">-- Chọn thôn/tổ dân phố --</option>';
+      localityRow.hidden = true;
+    }
+    if (localityFreetextRow) {
+      localityFreetextRow.hidden = true;
+      if (localityFreetextInput) localityFreetextInput.value = '';
+    }
   }
 
   fetch('area/provinces.json')
@@ -206,14 +245,18 @@ function initProvinceWardSelect() {
         }
       });
 
-      if (localitySelect && localityRow) {
-        wardSelect.addEventListener('change', () => {
-          resetLocality();
-          if (wardSelect.dataset.isKhanhHoa !== '1' || !wardSelect.value) return;
+      wardSelect.addEventListener('change', () => {
+        resetLocality();
+        if (!wardSelect.value) return;
 
+        if (wardSelect.dataset.isKhanhHoa === '1' && localitySelect && localityRow) {
           loadLocalities().then((localities) => {
             const wardData = localities.find((w) => String(w.ward_code) === wardSelect.value);
-            if (!wardData || !wardData.localities || !wardData.localities.length) return;
+            if (!wardData || !wardData.localities || !wardData.localities.length) {
+              // Khánh Hòa nhưng chưa có dữ liệu thôn/tổ cho phường/xã này (vd. Đặc khu Trường Sa)
+              if (localityFreetextRow) localityFreetextRow.hidden = false;
+              return;
+            }
             wardData.localities.forEach((loc) => {
               const opt = document.createElement('option');
               opt.value = loc.name;
@@ -222,8 +265,11 @@ function initProvinceWardSelect() {
             });
             localityRow.hidden = false;
           });
-        });
-      }
+        } else if (localityFreetextRow) {
+          // Tỉnh khác Khánh Hòa: không có dữ liệu đơn vị cấp cơ sở thứ 3, cho nhập tự do
+          localityFreetextRow.hidden = false;
+        }
+      });
     })
     .catch((err) => console.error('Không tải được danh sách tỉnh/phường:', err));
 }
