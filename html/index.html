@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taxi Cam Ranh - Đặt xe đưa đón sân bay Cam Ranh giá rẻ 24/7</title>
+<meta name="description" content="Dịch vụ xe taxi sân bay Cam Ranh, xe đường dài giá rẻ, chuyên nghiệp uy tín. Đặt xe nhanh chóng, giá cước niêm yết, phục vụ 24/7.">
+<link rel="icon" type="image/png" href="images/cropped-logo-xe-vip-noi-bai-final-32x32.png">
+<link rel="apple-touch-icon" href="images/cropped-logo-xe-vip-noi-bai-final-180x180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Fira+Sans+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html"><img src="images/logo.png" alt="Xe Taxi Cam Ranh – Dịch vụ xe đưa đón sân bay giá rẻ"></a>
+    <ul class="main-nav">
+      <li><a href="ve-chung-toi.html">VỀ CHÚNG TÔI</a></li>
+      <li>
+        <a href="#">DỊCH VỤ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a>
+        <ul class="sub-menu">
+          <li><a href="dich-vu-xe-san-bay-noi-bai.html">Dịch vụ xe taxi sân bay Cam Ranh</a></li>
+          <li><a href="dich-vu-xe-duong-dai.html">Dịch vụ xe đường dài</a></li>
+        </ul>
+      </li>
+      <li><a href="blog/index.html">TIN TỨC</a></li>
+      <li><a href="lien-he.html">LIÊN HỆ</a></li>
+    </ul>
+    <a class="hotline-btn" href="tel:1900888697">
+      <span class="label">HOTLINE</span>
+      <span class="number">1900.888.697</span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="drawer-overlay"></div>
+<div class="mobile-nav-drawer">
+  <a href="ve-chung-toi.html">Về chúng tôi</a>
+  <a href="dich-vu-xe-san-bay-noi-bai.html" class="sub-link">Dịch vụ xe taxi sân bay Cam Ranh</a>
+  <a href="dich-vu-xe-duong-dai.html" class="sub-link">Dịch vụ xe đường dài</a>
+  <a href="blog/index.html">TIN TỨC</a>
+  <a href="lien-he.html">LIÊN HỆ</a>
+  <a href="tel:1900888697">HOTLINE: 1900.888.697</a>
+</div>
+
+<section class="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('images/camranh-1.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/camranh-2.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/camranh-3.jpg')"></div>
+  </div>
+  <button class="hero-arrow hero-arrow--prev" aria-label="Ảnh trước">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <button class="hero-arrow hero-arrow--next" aria-label="Ảnh sau">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h1>Dịch vụ xe taxi Cam Ranh giá rẻ – xe đưa đón sân bay</h1>
+      <p>Trải nghiệm dịch vụ đặt xe taxi sân bay, xe đi tỉnh nhanh với phong cách chuyên nghiệp giá cả hợp lý của Xe VIP Cam Ranh</p>
+      <a class="btn btn-primary" href="#priceModal" onclick="document.getElementById('priceModal').classList.add('open');return false;">Gọi ngay</a>
+    </div>
+
+    <div class="booking-widget">
+      <div class="hotline-line"><a href="tel:1900888697">HOTLINE: 1900.888.697</a></div>
+      <div class="booking-tabs">
+        <button class="tab-airport active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 16v-2l-8.5-5V3.5a1.5 1.5 0 0 0-3 0V9L2 14v2l8.5-2.5V19L8 20.5V22l4-1 4 1v-1.5L13.5 19v-5.5z"/></svg>
+          Đi sân bay
+        </button>
+        <button class="tab-road">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21 9 3M20 21 15 3M9 15h6"/></svg>
+          Đi đường dài
+        </button>
+      </div>
+      <div class="booking-form">
+        <div class="form-row start-point-airport">
+          <label>Bạn đi từ:</label>
+          <div class="input-wrap">
+            <select class="select-province">
+              <option value="">-- Chọn tỉnh/thành --</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row start-point-ward-row" hidden>
+          <label>Phường/Xã:</label>
+          <div class="input-wrap">
+            <select class="select-ward">
+              <option value="">-- Chọn phường/xã --</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row start-point-locality-row" hidden>
+          <label>Thôn/Tổ:</label>
+          <div class="input-wrap">
+            <select class="select-locality">
+              <option value="">-- Chọn thôn/tổ dân phố --</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row start-point-road" hidden>
+          <label>Bạn đi từ:</label>
+          <div class="input-wrap">
+            <input type="text" class="input-start-point" placeholder="Điểm đi">
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Điểm đến:</label>
+          <div class="input-wrap">
+            <input type="text" class="end-point-input" value="Sân bay Cam Ranh" disabled>
+          </div>
+        </div>
+        <div class="booking-checks">
+          <span class="check-item"><input type="checkbox" id="roundtrip"><label for="roundtrip">Hai chiều</label></span>
+          <span class="check-item"><input type="checkbox" id="vat"><label for="vat">Hóa đơn</label></span>
+          <button class="swap-btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg>
+            Đảo Chiều
+          </button>
+        </div>
+        <div class="booking-row-2">
+          <input type="text" class="input-ngaydatxe" placeholder="Ngày đặt xe">
+          <input type="text" placeholder="Mã giảm giá">
+        </div>
+        <button class="booking-submit" type="button">KIỂM TRA GIÁ</button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <button class="active"></button>
+    <button></button>
+    <button></button>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="intro-heading">
+      <span class="section-tag">XIN CHÀO BẠN</span>
+      <h2>DỊCH VỤ CỦA XE VIP CAM RANH</h2>
+    </div>
+    <div class="services-row">
+      <div class="service-item">
+        <img src="images/icon01.png" alt="">
+        <h3>Xe taxi sân bay giá rẻ</h3>
+        <p>Dịch vụ xe taxi sân bay giá rẻ, chuyên nghiệp và uy tín. Ở đâu rẻ nhất, chúng tôi rẻ hơn</p>
+      </div>
+      <div class="service-item">
+        <img src="images/icon2.png" alt="">
+        <h3>Xe riêng, xe tiện chuyến</h3>
+        <p>Cung cấp các chuyến xe riêng, xe tiện chuyến đi các tỉnh miền Bắc, miền Trung…</p>
+      </div>
+      <div class="service-item">
+        <img src="images/icon3.png" alt="">
+        <h3>Dịch vụ xe đường dài</h3>
+        <p>Cung cấp các chuyến xe dịch vụ đường dài, xe thăm quan du lịch về các tỉnh thành</p>
+      </div>
+      <div class="service-item">
+        <img src="images/icon4.png" alt="">
+        <h3>Đối tác đa dạng</h3>
+        <p>Chúng tôi hợp tác với hàng trăm tài xế nhiệt tâm với các đầu xe mới, sạch sẽ, hiện đại, an toàn</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section fare-section">
+  <div class="container">
+    <div class="intro-heading">
+      <span class="section-tag">CÙNG TRẢI NGHIỆM XE VIP CAM RANH</span>
+      <h2 class="section-title">GIÁ CƯỚC TIÊU BIỂU</h2>
+    </div>
+    <div class="fare-tabs">
+      <button class="active" data-target="san-bay">Xe sân bay</button>
+      <button data-target="duong-dai">Xe đường dài</button>
+    </div>
+
+    <div class="fare-grid active" data-panel="san-bay">
+      <div class="fare-card">
+        <div class="fare-img"><img src="images/camranh-2.jpg" alt="Tháp rùa Hà Nội"></div>
+        <div class="fare-body">
+          <h3>Nha Trang – Sân bay Cam Ranh</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Nha Trang – Sân bay Cam Ranh. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 129.000đ</h4>
+        </div>
+      </div>
+      <div class="fare-card">
+        <div class="fare-img"><img src="images/nha-trang.png" alt="Sân bay Cam Ranh"></div>
+        <div class="fare-body">
+          <h3>Sân bay Cam Ranh – Nha Trang</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Sân bay Cam Ranh – Nha Trang. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 179.000đ</h4>
+        </div>
+      </div>
+      <div class="fare-card">
+        <div class="fare-img"><img src="images/camranh-3.jpg" alt="Ninh Bình"></div>
+        <div class="fare-body">
+          <h3>Sân bay Cam Ranh – Bãi Dài</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Sân bay Cam Ranh – Bãi Dài. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 800.000đ</h4>
+        </div>
+      </div>
+      <div class="fare-card">
+        <div class="fare-img"><img src="images/camranh-1.jpg" alt="Hạ Long"></div>
+        <div class="fare-body">
+          <h3>Sân bay Cam Ranh – Thành phố Cam Ranh</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Sân bay Cam Ranh – Thành phố Cam Ranh. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 1.100.000đ</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="fare-grid" data-panel="duong-dai">
+      <div class="fare-card">
+        <div class="fare-img"><img src="images/bien-ha-long.jpg" alt="Hạ Long"></div>
+        <div class="fare-body">
+          <h3>Thành phố Cam Ranh – Đảo Bình Ba</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Thành phố Cam Ranh – Đảo Bình Ba. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 800.000đ</h4>
+        </div>
+      </div>
+      <div class="fare-card">
+        <div class="fare-img"><img src="images/hai-phong-01.jpg" alt="Hải Phòng"></div>
+        <div class="fare-body">
+          <h3>Thành phố Cam Ranh – Nha Trang</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Thành phố Cam Ranh – Nha Trang. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 700.000đ</h4>
+        </div>
+      </div>
+      <div class="fare-card">
+        <div class="fare-img"><img src="images/ninh-binh.jpg" alt="Ninh Bình"></div>
+        <div class="fare-body">
+          <h3>Nha Trang – Đảo Bình Ba</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Nha Trang – Đảo Bình Ba. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 600.000đ</h4>
+        </div>
+      </div>
+      <div class="fare-card">
+        <div class="fare-img"><img src="images/lao-cai-01.jpg" alt="Lào Cai"></div>
+        <div class="fare-body">
+          <h3>Bãi Dài – Đảo Bình Ba</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Bãi Dài – Đảo Bình Ba. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 900.000đ</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section why-us">
+  <div class="container">
+    <h2 class="text-center" style="color:#fff;">Tại sao nên đặt xe sân bay của chúng tôi?</h2>
+    <p class="section-lead">Chúng tôi trân trọng và cảm ơn sự tin tưởng hợp tác của quý đối tác và khách hàng trong suốt 6 năm qua.</p>
+    <div class="why-us-grid">
+      <div class="why-us-col">
+        <div class="why-us-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17h14M6 10h12l1.5 7h-15zM9 10 8 5h8l-1 5"/></svg>
+          <div>
+            <h3>Đặt xe nhanh chóng</h3>
+            <p>Hệ thống quản lý đặt xe chuyên nghiệp với dàn xe mới, sang trọng, chất lượng cao.</p>
+          </div>
+        </div>
+        <div class="why-us-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <div>
+            <h3>Giá luôn tốt nhất</h3>
+            <p>Giá cước rẻ, niêm yết trọn gói, có VAT, nhiều ưu đãi đối với khách hàng đại lý.</p>
+          </div>
+        </div>
+      </div>
+      <div class="why-us-center">
+        <img src="images/xevipsanbay-banner2.jpeg" alt="Dịch vụ đặt xe giá rẻ">
+      </div>
+      <div class="why-us-col right">
+        <div class="why-us-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div>
+            <h3>Đúng giờ, chu đáo</h3>
+            <p>Dịch vụ đưa đón đúng giờ, đúng tuyến, chu đáo ân cần phục vụ khách hàng. Miễn thời gian chờ tối đa 60 phút.</p>
+          </div>
+        </div>
+        <div class="why-us-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          <div>
+            <h3>Thanh toán linh hoạt</h3>
+            <p>Chấp nhận mọi hình thức thanh toán: Banking, Tiền mặt,….</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container partner-cta">
+    <img src="images/doi-tac-dai-ly.jpg" alt="Đối tác Xe VIP Cam Ranh">
+    <div>
+      <h2>ĐỐI TÁC ĐẠI LÝ</h2>
+      <p class="lead">GIA TĂNG THU NHẬP</p>
+      <p>Không chỉ chia sẻ doanh thu với đối tác vận chuyển (đối tác lái xe), Xe VIP Cam Ranh còn chia sẻ doanh thu với các đối tác chiến lược như các đơn vị du lịch, các đối tác cá nhân có thể kết nối khách hàng sử dụng dịch vụ của chúng tôi.</p>
+      <ul class="partner-features">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Đăng ký dễ dàng, miễn phí</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Làm việc mọi lúc, mọi nơi</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Gia tăng nguồn thu nhập</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Dễ dàng tiếp cận khách hàng</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Hệ thống quản lý chuyên nghiệp</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Nhận thanh toán nhanh chóng, dễ dàng</li>
+      </ul>
+      <a class="btn btn-primary" href="#">Đăng ký đối tác đại lý</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider-checkers"></div>
+
+<section class="section testimonials">
+  <div class="container">
+    <div class="intro-heading">
+      <span class="section-tag">REVIEW</span>
+      <h2 class="section-title">KHÁCH HÀNG NÓI VỀ XE VIP CAM RANH</h2>
+    </div>
+    <div class="testimonial-track">
+      <div class="testimonial-card">
+        <img src="images/a1@4x-150x150.png" alt="">
+        <div class="stars">★★★★★</div>
+        <h4>Nguyễn Thành Duy</h4>
+        <p class="role">Lập trình viên</p>
+        <p class="review">Chào các bạn, tôi là một khách hàng đã sử dụng dịch vụ của Xe VIP Cam Ranh. Tôi và gia đình có thuê 1 xe 16 chỗ bên công ty để về quê. Lái xe chuyên nghiệp mà thân thiện.</p>
+      </div>
+      <div class="testimonial-card">
+        <img src="images/a2@4x-150x150.png" alt="">
+        <div class="stars">★★★★★</div>
+        <h4>Hoàng Tuấn Anh</h4>
+        <p class="role">Chuyên viên Marketing</p>
+        <p class="review">Tôi phải công nhận Xe VIP Cam Ranh chăm sóc khách hàng quá tốt. Tôi đã đặt xe taxi sân bay Cam Ranh hơn 1 năm rồi mà khi gọi lên tổng đài của các bạn vẫn nhận ra và chỉ mất có 30 giây để tôi có thể đặt xe. Quá tuyệt.</p>
+      </div>
+      <div class="testimonial-card">
+        <img src="images/a3@4x-150x150.png" alt="">
+        <div class="stars">★★★★★</div>
+        <h4>Lý Thị Mai</h4>
+        <p class="role">NV Văn Phòng</p>
+        <p class="review">Dịch vụ xe sân bay Cam Ranh của Xe VIP Cam Ranh rất tuyệt vời. Tôi đặt chuyến trước 20 ngày nhưng tổng đài luôn gọi điện báo trước lịch cho tôi vì sợ tôi quên lịch. Lái xe trước khi đến còn cẩn thận gọi điện thoại cho tôi và đến rất đúng giờ.</p>
+      </div>
+      <div class="testimonial-card">
+        <img src="images/a4@4x-150x150.png" alt="">
+        <div class="stars">★★★★★</div>
+        <h4>Nguyễn Như Hạnh</h4>
+        <p class="role">Giám đốc sản xuất</p>
+        <p class="review">Hôm trước mình có sử dụng dịch vụ xe sân bay Cam Ranh của các bạn. Mình thật sự rất ấn tượng với cách phục vụ của tổng đài cũng như của lái xe. Lần sau nhất định mình sẽ tiếp tục sử dụng dịch vụ của các bạn.</p>
+      </div>
+      <div class="testimonial-card">
+        <img src="images/a5@4x-150x150.png" alt="">
+        <div class="stars">★★★★★</div>
+        <h4>Trịnh Minh Thế</h4>
+        <p class="role">NV kinh doanh</p>
+        <p class="review">Cảm ơn Xe VIP Cam Ranh. Hôm trước mình đặt xe vào đúng ngày thành lập công ty nên mình được miễn phí chuyến đi Hà Nội – Cam Ranh. Lần sau nhất định mình sẽ sử dụng lại dịch vụ của các bạn.</p>
+      </div>
+      <div class="testimonial-card">
+        <img src="images/a6@4x-150x150.png" alt="">
+        <div class="stars">★★★★★</div>
+        <h4>Đặng Minh Tuấn</h4>
+        <p class="role">Giám đốc kinh doanh</p>
+        <p class="review">Tôi và các đồng nghiệp trong công ty thường xuyên sử dụng dịch vụ taxi sân bay Cam Ranh của Xe VIP Cam Ranh. Chúng tôi cảm thấy hài lòng về thái độ, sự chuyên nghiệp của lái xe và chất lượng xe.</p>
+      </div>
+    </div>
+    <div class="testimonial-nav">
+      <button class="active"></button>
+      <button></button>
+    </div>
+  </div>
+</section>
+
+<section class="section press-section">
+  <div class="container">
+    <h2>BÁO CHÍ NÓI VỀ CHÚNG TÔI</h2>
+    <div class="press-track">
+      <img src="images/24h.png" alt="Báo 24h">
+      <img src="images/cafebiz.png" alt="Báo Cafebiz">
+      <img src="images/phapluat.png" alt="Báo pháp luật thành phố HCM">
+      <img src="images/kenh14.png" alt="Báo Kênh 14">
+      <img src="images/vtcnews.svg" alt="Báo VTC News">
+      <img src="images/vietstock.svg" alt="Cổng thông tin tài chính Vietstock">
+    </div>
+  </div>
+</section>
+
+<div class="banner-strip">
+  <a href="#"><img src="images/BANNER01.jpg" alt=""></a>
+  <a href="#"><img src="images/banner-duoi-1.jpg" alt="Đặt xe Hà Nội - Cam Ranh, Xe đường dài"></a>
+</div>
+
+<div class="clients-band">
+  <div class="container clients-inner">
+    <div class="clients-heading">
+      <h2>ĐỐI TÁC CỦA CHÚNG TÔI<br>VÀ KHÁCH HÀNG</h2>
+    </div>
+    <button class="clients-arrow prev" aria-label="Trước">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <div class="clients-slider">
+      <div class="clients-track">
+        <div><img src="images/fpt.png" alt="FPT"></div>
+        <div><img src="images/daisan.png" alt="Daisan"></div>
+        <div><img src="images/shb.png" alt="SHB"></div>
+        <div><img src="images/petrolimex.png" alt="Petrolimex"></div>
+        <div><img src="images/techcombank.png" alt="Techcombank"></div>
+        <div><img src="images/hsbc.png" alt="HSBC"></div>
+        <div><img src="images/sunwell.png" alt="Sunwell"></div>
+      </div>
+    </div>
+    <button class="clients-arrow next" aria-label="Sau">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-main">
+    <div class="footer-about">
+      <h3>Về chúng tôi</h3>
+      <p><strong>Taxi Cam Ranh</strong> tự hào là một trong những công ty dịch vụ xe sân bay, xe đường dài chuyên nghiệp hàng đầu khu vực Miền Bắc và Miền Trung. Tương lai không xa chúng tôi sẽ phát triển mở rộng chi nhánh tại Tp. Hồ Chí Minh và các tỉnh lân cận phía nam.</p>
+    </div>
+    <div>
+      <h3>Khám phá</h3>
+      <ul class="footer-links">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Trang chủ</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Về chúng tôi</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Bảng giá xe sân bay Cam Ranh</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Bảng giá xe đường dài</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="visibility:hidden">.</h3>
+      <ul class="footer-links">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Đối tác đại lý</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Đối tác vận chuyển</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chính sách vận chuyển</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Quyền riêng tư</li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h3>Thông tin liên hệ</h3>
+      <p>Công ty TNHH Du Lịch Và Dịch Vụ COGOVI</p>
+      <p>Địa chỉ: Tầng 2, Số 167 Phố Trung Kính, P. Yên Hoà, Q. Cầu Giấy, TP. Hà Nội</p>
+      <p>Hotline: <a href="tel:1900888697">1900.888.697</a></p>
+      <p>Email: <a href="mailto:contact@xevipnoibai.com">contact@xevipnoibai.com</a></p>
+      <p>Website: www.xevipnoibai.com</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2024 Xe VIP Cam Ranh — Công ty TNHH Du Lịch Và Dịch Vụ COGOVI. All Rights Reserved.</span>
+    <span>DMCA Protected</span>
+  </div>
+</footer>
+
+<button class="scroll-top-btn" aria-label="Lên đầu trang">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<div class="fixed-social">
+  <a href="#" aria-label="Messenger" style="background:#0084ff;">
+    <svg viewBox="0 0 24 24" fill="#fff" width="26" height="26"><path d="M12 2C6.48 2 2 6.15 2 11.27c0 2.91 1.44 5.51 3.7 7.21V22l3.38-1.86c.9.25 1.87.38 2.92.38 5.52 0 10-4.15 10-9.27C22 6.15 17.52 2 12 2zm1 12.5-2.55-2.72-4.98 2.72 5.48-5.82 2.61 2.72 4.92-2.72L13 14.5z"/></svg>
+  </a>
+  <a href="#" aria-label="Zalo">
+    <img src="images/zalo-1.png" alt="Zalo">
+  </a>
+</div>
+
+
+<div class="modal-overlay" id="priceModal">
+  <div class="modal-box">
+    <span class="modal-close">&times;</span>
+    <h2>XÁC NHẬN THÔNG TIN</h2>
+    <p style="font-size:13px;color:#777;">Giá cước đã bao gồm phí ra, vào sân bay Cam Ranh, chưa bao gồm phí cầu đường khác.</p>
+    <div class="car-type-grid">
+      <div class="car-type-item" data-value="Xe 4 chỗ">
+        <img src="images/4seat.png" alt="Xe 4 chỗ">
+        <p>Xe 4 chỗ</p>
+      </div>
+      <div class="car-type-item selected" data-value="Xe 5 chỗ">
+        <img src="images/5seat.png" alt="Xe 5 chỗ">
+        <p>Xe 5 chỗ</p>
+      </div>
+      <div class="car-type-item" data-value="Xe 7 chỗ">
+        <img src="images/Layer-3.png" alt="Xe 7 chỗ">
+        <p>Xe 7 chỗ</p>
+      </div>
+      <div class="car-type-item" data-value="Xe 16 chỗ">
+        <img src="images/16seat.png" alt="Xe 16 chỗ">
+        <p>Xe 16 chỗ</p>
+      </div>
+    </div>
+    <span class="modal-note">Đặt xe sớm để được ưu đãi tốt nhất!</span>
+    <hr style="border:none;border-top:1px solid #eee;margin-bottom:16px;">
+    <input type="text" placeholder="Họ tên *">
+    <input type="text" placeholder="Số điện thoại *">
+    <button class="booking-submit" type="button" onclick="alert('Cảm ơn bạn! Chúng tôi sẽ liên hệ lại trong ít phút.'); document.getElementById('priceModal').classList.remove('open');">ĐẶT XE NGAY</button>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
