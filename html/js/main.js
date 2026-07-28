@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  initLogoEntrance();
   initStickyHeader();
   initMobileNav();
   initHeroSlider();
@@ -9,6 +10,34 @@ document.addEventListener('DOMContentLoaded', () => {
   initDateDefault();
   initProvinceWardSelect();
 });
+
+/* ---------------------------------------------------------------- */
+function initLogoEntrance() {
+  const icon = document.querySelector('.logo-icon');
+  if (!icon) return;
+
+  const currentX = () => {
+    const t = getComputedStyle(icon).translate;
+    if (!t || t === 'none') return 0;
+    return parseFloat(t.split(' ')[0]) || 0;
+  };
+
+  const watchForBrake = () => {
+    if (currentX() >= -20) {
+      icon.classList.add('brake');
+      setTimeout(() => icon.classList.remove('brake'), 220);
+      return;
+    }
+    requestAnimationFrame(watchForBrake);
+  };
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      icon.classList.add('in');
+      requestAnimationFrame(watchForBrake);
+    });
+  });
+}
 
 /* ---------------------------------------------------------------- */
 function initStickyHeader() {
