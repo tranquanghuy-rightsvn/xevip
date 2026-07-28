@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroSlider();
   initBookingWidget();
   initFareTabs();
-  initTestimonialSlider();
   initClientsCarousel();
   initScrollTop();
   initDateDefault();
@@ -26,17 +25,33 @@ function initStickyHeader() {
 function initMobileNav() {
   const toggle = document.querySelector('.nav-toggle');
   const drawer = document.querySelector('.mobile-nav-drawer');
-  const overlay = document.querySelector('.drawer-overlay');
   if (!toggle || !drawer) return;
+  const isOpen = () => drawer.classList.contains('open');
+  const open = () => {
+    drawer.classList.add('open');
+    toggle.classList.add('is-active');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('nav-open');
+  };
+  const drawerItem = drawer.querySelector('.drawer-item');
+  const parentLink = drawer.querySelector('.drawer-parent-link');
   const close = () => {
     drawer.classList.remove('open');
-    overlay?.classList.remove('open');
+    toggle.classList.remove('is-active');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+    drawerItem?.classList.remove('open');
+    parentLink?.setAttribute('aria-expanded', 'false');
   };
-  toggle.addEventListener('click', () => {
-    drawer.classList.add('open');
-    overlay?.classList.add('open');
+  toggle.addEventListener('click', () => (isOpen() ? close() : open()));
+  drawer.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
+  parentLink?.addEventListener('click', () => {
+    const expanded = drawerItem.classList.toggle('open');
+    parentLink.setAttribute('aria-expanded', String(expanded));
   });
-  overlay?.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) close();
+  });
 }
 
 /* ---------------------------------------------------------------- */
@@ -298,31 +313,6 @@ function initFareTabs() {
       grids.forEach((g) => g.classList.toggle('active', g.dataset.panel === target));
     });
   });
-}
-
-/* ---------------------------------------------------------------- */
-function initTestimonialSlider() {
-  const track = document.querySelector('.testimonial-track');
-  const dots = document.querySelectorAll('.testimonial-nav button');
-  if (!track || !dots.length) return;
-  const cards = track.querySelectorAll('.testimonial-card');
-  const perPage = window.innerWidth <= 1000 ? 1 : 3;
-  const pages = Math.ceil(cards.length / perPage);
-
-  function show(page) {
-    cards.forEach((card, i) => {
-      card.style.display = Math.floor(i / perPage) === page ? '' : 'none';
-    });
-    dots.forEach((d, i) => d.classList.toggle('active', i === page));
-  }
-
-  dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
-  let current = 0;
-  show(0);
-  setInterval(() => {
-    current = (current + 1) % pages;
-    show(current);
-  }, 5000);
 }
 
 /* ---------------------------------------------------------------- */

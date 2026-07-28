@@ -16,7 +16,13 @@
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="logo" href="../index.html"><img src="../images/logo.png" alt="Xe Taxi Cam Ranh – Dịch vụ xe đưa đón sân bay giá rẻ"></a>
+    <a class="logo" href="../index.html">
+      <img class="logo-icon" src="../images/logo-icon.png" alt="Xe VIP Sân Bay">
+      <span class="logo-text">
+        <span class="logo-title">Xe VIP Sân Bay</span>
+        <span class="logo-tagline">An toàn - Đúng hẹn</span>
+      </span>
+    </a>
     <ul class="main-nav">
       <li><a href="../ve-chung-toi.html">VỀ CHÚNG TÔI</a></li>
       <li>
@@ -29,24 +35,42 @@
       <li class="active"><a href="index.html">TIN TỨC</a></li>
       <li><a href="../lien-he.html">LIÊN HỆ</a></li>
     </ul>
-    <a class="hotline-btn" href="tel:1900888697">
+    <a class="hotline-btn" href="tel:19009144">
       <span class="label">HOTLINE</span>
-      <span class="number">1900.888.697</span>
+      <span class="number">1900.9144</span>
     </a>
-    <button class="nav-toggle" aria-label="Menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
     </button>
   </div>
 </header>
 
-<div class="drawer-overlay"></div>
 <div class="mobile-nav-drawer">
+  <a class="drawer-logo" href="../index.html">
+    <img src="../images/logo-icon.png" alt="Xe VIP Sân Bay">
+    <span class="logo-text">
+      <span class="logo-title">Xe VIP Sân Bay</span>
+      <span class="logo-tagline">An toàn - Đúng hẹn</span>
+    </span>
+  </a>
   <a href="../ve-chung-toi.html">Về chúng tôi</a>
-  <a href="../dich-vu-xe-san-bay-noi-bai.html" class="sub-link">Dịch vụ xe taxi sân bay Cam Ranh</a>
-  <a href="../dich-vu-xe-duong-dai.html" class="sub-link">Dịch vụ xe đường dài</a>
+  <div class="drawer-item">
+    <button class="drawer-parent-link" type="button" aria-expanded="false">
+      Dịch vụ
+      <svg class="drawer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="drawer-submenu">
+      <div class="drawer-submenu-inner">
+        <a href="../dich-vu-xe-san-bay-noi-bai.html" class="sub-link">Dịch vụ xe taxi sân bay Cam Ranh</a>
+        <a href="../dich-vu-xe-duong-dai.html" class="sub-link">Dịch vụ xe đường dài</a>
+      </div>
+    </div>
+  </div>
   <a href="index.html">TIN TỨC</a>
   <a href="../lien-he.html">LIÊN HỆ</a>
-  <a href="tel:1900888697">HOTLINE: 1900.888.697</a>
+  <a href="tel:19009144">HOTLINE: 1900.9144</a>
 </div>
 
 <div class="page-title-banner">
@@ -186,7 +210,7 @@
       <h3>Thông tin liên hệ</h3>
       <p>Công ty TNHH Du Lịch Và Dịch Vụ COGOVI</p>
       <p>Địa chỉ: Tầng 2, Số 167 Phố Trung Kính, P. Yên Hoà, Q. Cầu Giấy, TP. Hà Nội</p>
-      <p>Hotline: <a href="tel:1900888697">1900.888.697</a></p>
+      <p>Hotline: <a href="tel:19009144">1900.9144</a></p>
       <p>Email: <a href="mailto:contact@xevipnoibai.com">contact@xevipnoibai.com</a></p>
       <p>Website: www.xevipnoibai.com</p>
     </div>
@@ -201,12 +225,16 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
 </button>
 
-<div class="fixed-social">
-  <a href="#" aria-label="Messenger" style="background:#0084ff;">
-    <svg viewBox="0 0 24 24" fill="#fff" width="26" height="26"><path d="M12 2C6.48 2 2 6.15 2 11.27c0 2.91 1.44 5.51 3.7 7.21V22l3.38-1.86c.9.25 1.87.38 2.92.38 5.52 0 10-4.15 10-9.27C22 6.15 17.52 2 12 2zm1 12.5-2.55-2.72-4.98 2.72 5.48-5.82 2.61 2.72 4.92-2.72L13 14.5z"/></svg>
+<div class="floating-phone-list" aria-label="Hotline gọi nhanh">
+  <a class="floating-phone-btn floating-zalo-btn" href="https://zalo.me/4394992068447532874" target="_blank" rel="noopener noreferrer" aria-label="Chat Zalo">
+    <img src="../images/zalo-icon.png" alt="Zalo" width="26" height="26">
+    <span class="phone-text">Chat Zalo</span>
   </a>
-  <a href="#" aria-label="Zalo">
-    <img src="../images/zalo-1.png" alt="Zalo">
+  <a class="floating-phone-btn" href="tel:19009144" aria-label="Gọi hotline 1900 9144">
+    <span class="phone-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 0 1 2-2h2.28a2 2 0 0 1 1.94 1.515l.516 2.06a2 2 0 0 1-.45 1.86l-1.27 1.27a16 16 0 0 0 6.586 6.586l1.27-1.27a2 2 0 0 1 1.86-.45l2.06.516A2 2 0 0 1 21 16.72V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+    </span>
+    <span class="phone-text">1900 9144</span>
   </a>
 </div>
 
