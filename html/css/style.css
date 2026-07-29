@@ -1207,6 +1207,54 @@ body.nav-open .site-header {
   background: var(--color-dark);
   color: #999;
 }
+.footer-branches {
+  padding: 50px 0 10px;
+  border-bottom: 1px solid #333;
+}
+.footer-branches-title {
+  color: var(--color-primary);
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.branch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.branch-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+}
+.branch-tag {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.branch-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.branch-map-wrap {
+  border-radius: 8px;
+  overflow: hidden;
+  line-height: 0;
+}
+.branch-map {
+  display: block;
+  filter: grayscale(0.2) contrast(1.05);
+}
 .footer-main {
   padding: 60px 0 30px;
   display: grid;
@@ -1624,6 +1672,7 @@ body.nav-open .site-header {
   .about-intro,
   .contact-layout,
   .footer-main,
+  .branch-grid,
   .blog-grid,
   .content-layout {
     grid-template-columns: 1fr;
