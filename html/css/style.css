@@ -1204,15 +1204,16 @@ body.nav-open .site-header {
    ========================================================================== */
 
 .site-footer {
-  background: var(--color-dark);
-  color: #999;
+  background: var(--color-bg-alt);
+  color: var(--color-text);
+  border-top: 1px solid var(--color-border);
 }
 .footer-branches {
   padding: 50px 0 10px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--color-border);
 }
 .footer-branches-title {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   font-size: 20px;
   text-transform: uppercase;
   text-align: center;
@@ -1224,10 +1225,11 @@ body.nav-open .site-header {
   gap: 30px;
 }
 .branch-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid #333;
+  background: #fff;
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
 }
 .branch-tag {
   display: inline-block;
@@ -1244,16 +1246,17 @@ body.nav-open .site-header {
 .branch-card p {
   font-size: 14px;
   line-height: 1.6;
+  color: var(--color-text);
   margin-bottom: 16px;
 }
 .branch-map-wrap {
   border-radius: 8px;
   overflow: hidden;
   line-height: 0;
+  border: 1px solid var(--color-border);
 }
 .branch-map {
   display: block;
-  filter: grayscale(0.2) contrast(1.05);
 }
 .footer-main {
   padding: 60px 0 30px;
@@ -1262,17 +1265,18 @@ body.nav-open .site-header {
   gap: 30px;
 }
 .footer-main h3 {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   font-size: 18px;
   text-transform: uppercase;
   margin-bottom: 20px;
 }
-.footer-main p { color: #999; font-size: 14px; }
+.footer-main p { color: #666; font-size: 14px; }
 .footer-links li {
   padding-bottom: 10px;
   margin-bottom: 10px;
-  border-bottom: 1px dashed #444;
+  border-bottom: 1px dashed var(--color-border);
   font-size: 14px;
+  color: var(--color-text);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1286,14 +1290,19 @@ body.nav-open .site-header {
 .footer-contact p {
   margin-bottom: 12px;
   font-size: 14px;
+  color: var(--color-text);
+}
+.footer-contact a:hover {
+  color: var(--color-primary-dark);
 }
 .footer-bottom {
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--color-border);
   padding: 18px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 13px;
+  color: #888;
 }
 .footer-bottom img { height: 40px; }
 
