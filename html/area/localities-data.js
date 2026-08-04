@@ -1,0 +1,5517 @@
+window.LOCALITIES_DATA = [
+  {
+    "ward_code": 22333,
+    "ward_name": "Phường Bắc Nha Trang",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 9"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 10"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 11"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 12"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Cù Lao Thượng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Hòa Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Cù Lao Thượng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Hòa Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Đông Bắc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4 Đông Bắc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5 Hòa Nam"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7 Ba Làng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 10 Hòa Bắc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 11 Hòa Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 12 Hòa Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 13 Đường Đệ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 14 Đường Đệ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 15 Đường Đệ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 16 Đường Đệ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 17 Hòa Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Cát Lợi"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Cù Lao Hạ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Cù Lao Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đắc Lộc 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đắc Lộc 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hà Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hà Ra 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hà Ra 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hà Ra 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hải Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòn Chồng 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòn Chồng 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòn Chồng 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Liên Thành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lương Hòa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lương Sơn 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lương Sơn 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lương Sơn 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Như Xuân 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Như Xuân 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phương Mai"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Sơn Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Sơn Thủy"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tân Thành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tháp Bà"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trường Phúc 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trường Phúc 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trường Phúc 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Văn Đăng 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Văn Đăng 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Văn Đăng 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vĩnh Thành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Võ Tánh 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Võ Tánh 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Phong"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Phú"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/B%E1%BA%AFc_Nha_Trang",
+    "verified": true
+  },
+  {
+    "ward_code": 22366,
+    "ward_name": "Phường Nha Trang",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 9"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Duy Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Duy Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Định Cư"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Định Cư"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Hoàng Diệu"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Hoàng Diệu"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Kiến Thiết"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Kiến Thiết"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Máy Nước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Máy Nước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Nguyễn Thiện Thuật (Bắc)"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Nguyễn Thiện Thuật (Bắc)"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Nguyễn Thiện Thuật (Nam)"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Nguyễn Thiện Thuật (Nam)"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước Thọ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước Thọ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Phước Thọ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Trí Nguyên"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Trí Nguyên"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Vạn Đức"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Vạn Đức"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Vạn Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Vạn Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Âu Cơ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Bạch Đằng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Bích Đầm"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Bình Khê"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Bùi Thị Xuân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Cầu Đá"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Chí Linh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Duy Hà"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Duy Thanh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đống Đa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đồng Dưa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hoàn Kiếm"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hồng Bàng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lạc Long Quân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lê Hồng Phong"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lê Quý Đôn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lê Thánh Tôn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Mê Linh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nguyễn Hữu Huân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nguyễn Trãi"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Núi Một"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phù Đổng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Quốc Tuấn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tây Hải"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tây Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thái Nguyên"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thánh Gia"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trần Nhật Duật"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trịnh Phong"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trường Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn An"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Bình"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Hòa 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Hòa 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Lợi"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Phương"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Phương 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Thái"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Thọ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vũng Ngán"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vườn Dương"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Yên Thế"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Nha_Trang_(ph%C6%B0%E1%BB%9Dng)",
+    "verified": true
+  },
+  {
+    "ward_code": 22390,
+    "ward_name": "Phường Tây Nha Trang",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 23/10"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Vĩnh Điềm"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Vĩnh Điềm"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Vĩnh Điềm"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4 Ngọc Hội"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5 - 6 Ngọc Hội"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7 Lư Cấm"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8 - 9 Lư Cấm"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 10 Vĩnh Hội"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 11 Vĩnh Hội"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 12 Vĩnh Hội"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 13 Ngọc Thảo"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 14 Ngọc Thảo"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 15 Ngọc Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Cận Giang"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Cận Sơn 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Cận Sơn 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đồng Nhơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Độc Lập"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòn Nghê 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòn Nghê 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Ngọc Hội 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Ngọc Hội 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Bình"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Nông Bắc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Nông Nam"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thạnh 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thạnh 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thạnh 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Trung 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Trung 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Vinh 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Vinh 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phương An"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Bình 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Bình 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phường Củi Đông"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phường Củi Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vĩnh Châu 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vĩnh Điềm Thượng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vĩnh Điềm Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Võ Cang"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Võ Cạnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Võ Dõng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Lạc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Lạc 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Lạc 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Ngọc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Sơn"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/T%C3%A2y_Nha_Trang",
+    "verified": true
+  },
+  {
+    "ward_code": 22402,
+    "ward_name": "Phường Nam Nha Trang",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Bình Tân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Bình Tân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Bình Tân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước An Bắc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước An Bắc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước An Hòa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước An Hòa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Phước An Hòa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước An Nam"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước An Nam"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Phước An Nam"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Phước Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4 Phước Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6 Phước Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7 Phước Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước Thái"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước Thái"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước Thành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước Thành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước Thịnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước Thịnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước Tín"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước Tín"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Phước Tín"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước Toàn Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Phước Toàn Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4 Phước Toàn Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Phước Tường"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Phước Tường"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Trường Hải"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Trường Hải"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 Trường Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 Trường Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 Trường Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4 Trường Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5 Trường Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đất Lành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Cường"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thịnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thọ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước An"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Bình"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Điền"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Hạ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Hưng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Lợi"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Tân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Thủy"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Thượng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Toàn Đông"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thái Thông 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thái Thông 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thành Đạt"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thành Phát"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thủy Tú"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trường Đông"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trường Thọ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vĩnh Xuân"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Nam_Nha_Trang",
+    "verified": true
+  },
+  {
+    "ward_code": 22411,
+    "ward_name": "Phường Bắc Cam Ranh",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Do 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Do 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Do 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Do 4"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Do 5"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Do 6A"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Do 6B"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Do 7"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Bình"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Thuận"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Tiến"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Mỹ Ca"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nghĩa An"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nghĩa Bình"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nghĩa Cam"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nghĩa Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nghĩa Phú"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nghĩa Quý"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Quảng Hòa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Quảng Phúc"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/B%E1%BA%AFc_Cam_Ranh",
+    "verified": true
+  },
+  {
+    "ward_code": 22420,
+    "ward_name": "Phường Cam Ranh",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hải Thủy"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lộc An"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lộc Hải"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lộc Phúc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lộc Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lộc Thành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lộc Thịnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Ninh Xuân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Bình"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Hải"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thịnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phúc Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Ninh"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Cam_Ranh_(ph%C6%B0%E1%BB%9Dng)",
+    "verified": true
+  },
+  {
+    "ward_code": 22423,
+    "ward_name": "Phường Ba Ngòi",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Giải Phóng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa An"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hòa Bình"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hưng Long"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hương Long"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Khánh Cam 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Khánh Cam 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Ngô Mây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Sơn Long"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Suối Môn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tân Hiệp"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tây Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thống Nhất"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trà Long 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trà Long 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Trà Sơn"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ba_Ng%C3%B2i",
+    "verified": true
+  },
+  {
+    "ward_code": 22432,
+    "ward_name": "Phường Cam Linh",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đá Bạc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hiệp Hưng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Linh Hòa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Linh Phú"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Linh Tân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Linh Thương"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Linh Trung"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Linh Vân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Linh Xuân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lợi Hòa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lợi Hưng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lợi Phú"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lợi Thịnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lợi Thọ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lợi Thủy"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thuận Hải"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thuận Hòa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thuận Lộc"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thuận Lợi"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thuận Phát"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thuận Thành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xóm Cồn"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Cam_Linh",
+    "verified": true
+  },
+  {
+    "ward_code": 22435,
+    "ward_name": "Xã Cam Hiệp",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Lập Định 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Bình 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Bình 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Cát"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Cốc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung Hiệp 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung Hiệp 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Valy"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Lập"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Cam_Hi%E1%BB%87p",
+    "verified": true
+  },
+  {
+    "ward_code": 22453,
+    "ward_name": "Xã Cam Lâm",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Bãi Giếng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bãi Giếng 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bãi Giếng 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bãi Giếng 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bãi Giếng Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bãi Giếng Trung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bắc Vĩnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cù Hin"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cửu Lợi 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cửu Lợi 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cửu Lợi 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Dầu Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đồng Cau"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lam Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lập Định 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lập Định 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lập Định 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nghĩa Bắc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nghĩa Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nghĩa Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nghĩa Trung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Bình 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quảng Đức"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Cam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Cát"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Hải"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Hải 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Lập"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phú"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Quý"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Sinh Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Sinh Tây"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Thành"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thủy Triều 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung Hiệp 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung Hiệp 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Văn Tứ Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Văn Tứ Tây"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vinh Bình"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vĩnh Phú"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vĩnh Thái"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Yên Hòa"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Cam_L%C3%A2m_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22465,
+    "ward_name": "Xã Cam An",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Cửa Tùng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hiền Lương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân An"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Lập"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thủy Ba"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Triệu Hải"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Văn Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Văn Thủy 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Văn Thủy 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vĩnh Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vĩnh Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vĩnh Trung"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Cam_An,_Kh%C3%A1nh_H%C3%B2a",
+    "verified": true
+  },
+  {
+    "ward_code": 22480,
+    "ward_name": "Xã Nam Cam Ranh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Ba Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Ba Tây"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Hưng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Lập"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hiệp Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hiệp Thanh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòa Diêm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòa Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòn Quy"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Thanh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nước Ngọt"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Sông Cạn Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Sông Cạn Tây"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thịnh Sơn"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Nam_Cam_Ranh",
+    "verified": true
+  },
+  {
+    "ward_code": 22489,
+    "ward_name": "Xã Vạn Ninh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 7"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 8"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 9"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 10"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 11"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 12"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 13"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 14"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 15"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hiền Lương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Đồng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Cang 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Cang 1 Bắc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Cang 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Cang 2 Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quảng Phước"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Đức Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Đức Tây"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phú"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vinh Huề"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/V%E1%BA%A1n_Ninh_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22498,
+    "ward_name": "Xã Tu Bông",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Hải Triều"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hội Khánh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hội Khánh Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lâm Điền"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Long Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lộc Thọ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nhơn Khánh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Thọ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phước Bắc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phước Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phước Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phước Tây"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phước Trung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tiên Ninh"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Tu_B%C3%B4ng",
+    "verified": true
+  },
+  {
+    "ward_code": 22504,
+    "ward_name": "Xã Đại Lãnh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Cổ Mã"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đầm Môn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Điệp Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông Bắc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khải Lương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Đảo"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Mã"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Tân"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tây Bắc 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tây Bắc 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tây Nam 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tây Nam 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tuần Lễ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vĩnh Yên"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/%C4%90%E1%BA%A1i_L%C3%A3nh",
+    "verified": true
+  },
+  {
+    "ward_code": 22516,
+    "ward_name": "Xã Vạn Thắng",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Lộc 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Trung 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Trung 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Hội 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Hội 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Hội 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quảng Hội 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quảng Hội 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Luồng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Dân 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Dân 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung Dõng 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung Dõng 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung Dõng 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tứ Chánh"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/V%E1%BA%A1n_Th%E1%BA%AFng,_Kh%C3%A1nh_H%C3%B2a",
+    "verified": true
+  },
+  {
+    "ward_code": 22525,
+    "ward_name": "Xã Vạn Hưng",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Hà Già"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Cam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Ninh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Tây"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Thọ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Trang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Tự 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Tự 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Vinh"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/V%E1%BA%A1n_H%C6%B0ng",
+    "verified": true
+  },
+  {
+    "ward_code": 22528,
+    "ward_name": "Phường Ninh Hòa",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 9"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 10"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 11"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 12"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 13"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 14"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 15"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 16"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 17"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 18"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đại Cát 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đại Cát 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Điềm Tịnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hà Thanh 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hà Thanh 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Mỹ Lệ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nghi Phụng"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nội Mỹ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Bình"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Diêm"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Nghĩa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Đa 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Đa 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Đa 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Sơn"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phước Thuận"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Quang Đông"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tân Kiều"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vạn Thiện"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Văn Định"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Vĩnh Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Hòa 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Xuân Hòa 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ninh_H%C3%B2a_(ph%C6%B0%E1%BB%9Dng)",
+    "verified": true
+  },
+  {
+    "ward_code": 22546,
+    "ward_name": "Xã Bắc Ninh Hòa",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 5"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Chánh Thanh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gia Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòa Thiện 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòa Thiện 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc An"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Bình"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Ninh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ngọc Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Điền"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Ích"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Gia"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Sơn Lộc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Phong"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/B%E1%BA%AFc_Ninh_H%C3%B2a",
+    "verified": true
+  },
+  {
+    "ward_code": 22552,
+    "ward_name": "Xã Tây Ninh Hòa",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Buôn Đung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Buôn Lác"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Buôn Sim"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Buôn Tương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đống Đa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lam Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nông Trường"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Sông Búng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Mít"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Khánh 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Khánh 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Lập"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xóm Mới"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/T%C3%A2y_Ninh_H%C3%B2a",
+    "verified": true
+  },
+  {
+    "ward_code": 22558,
+    "ward_name": "Xã Hòa Trí",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Chấp Lễ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đại Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đại Tập"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đồng Xuân"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mông Phú"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Hoán"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nhĩ Sự"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Văn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quãng Cư"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Hiệp"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Lâm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Ninh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phong"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Tứ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thạch Định"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/H%C3%B2a_Tr%C3%AD",
+    "verified": true
+  },
+  {
+    "ward_code": 22561,
+    "ward_name": "Phường Đông Ninh Hòa",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1 - Đông Hải"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2 - Đông Hải"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3 - Đông Hà"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4 - Đông Hà"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5 - Đông Hòa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6 - Bình Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7 - Bình Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8 - Bình Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 9 - Đông Cát"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Bá Hà 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Bá Hà 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đông"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Mỹ Á"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Mỹ Giang"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Mỹ Lương"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Ngân Hà"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Ninh Tịnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Ninh Yển"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thạnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thọ 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thọ 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thọ 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tây"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thạnh Danh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thủy Đầm"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%B4ng_Ninh_H%C3%B2a",
+    "verified": true
+  },
+  {
+    "ward_code": 22576,
+    "ward_name": "Xã Tân Định",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn An Bình"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Thành"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Trị"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hiệp Thạnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ngũ Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phong Ấp"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Lâm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Lý"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quang Vinh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Bình"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phong"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Quang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thạch Thành"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thạnh Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thuận Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trường Phước"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tuân Thừa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vạn Hữu"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vân Trạch"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/T%C3%A2n_%C4%90%E1%BB%8Bnh_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22591,
+    "ward_name": "Phường Hòa Thắng",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hà Liên"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hậu Phước"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hội Điền"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hội Phú Bắc 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hội Phú Bắc 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hội Phú Nam"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Hội Thành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lệ Cam"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Mỹ Chánh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Mỹ Trạch"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phong Phú 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phong Phú 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thạnh"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Phú Thứ"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tân Tế"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thanh Châu"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thuận Lợi"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tiên Du 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tiên Du 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Văn Định"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/H%C3%B2a_Th%E1%BA%AFng_(ph%C6%B0%E1%BB%9Dng)",
+    "verified": true
+  },
+  {
+    "ward_code": 22597,
+    "ward_name": "Xã Nam Ninh Hòa",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Bắc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gò Sắn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Lợi"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ngọc Diêm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Đức"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phong Thạnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Đa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Hữu"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phụng Cang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Sâu"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tam Ích"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Đảo"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Hưng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Khê"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Phú"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Thành"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Thủy"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trường Lộc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vạn Khê"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vạn Thuận"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Nam_Ninh_H%C3%B2a",
+    "verified": true
+  },
+  {
+    "ward_code": 22609,
+    "ward_name": "Xã Khánh Vĩnh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 5"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 6"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Giang Mương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ngã Hai"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nước Nhĩ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Sơn Thành"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tây Nam"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Kh%C3%A1nh_V%C4%A9nh_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22612,
+    "ward_name": "Xã Trung Khánh Vĩnh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Ba Cẳng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bắc Sông Giang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cà Thiêu"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòn Lay"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Cá"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Lách"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Trung_Kh%C3%A1nh_V%C4%A9nh",
+    "verified": true
+  },
+  {
+    "ward_code": 22615,
+    "ward_name": "Xã Bắc Khánh Vĩnh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Ba Dùi"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bến Khế"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cà Hon"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Cau"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Sâu"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Thơm"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/B%E1%BA%AFc_Kh%C3%A1nh_V%C4%A9nh",
+    "verified": true
+  },
+  {
+    "ward_code": 22624,
+    "ward_name": "Xã Tây Khánh Vĩnh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn A Xay"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đa Râm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gia Lố"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gia Rích"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòn Dù"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Cát"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Gộc"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/T%C3%A2y_Kh%C3%A1nh_V%C4%A9nh",
+    "verified": true
+  },
+  {
+    "ward_code": 22648,
+    "ward_name": "Xã Nam Khánh Vĩnh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Bầu Sang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bố Lang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Chà Liên"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Bàn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Trắng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gia Răng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Giang Biên"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Mơ"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Nam_Kh%C3%A1nh_V%C4%A9nh",
+    "verified": true
+  },
+  {
+    "ward_code": 22651,
+    "ward_name": "Xã Diên Khánh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn An Ninh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Dinh Thành 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Dinh Thành 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông Dinh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông Môn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông Môn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông Môn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông Môn 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phan Bội Châu 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phan Bội Châu 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Ân Nam 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Ân Nam 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Ân Nam 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Ân Nam 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Ân Nam 5"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Lộc Đông 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Lộc Đông 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Lộc Đông 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Lộc Tây 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Lộc Tây 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Lộc Tây 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Lộc Tây 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Trạch"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Võ Kiện"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Di%C3%AAn_Kh%C3%A1nh_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22657,
+    "ward_name": "Xã Diên Điền",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đông 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nam 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nam 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nam 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tây 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tây 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tây 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tây 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung 3"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Di%C3%AAn_%C4%90i%E1%BB%81n",
+    "verified": true
+  },
+  {
+    "ward_code": 22660,
+    "ward_name": "Xã Diên Lâm",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn 5"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đồng Trăn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đồng Trăn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hạ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khánh Xuân"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thượng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Đồng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Tây"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Trung"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Di%C3%AAn_L%C3%A2m",
+    "verified": true
+  },
+  {
+    "ward_code": 22672,
+    "ward_name": "Xã Diên Thọ",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn An Định"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cây Sung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cẩm Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Mài"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đồng Bé"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Láng Nhớt"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lễ Thạnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phò Thiện"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Lương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Tuy 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Tuy 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Di%C3%AAn_Th%E1%BB%8D",
+    "verified": true
+  },
+  {
+    "ward_code": 22678,
+    "ward_name": "Xã Diên Lạc",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Khánh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Lợi"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Khánh Hạ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Khánh Thượng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Khánh Trung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quang Thạnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thanh Minh 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thanh Minh 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thanh Minh 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trường Lạc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trường Thạnh"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Di%C3%AAn_L%E1%BA%A1c",
+    "verified": true
+  },
+  {
+    "ward_code": 22702,
+    "ward_name": "Xã Suối Hiệp",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Cư Thạnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đảnh Thạnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đại Hữu"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hội Phước"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hội Xương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lỗ Gia"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lương Phước"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Lộc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nghiệp Thành"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Hậu"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Khánh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Thành"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thủy Xương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vĩnh Cát"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Phú 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xuân Phú 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Su%E1%BB%91i_Hi%E1%BB%87p",
+    "verified": true
+  },
+  {
+    "ward_code": 22708,
+    "ward_name": "Xã Suối Dầu",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Cây Xoài"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khánh Thành Bắc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khánh Thành Nam"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Lau 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Lau 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Lau 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Xương 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Xương 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Su%E1%BB%91i_D%E1%BA%A7u",
+    "verified": true
+  },
+  {
+    "ward_code": 22714,
+    "ward_name": "Xã Khánh Sơn",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Cô Lắc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Dốc Gạo"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hạp Cường"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hạp Phú"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hạp Thịnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòn Dung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Liên Bình"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Liên Hiệp"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Liên Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Gụ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Lương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xà Bói"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xóm Cỏ"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Kh%C3%A1nh_S%C6%A1n_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22720,
+    "ward_name": "Xã Tây Khánh Sơn",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Apa 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Apa 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cam Khánh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Du Oai"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ha Nít"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ko Róa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Giang 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Giang 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/T%C3%A2y_Kh%C3%A1nh_S%C6%A1n",
+    "verified": true
+  },
+  {
+    "ward_code": 22732,
+    "ward_name": "Xã Đông Khánh Sơn",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn A Thi"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Chi Chay"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Dốc Trầu"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòn Gầm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ka Tơ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ma O"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Đá"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Me"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Nĩa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tha Mang"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%B4ng_Kh%C3%A1nh_S%C6%A1n",
+    "verified": true
+  },
+  {
+    "ward_code": 22736,
+    "ward_name": "Đặc khu Trường Sa",
+    "unit_type": "đặc khu",
+    "localities": [],
+    "source_url": "https://vi.wikipedia.org/wiki/Tr%C6%B0%E1%BB%9Dng_Sa_(%C4%91%E1%BA%B7c_khu)",
+    "verified": true,
+    "note": "Đặc khu Trường Sa (hình thành từ thị trấn Trường Sa, xã Song Tử Tây, xã Sinh Tồn cũ) không được tổ chức thành các đơn vị dưới cấp xã như thôn/tổ dân phố/khu phố. Nguồn (Wikipedia, mục Hành chính) chỉ ghi nhận đặc khu này đang quản lý 21 đảo/thực thể địa lý (An Bang, Đá Cô Lin, Đá Đông, Đá Lát, Đá Len Đao, Đá Lớn, Đá Nam, Đá Núi Le, Đá Núi Thị, Đá Tây, Đá Thuyền Chài, Đá Tiên Nữ, Đá Tốc Tan, Nam Yết, Phan Vinh, Sinh Tồn, Sinh Tồn Đông, Song Tử Tây, Sơn Ca, Trường Sa, Trường Sa Đông) như các thực thể địa lý được quản lý, không phải là đơn vị hành chính dưới xã theo nghĩa thôn/tổ dân phố/khu phố thông thường."
+  },
+  {
+    "ward_code": 22738,
+    "ward_name": "Phường Đô Vinh",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đắc Nhơn 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đắc Nhơn 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Đắc Nhơn 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Láng Ngựa"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lương Cang 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lương Cang 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Lương Tri"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nha Hố 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Nha Hố 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Núi Ngỗng"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%B4_Vinh",
+    "verified": true
+  },
+  {
+    "ward_code": 22741,
+    "ward_name": "Phường Bảo An",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 9"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 10"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 11"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 12"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 13"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 14"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 15"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 16"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 17"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Cà Đú"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Công Thành"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tân Sơn 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Tân Sơn 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Thành Ý"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_An_(ph%C6%B0%E1%BB%9Dng)",
+    "verified": true
+  },
+  {
+    "ward_code": 22759,
+    "ward_name": "Phường Phan Rang",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 9"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 10"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 11"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 12"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 13"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 14"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 15"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 16"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 17"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 18"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 19"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 20"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 21"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 22"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 23"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 24"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 25"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 26"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 27"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 28"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 29"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 30"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 31"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 32"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 33"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 34"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 35"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 36"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 37"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 38"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 39"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 40"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 41"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 42"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Phan_Rang_(ph%C6%B0%E1%BB%9Dng)",
+    "verified": true,
+    "note": "Nguồn chỉ ghi 'được chia thành 42 tổ dân phố, đánh số từ 1 đến 42' mà không nêu tên riêng cho từng tổ; danh sách trên là các tổ đánh số 1-42 theo đúng nguồn."
+  },
+  {
+    "ward_code": 22780,
+    "ward_name": "Phường Đông Hải",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 9"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 10"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 11"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 12"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 13"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 14"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 15"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 16"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 17"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 18"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 19"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 20"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 21"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 22"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 23"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 24"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 25"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 26"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 27"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 28"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 29"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 30"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 31"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%B4ng_H%E1%BA%A3i,_Kh%C3%A1nh_H%C3%B2a",
+    "verified": true,
+    "note": "Nguồn chỉ ghi 'được chia thành 31 tổ dân phố, đánh số từ 1 đến 31' mà không nêu tên riêng cho từng tổ; danh sách trên là các tổ đánh số 1-31 theo đúng nguồn."
+  },
+  {
+    "ward_code": 22786,
+    "ward_name": "Xã Bác Ái Tây",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Bậc Rây 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bậc Rây 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bố Lang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Chà Panh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Trắng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gia É"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hành Rạc 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hành Rạc 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ma Lâm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ma Ty"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Lọt"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1c_%C3%81i_T%C3%A2y",
+    "verified": true
+  },
+  {
+    "ward_code": 22795,
+    "ward_name": "Xã Bác Ái",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Chà Đung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Bàn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ha Lá Hạ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ma Oai"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ma Ty"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mã Tiển"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Núi Rây"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Đá"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Khô"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Rớ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Rua"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trà Co 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trà Co 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1c_%C3%81i_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22801,
+    "ward_name": "Xã Bác Ái Đông",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Châu Đắc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Ba Cái"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ma Dú"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ma Nai"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ma Rớ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mà Hoa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Lở"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Lú 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Lú 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Lú 3"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1c_%C3%81i_%C4%90%C3%B4ng",
+    "verified": true
+  },
+  {
+    "ward_code": 22810,
+    "ward_name": "Xã Ninh Sơn",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 5"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 6"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 7"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 8"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hạnh Trí 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hạnh Trí 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn La Vang 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn La Vang 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lương Giang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thạch Hà 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thạch Hà 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Triệu Phong 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Triệu Phong 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ninh_S%C6%A1n_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22813,
+    "ward_name": "Xã Lâm Sơn",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Gòn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gòn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lâm Bình"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lâm Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lâm Phú"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lâm Quý"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lập Lá"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Bình"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Lập 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Lập 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tầm Ngân 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tầm Ngân 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trà Giang 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trà Giang 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trà Giang 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trà Giang 4"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/L%C3%A2m_S%C6%A1n",
+    "verified": true
+  },
+  {
+    "ward_code": 22822,
+    "ward_name": "Xã Mỹ Sơn",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Đồng Dầy"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Hiệp"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nha Húi"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Thạnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Thuận"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Thủy"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Rã Giữa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Rã Trên"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Mỹ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tham Dú"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/M%E1%BB%B9_S%C6%A1n",
+    "verified": true
+  },
+  {
+    "ward_code": 22828,
+    "ward_name": "Xã Anh Dũng",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Do"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gia Hoa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gia Rót"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hà Dài"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Nôi"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Bình"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Định"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Hiệp"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Lập"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Tiến"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ú"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Anh_D%C5%A9ng_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22834,
+    "ward_name": "Phường Ninh Chử",
+    "unit_type": "phường",
+    "localities": [
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 3"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 4"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 5"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 6"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 7"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 8"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 10"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 11"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố 12"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Cà Đú"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Khánh Chử 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Khánh Chử 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Khánh Giang"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Khánh Hiệp"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Khánh Sơn 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Khánh Sơn 2"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Khánh Tân"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Ninh Chử 1"
+      },
+      {
+        "type": "Tổ dân phố",
+        "name": "Tổ dân phố Ninh Chử 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ninh_Ch%E1%BB%AD_(ph%C6%B0%E1%BB%9Dng)",
+    "verified": true
+  },
+  {
+    "ward_code": 22840,
+    "ward_name": "Xã Công Hải",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Ba Hồ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bình Tiên"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đầu Suối A"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đầu Suối B"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Động Thông"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Giác Lan"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hiệp Kiết"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Kà Rôm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ma Trai"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Giếng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Vang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tập Lá"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xóm Đèn"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/C%C3%B4ng_H%E1%BA%A3i",
+    "verified": true
+  },
+  {
+    "ward_code": 22846,
+    "ward_name": "Xã Vĩnh Hải",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Cầu Gẫy"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Hang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khánh Nhơn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khánh Nhơn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khánh Phước"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khánh Tân"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Hiệp"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Phong"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Tân 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Tân 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Tường 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Tường 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thái An"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vĩnh Hy"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/V%C4%A9nh_H%E1%BA%A3i,_Kh%C3%A1nh_H%C3%B2a",
+    "verified": true
+  },
+  {
+    "ward_code": 22849,
+    "ward_name": "Xã Thuận Bắc",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Ấn Đạt"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ba Tháp"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bà Râu 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bà Râu 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Cầu Đá"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Liệt"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Mài Dưới"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Mài Trên"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gò Sạn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Kiền Kiền 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Kiền Kiền 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Nhơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Đá"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Suối Le"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Thu%E1%BA%ADn_B%E1%BA%AFc_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22852,
+    "ward_name": "Xã Ninh Hải",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Bỉnh Nghĩa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khánh Hội"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Khánh Tường"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Láng Me"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phương Cựu 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phương Cựu 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phương Cựu 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân An"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tri Thủy 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tri Thủy 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xóm Bằng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Xóm Bằng 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ninh_H%E1%BA%A3i_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22861,
+    "ward_name": "Xã Xuân Hải",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn An Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn An Nhơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn An Xuân 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn An Xuân 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn An Xuân 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Bắn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gò Đền"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gò Gũ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Gò Thao"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòn Thiên"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hộ Diêm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lương Cách"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Nhơn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Nhơn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Nhơn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thành Sơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thủy Lợi"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Xu%C3%A2n_H%E1%BA%A3i,_Kh%C3%A1nh_H%C3%B2a",
+    "verified": true
+  },
+  {
+    "ward_code": 22870,
+    "ward_name": "Xã Ninh Phước",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 5"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 6"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 8"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 9"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 10"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 12"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 13"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 14"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 15"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Bàu Trúc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hiệp Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòa Thủy"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mỹ Nghiệp"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Nhuận"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Khánh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Lợi"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thành Tín"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thuận Hòa"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thuận Lợi"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Từ Tâm 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Từ Tâm 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vạn Phước"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ninh_Ph%C6%B0%E1%BB%9Bc_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22873,
+    "ward_name": "Xã Phước Hậu",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Bảo Vinh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Chất Thường"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hiếu Lễ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hoài Nhơn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Liên Sơn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Liên Sơn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Quý 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Quý 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Ninh Quý 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước An 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước An 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Đồng 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Đồng 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Thiện 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Thiện 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Thiện 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trường Sanh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trường Thọ"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ph%C6%B0%E1%BB%9Bc_H%E1%BA%ADu_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22888,
+    "ward_name": "Xã Phước Dinh",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn An Thạnh 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn An Thạnh 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hòa Thạnh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Long Bình 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Long Bình 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phú Thọ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Sơn Hải 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Sơn Hải 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tuấn Tú"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Từ Thiện"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vĩnh Trường"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ph%C6%B0%E1%BB%9Bc_Dinh",
+    "verified": true
+  },
+  {
+    "ward_code": 22891,
+    "ward_name": "Xã Phước Hữu",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Đá Trắng"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hậu Sanh"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hoài Ni"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hoài Trung"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Hữu Đức"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn La Chữ"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Mông Đức"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nhuận Đức"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Như Bình"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Như Ngọc"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tà Dương"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Đức"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thái Giao"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thành Đức"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ph%C6%B0%E1%BB%9Bc_H%E1%BB%AFu",
+    "verified": true
+  },
+  {
+    "ward_code": 22897,
+    "ward_name": "Xã Thuận Nam",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Hiếu Thiện"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Tiến"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Nho Lâm"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Phước Lập Tam Lang"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quán Thẻ 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quán Thẻ 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Quán Thẻ 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Bổn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thiện Đức"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Văn Lâm 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Văn Lâm 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Văn Lâm 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Văn Lâm 4"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Vụ Bổn"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Thu%E1%BA%ADn_Nam_(x%C3%A3)",
+    "verified": true
+  },
+  {
+    "ward_code": 22900,
+    "ward_name": "Xã Phước Hà",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Giá"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Là A"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Rồ Ôn"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Tân Hà"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Trà Nô"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/Ph%C6%B0%E1%BB%9Bc_H%C3%A0",
+    "verified": true
+  },
+  {
+    "ward_code": 22909,
+    "ward_name": "Xã Cà Ná",
+    "unit_type": "xã",
+    "localities": [
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Nghiệp 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Nghiệp 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Sơn 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Sơn 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Sơn 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Tân 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Tân 2"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Lạc Tân 3"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thương Diêm 1"
+      },
+      {
+        "type": "Thôn",
+        "name": "Thôn Thương Diêm 2"
+      }
+    ],
+    "source_url": "https://vi.wikipedia.org/wiki/C%C3%A0_N%C3%A1",
+    "verified": true
+  }
+];

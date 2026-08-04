@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taxi Cam Ranh - Đặt xe đưa đón sân bay Cam Ranh giá rẻ 24/7</title>
+<title>Xe VIP Sân Bay Cam Ranh - Đặt xe đưa đón sân bay Cam Ranh giá rẻ 24/7</title>
 <meta name="description" content="Dịch vụ xe taxi sân bay Cam Ranh, xe đường dài giá rẻ, chuyên nghiệp uy tín. Đặt xe nhanh chóng, giá cước niêm yết, phục vụ 24/7.">
 <link rel="icon" type="image/png" href="images/cropped-logo-xe-vip-noi-bai-final-32x32.png">
 <link rel="apple-touch-icon" href="images/cropped-logo-xe-vip-noi-bai-final-180x180.png">
@@ -28,7 +28,7 @@
       <li>
         <a href="#">DỊCH VỤ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a>
         <ul class="sub-menu">
-          <li><a href="dich-vu-xe-san-bay-noi-bai.html">Dịch vụ xe taxi sân bay Cam Ranh</a></li>
+          <li><a href="dich-vu-xe-san-bay-cam-ranh.html">Dịch vụ xe taxi sân bay Cam Ranh</a></li>
           <li><a href="dich-vu-xe-duong-dai.html">Dịch vụ xe đường dài</a></li>
         </ul>
       </li>
@@ -56,7 +56,7 @@
     </button>
     <div class="drawer-submenu">
       <div class="drawer-submenu-inner">
-        <a href="dich-vu-xe-san-bay-noi-bai.html" class="sub-link">Dịch vụ xe taxi sân bay Cam Ranh</a>
+        <a href="dich-vu-xe-san-bay-cam-ranh.html" class="sub-link">Dịch vụ xe taxi sân bay Cam Ranh</a>
         <a href="dich-vu-xe-duong-dai.html" class="sub-link">Dịch vụ xe đường dài</a>
       </div>
     </div>
@@ -69,18 +69,10 @@
 <section class="hero">
   <div class="hero-slides">
     <div class="hero-slide active" style="background-image:url('images/camranh-1.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/camranh-2.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/camranh-3.jpg')"></div>
   </div>
-  <button class="hero-arrow hero-arrow--prev" aria-label="Ảnh trước">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
-  </button>
-  <button class="hero-arrow hero-arrow--next" aria-label="Ảnh sau">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-  </button>
   <div class="container hero-inner">
     <div class="hero-text">
-      <h1>Dịch vụ xe taxi Cam Ranh giá rẻ – xe đưa đón sân bay</h1>
+      <h1>Xe vip sân bay Cam Ranh – xe đưa đón sân bay</h1>
       <p>Trải nghiệm dịch vụ đặt xe taxi sân bay, xe đi tỉnh nhanh với phong cách chuyên nghiệp giá cả hợp lý của Xe VIP Cam Ranh</p>
       <a class="btn btn-primary" href="#priceModal" onclick="document.getElementById('priceModal').classList.add('open');return false;">Gọi ngay</a>
     </div>
@@ -99,50 +91,28 @@
       </div>
       <div class="booking-form">
         <div class="form-row start-point-airport">
-          <label>Bạn đi từ:</label>
-          <div class="input-wrap">
-            <select class="select-province">
-              <option value="">-- Chọn tỉnh/thành --</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row start-point-ward-row" hidden>
-          <label>Phường/Xã:</label>
-          <div class="input-wrap">
-            <select class="select-ward">
-              <option value="">-- Chọn phường/xã --</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row start-point-locality-row" hidden>
-          <label>Thôn/Tổ:</label>
-          <div class="input-wrap">
-            <select class="select-locality">
-              <option value="">-- Chọn thôn/tổ dân phố --</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row start-point-locality-freetext-row" hidden>
-          <label>Thôn/Xóm:</label>
-          <div class="input-wrap">
-            <input type="text" class="input-locality-freetext" placeholder="Nhập thôn/xóm/số nhà cụ thể (nếu có)">
+          <label>Điểm đi:</label>
+          <div class="input-wrap location-search-wrap">
+            <input type="text" class="input-location-search location-autocomplete-input" placeholder="Nhập tỉnh/thành, phường/xã..." autocomplete="off">
+            <ul class="location-suggestions" hidden></ul>
           </div>
         </div>
         <div class="form-row start-point-road" hidden>
-          <label>Bạn đi từ:</label>
-          <div class="input-wrap">
-            <input type="text" class="input-start-point" placeholder="Điểm đi">
+          <label>Điểm đi:</label>
+          <div class="input-wrap location-search-wrap">
+            <input type="text" class="input-start-point location-autocomplete-input" placeholder="Điểm đi" autocomplete="off">
+            <ul class="location-suggestions" hidden></ul>
           </div>
         </div>
         <div class="form-row">
           <label>Điểm đến:</label>
-          <div class="input-wrap">
-            <input type="text" class="end-point-input" value="Sân bay Cam Ranh" disabled>
+          <div class="input-wrap location-search-wrap">
+            <input type="text" class="end-point-input location-autocomplete-input" value="Sân bay Cam Ranh" disabled autocomplete="off">
+            <ul class="location-suggestions" hidden></ul>
           </div>
         </div>
         <div class="booking-checks">
           <span class="check-item"><input type="checkbox" id="roundtrip"><label for="roundtrip">Hai chiều</label></span>
-          <span class="check-item"><input type="checkbox" id="vat"><label for="vat">Hóa đơn</label></span>
           <button class="swap-btn" type="button">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg>
             Đảo Chiều
@@ -150,16 +120,17 @@
         </div>
         <div class="booking-row-2">
           <input type="text" class="input-ngaydatxe" placeholder="Ngày đặt xe">
-          <input type="text" placeholder="Mã giảm giá">
+          <select class="select-car-type">
+            <option value="">-- Loại xe --</option>
+            <option value="Xe 4 chỗ">Xe 4 chỗ</option>
+            <option value="Xe 5 chỗ">Xe 5 chỗ</option>
+            <option value="Xe 7 chỗ">Xe 7 chỗ</option>
+            <option value="Xe 16 chỗ">Xe 16 chỗ</option>
+          </select>
         </div>
         <button class="booking-submit" type="button">KIỂM TRA GIÁ</button>
       </div>
     </div>
-  </div>
-  <div class="hero-dots">
-    <button class="active"></button>
-    <button></button>
-    <button></button>
   </div>
 </section>
 
@@ -438,7 +409,7 @@
 
 <section class="section why-us">
   <div class="container">
-    <h2 class="text-center" style="color:#fff;">Tại sao nên đặt xe sân bay của chúng tôi?</h2>
+    <h2 class="text-center">Tại sao nên đặt xe sân bay của chúng tôi?</h2>
     <p class="section-lead">Chúng tôi trân trọng và cảm ơn sự tin tưởng hợp tác của quý đối tác và khách hàng trong suốt 6 năm qua.</p>
     <div class="why-us-grid">
       <div class="why-us-col">
@@ -502,11 +473,6 @@
 
 <div class="divider-checkers"></div>
 
-<div class="banner-strip">
-  <a href="#"><img src="images/BANNER01.jpg" alt=""></a>
-  <a href="#"><img src="images/banner-duoi-1.jpg" alt="Đặt xe Hà Nội - Cam Ranh, Xe đường dài"></a>
-</div>
-
 <div class="clients-band">
   <div class="container clients-inner">
     <div class="clients-heading">
@@ -555,7 +521,7 @@
   <div class="container footer-main">
     <div class="footer-about">
       <h3>Về chúng tôi</h3>
-      <p><strong>Taxi Cam Ranh</strong> tự hào là một trong những công ty dịch vụ xe sân bay, xe đường dài chuyên nghiệp hàng đầu khu vực Miền Bắc và Miền Trung. Tương lai không xa chúng tôi sẽ phát triển mở rộng chi nhánh tại Tp. Hồ Chí Minh và các tỉnh lân cận phía nam.</p>
+      <p><strong>Xe VIP Sân Bay Cam Ranh</strong> tự hào là một trong những công ty dịch vụ xe sân bay, xe đường dài chuyên nghiệp hàng đầu khu vực Miền Bắc và Miền Trung. Chúng tôi đã phát triển tại tất cả các sân bay.</p>
     </div>
     <div>
       <h3>Khám phá</h3>
@@ -577,17 +543,15 @@
     </div>
     <div class="footer-contact">
       <h3>Thông tin liên hệ</h3>
-      <p>Công ty TNHH Du Lịch Và Dịch Vụ COGOVI</p>
+      <p>Công ty TNHH Đầu Tư Thăng Long Global</p>
       <p>Địa chỉ: Tầng 10, Tòa nhà CEO, Lô HH2-1, Khu đô thị Mễ Trì Hạ, Đường Phạm Hùng, Phường Từ Liêm, TP. Hà Nội</p>
       <p>Hotline: <a href="tel:19009144">1900.9144</a></p>
-      <p>Email: <a href="mailto:contact@xevipsanbaycamranh.com">contact@xevipsanbaycamranh.com</a></p>
+      <p>Email: <a href="mailto:xevipsanbay86@gmail.com">xevipsanbay86@gmail.com</a></p>
       <p>Website: xevipsanbaycamranh.com</p>
     </div>
   </div>
   <div class="container footer-bottom">
-    <span>© 2024 Xe VIP Cam Ranh — Công ty TNHH Du Lịch Và Dịch Vụ COGOVI. All Rights Reserved.</span>
-    <span>DMCA Protected</span>
-  </div>
+    <span>© 2024 Xe VIP Cam Ranh — Công ty TNHH Đầu Tư Thăng Long Global. All Rights Reserved.</span>  </div>
 </footer>
 
 <button class="scroll-top-btn" aria-label="Lên đầu trang">
@@ -609,41 +573,42 @@
 
 
 <div class="modal-overlay" id="priceModal">
-  <div class="modal-box">
-    <span class="modal-close">&times;</span>
-    <h2>XÁC NHẬN THÔNG TIN</h2>
-    <p style="font-size:13px;color:#777;">Giá cước đã bao gồm phí ra, vào sân bay Cam Ranh, chưa bao gồm phí cầu đường khác.</p>
+  <div class="modal-box confirm-box">
+    <div class="confirm-header">
+      <h2 class="confirm-title">Bảng Giá Dịch Vụ</h2>
+      <span class="modal-close">&times;</span>
+    </div>
+    <div class="confirm-summary">
+      <p><strong>Điểm đi:</strong> <span class="confirm-start">Sân bay Cam Ranh</span></p>
+      <p><strong>Điểm đến:</strong> <span class="confirm-end">Sân bay Cam Ranh</span></p>
+      <p><strong>Thời gian:</strong> <span class="confirm-time">Chưa chọn</span></p>
+      <p><strong>Loại:</strong> <span class="confirm-cartype">Chưa chọn</span></p>
+    </div>
+    <div class="confirm-price-box">
+      <span class="confirm-price-cartype">Chưa chọn loại xe</span>
+      <span class="confirm-price-amount"></span>
+    </div>
     <p class="price-unavailable-note" hidden>Giá xe ở địa chỉ này chưa được cập nhật chúng tôi sẽ liên hệ và báo giá.</p>
-    <div class="car-type-grid">
-      <div class="car-type-item" data-value="Xe 4 chỗ">
-        <img src="images/4seat.png" alt="Xe 4 chỗ">
-        <p>Xe 4 chỗ</p>
-        <span class="car-price"></span>
+    <div class="confirm-form-grid">
+      <div class="confirm-field">
+        <label>Họ Tên *</label>
+        <input type="text" placeholder="Nguyễn Văn A">
       </div>
-      <div class="car-type-item selected" data-value="Xe 5 chỗ">
-        <img src="images/5seat.png" alt="Xe 5 chỗ">
-        <p>Xe 5 chỗ</p>
-        <span class="car-price"></span>
-      </div>
-      <div class="car-type-item" data-value="Xe 7 chỗ">
-        <img src="images/Layer-3.png" alt="Xe 7 chỗ">
-        <p>Xe 7 chỗ</p>
-        <span class="car-price"></span>
-      </div>
-      <div class="car-type-item" data-value="Xe 16 chỗ">
-        <img src="images/16seat.png" alt="Xe 16 chỗ">
-        <p>Xe 16 chỗ</p>
-        <span class="car-price"></span>
+      <div class="confirm-field">
+        <label>Số Điện Thoại *</label>
+        <input type="tel" placeholder="0123456789">
       </div>
     </div>
-    <span class="modal-note">Đặt xe sớm để được ưu đãi tốt nhất!</span>
-    <hr style="border:none;border-top:1px solid #eee;margin-bottom:16px;">
-    <input type="text" placeholder="Họ tên *">
-    <input type="text" placeholder="Số điện thoại *">
-    <button class="booking-submit" type="button" onclick="alert('Cảm ơn bạn! Chúng tôi sẽ liên hệ lại trong ít phút.'); document.getElementById('priceModal').classList.remove('open');">ĐẶT XE NGAY</button>
+    <div class="confirm-field">
+      <label>Ghi Chú</label>
+      <textarea placeholder="Nhập ghi chú" rows="3"></textarea>
+    </div>
+    <button class="confirm-submit-btn" type="button" onclick="alert('Cảm ơn bạn! Chúng tôi sẽ liên hệ lại trong ít phút.'); document.getElementById('priceModal').classList.remove('open');">Đặt xe với giá này</button>
   </div>
 </div>
 
+<script src="area/provinces-data.js"></script>
+<script src="area/localities-data.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
