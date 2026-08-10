@@ -7,7 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initClientsCarousel();
   initScrollTop();
   initDateDefault();
-  initLocationSearch();
+  initPriceModalSubmit();
+  populateAirportSelects();
+  initPricingTabs();
+  initVideoShowcase();
 });
 
 /* ---------------------------------------------------------------- */
@@ -83,13 +86,37 @@ function initMobileNav() {
 }
 
 /* ---------------------------------------------------------------- */
+function pad(n) {
+  return n < 10 ? '0' + n : String(n);
+}
+
 function initDateDefault() {
-  const inputs = document.querySelectorAll('.input-ngaydatxe');
-  if (!inputs.length) return;
-  const pad = (n) => (n < 10 ? '0' + n : n);
+  const dateInputs = document.querySelectorAll('.input-trip-date');
+  const timeInputs = document.querySelectorAll('.input-trip-time');
+  if (!dateInputs.length && !timeInputs.length) return;
   const now = new Date();
-  const value = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  inputs.forEach((i) => { i.value = value; });
+  const dateValue = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  const timeValue = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  dateInputs.forEach((i) => { i.value = dateValue; });
+  timeInputs.forEach((i) => { i.value = timeValue; });
+}
+
+// Ghép ngày (yyyy-mm-dd) + giờ (HH:mm) của widget thành chuỗi hiển thị dd/mm/yyyy HH:mm
+function getTripDateTimeDisplay(widget) {
+  const dateVal = widget.querySelector('.input-trip-date')?.value;
+  const timeVal = widget.querySelector('.input-trip-time')?.value;
+  if (!dateVal || !timeVal) return '';
+  const [y, m, d] = dateVal.split('-');
+  return `${d}/${m}/${y} ${timeVal}`;
+}
+
+// timeAt gửi API phải là ISO datetime có timezone (theo tài liệu) — giờ Việt
+// Nam cố định +07:00, không có DST.
+function getTripDateTimeIso(widget) {
+  const dateVal = widget.querySelector('.input-trip-date')?.value;
+  const timeVal = widget.querySelector('.input-trip-time')?.value;
+  if (!dateVal || !timeVal) return '';
+  return `${dateVal}T${timeVal}:00+07:00`;
 }
 
 /* ---------------------------------------------------------------- */
@@ -97,35 +124,64 @@ function initBookingWidget() {
   document.querySelectorAll('.booking-widget, .footer-booking').forEach(setupBookingWidget);
 }
 
-const CAR_PRICES_KHANH_HOA = {
-  'Xe 4 chỗ': 450000,
-  'Xe 5 chỗ': 500000,
-  'Xe 7 chỗ': 650000,
-  'Xe 16 chỗ': 900000,
-};
+// Nạp danh sách sân bay thật từ GET /v1/airports/all vào mọi select sân bay
+// trên trang (dùng chung 1 lần gọi API, XevipApi.fetchAirports() tự cache).
+// value của option là airportId (UUID) thật — bắt buộc phải dùng đúng ID này
+// khi gọi check-prices/trip-registers, không được tự chế.
+async function populateAirportSelects() {
+  const selects = document.querySelectorAll('.airport-select');
+  if (!selects.length) return;
+  const airports = await XevipApi.fetchAirports();
+  if (!airports.length) {
+    selects.forEach((sel) => {
+      sel.innerHTML = '';
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'Không tải được danh sách sân bay';
+      sel.appendChild(opt);
+    });
+    return;
+  }
+  selects.forEach((sel) => {
+    sel.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Chọn sân bay';
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    sel.appendChild(placeholder);
+    airports.forEach((a) => {
+      const opt = document.createElement('option');
+      opt.value = a.id;
+      opt.textContent = a.name;
+      sel.appendChild(opt);
+    });
+    sel.value = '';
+  });
+}
 
 function formatVnd(amount) {
   return amount.toLocaleString('vi-VN') + 'đ';
 }
 
-function updateModalPricing(modal, carType, isKhanhHoa) {
+const RATE_LIMIT_NOTE = 'Hệ thống đang bận, vui lòng thử kiểm tra giá lại sau ít phút.';
+const DEFAULT_UNAVAILABLE_NOTE = 'Giá xe ở địa chỉ này chưa được cập nhật chúng tôi sẽ liên hệ và báo giá.';
+
+function updateModalPricing(modal, carTypeLabel, price, rateLimited) {
   const cartypeEl = modal.querySelector('.confirm-price-cartype');
   const amountEl = modal.querySelector('.confirm-price-amount');
   const note = modal.querySelector('.price-unavailable-note');
-  const price = carType ? CAR_PRICES_KHANH_HOA[carType] : null;
-  const hasPrice = !!(isKhanhHoa && price);
 
-  if (cartypeEl) cartypeEl.textContent = carType || 'Chưa chọn loại xe';
-  if (amountEl) amountEl.textContent = hasPrice ? formatVnd(price) : '';
-  if (note) note.hidden = !carType || hasPrice;
+  if (cartypeEl) cartypeEl.textContent = carTypeLabel || 'Chưa chọn loại xe';
+  if (amountEl) amountEl.textContent = price ? formatVnd(price) : '';
+  if (note) {
+    note.textContent = rateLimited ? RATE_LIMIT_NOTE : DEFAULT_UNAVAILABLE_NOTE;
+    note.hidden = !carTypeLabel || !!price;
+  }
 }
 
-function populateConfirmSummary(widget, modal, carType, isAirportTab) {
-  const startValue = isAirportTab
-    ? widget.querySelector('.input-location-search')?.value
-    : widget.querySelector('.input-start-point')?.value;
-  const endValue = widget.querySelector('.end-point-input')?.value;
-  const dateValue = widget.querySelector('.input-ngaydatxe')?.value;
+function populateConfirmSummary(widget, modal, carTypeLabel, endValue, startValue) {
+  const dateValue = getTripDateTimeDisplay(widget);
   const isRoundtrip = widget.querySelector('#roundtrip')?.checked;
   const tripType = isRoundtrip ? 'Chuyến 2 chiều' : 'Chuyến 1 chiều';
 
@@ -137,318 +193,239 @@ function populateConfirmSummary(widget, modal, carType, isAirportTab) {
   if (startEl) startEl.textContent = startValue || 'Chưa chọn';
   if (endEl) endEl.textContent = endValue || 'Chưa chọn';
   if (timeEl) timeEl.textContent = dateValue || 'Chưa chọn';
-  if (typeEl) typeEl.textContent = carType ? `${carType} | ${tripType}` : tripType;
+  if (typeEl) typeEl.textContent = carTypeLabel ? `${carTypeLabel} | ${tripType}` : tripType;
+}
+
+// Trạng thái chuyến đi đang chờ xác nhận trong #priceModal — được nạp khi bấm
+// "KIỂM TRA GIÁ" trên booking-widget (kết quả thật từ check-prices), và đọc
+// lại khi bấm "Đặt xe với giá này" trong modal để gọi POST /v1/trip-registers
+// thật (xem initPriceModalSubmit).
+let pendingTrip = null;
+
+// Báo field chưa chọn đúng gợi ý (bắt buộc theo tài liệu: không được gửi
+// chuỗi text, phải gửi object autocomplete đã chọn) bằng chính cơ chế
+// validate native của form, tái dùng bubble có sẵn của trình duyệt.
+function reportAddressNotSelected(bookingForm, input) {
+  input.setCustomValidity('Vui lòng chọn địa chỉ từ danh sách gợi ý bên dưới ô này.');
+  bookingForm.reportValidity();
+  input.setCustomValidity('');
 }
 
 function setupBookingWidget(widget) {
   const airportTab = widget.querySelector('.tab-airport');
   const roadTab = widget.querySelector('.tab-road');
-  const endInput = widget.querySelector('.end-point-input');
   const startAirport = widget.querySelector('.start-point-airport');
   const startRoad = widget.querySelector('.start-point-road');
+  const destAirport = widget.querySelector('.destination-point-airport');
+  const destRoad = widget.querySelector('.destination-point-road');
   const locationInput = widget.querySelector('.input-location-search');
-
   const startInput = widget.querySelector('.input-start-point');
+  const startSelect = widget.querySelector('.start-point-select');
+  const endSelect = widget.querySelector('.end-point-select');
+  const endInput = widget.querySelector('.end-point-input');
+  const destAddressInput = widget.querySelector('.destination-address-input');
+  const swapBtn = widget.querySelector('.swap-btn');
 
+  // Tab "Đi sân bay" phủ cả 2 chiều (đón khách TẠI sân bay hoặc trả khách TẠI
+  // sân bay) nên Điểm Đi/Điểm Đến mỗi bên đều có 2 kiểu field khả dụng: địa
+  // chỉ tự do và select sân bay. "Đảo chiều" chỉ đổi field nào đang hiện ở
+  // bên nào; giá trị người dùng đã nhập không tự chuyển sang field kia.
+  // Đúng theo tài liệu: !swapped = FARE_WELL (địa chỉ khách → sân bay),
+  // swapped = PICK_UP (sân bay → địa chỉ khách).
+  let airportSwapped = false;
+
+  function applyAirportSwap() {
+    const pickupShowsSelect = airportSwapped;
+    if (locationInput) { locationInput.hidden = pickupShowsSelect; locationInput.disabled = pickupShowsSelect; }
+    if (startSelect) { startSelect.hidden = !pickupShowsSelect; startSelect.disabled = !pickupShowsSelect; }
+    if (endSelect) { endSelect.hidden = pickupShowsSelect; endSelect.disabled = pickupShowsSelect; }
+    if (destAddressInput) { destAddressInput.hidden = !pickupShowsSelect; destAddressInput.disabled = !pickupShowsSelect; }
+  }
+
+  // Ẩn hàng .form-row[hidden] không tự loại field bên trong khỏi validate
+  // required của trình duyệt (một field required nằm trong ancestor hidden
+  // vẫn có thể chặn submit) — nên phải tắt luôn bằng `disabled` trên chính
+  // field không thuộc tab/trạng thái đang active, disabled thì chắc chắn
+  // được bỏ qua.
   if (airportTab && roadTab) {
     airportTab.addEventListener('click', () => {
       airportTab.classList.add('active');
       roadTab.classList.remove('active');
-      resetLocationInput(endInput);
-      if (endInput) {
-        endInput.value = 'Sân bay Cam Ranh';
-        endInput.setAttribute('disabled', 'disabled');
-      }
-      resetLocationInput(startInput, { clearValue: true });
+      if (startInput) { startInput.value = ''; startInput.disabled = true; }
+      XevipAddressAutocomplete.clearSelectedAddress(startInput);
+      airportSwapped = false;
+      applyAirportSwap();
       if (startAirport) startAirport.hidden = false;
       if (startRoad) startRoad.hidden = true;
+      if (endInput) endInput.disabled = true;
+      if (destAirport) destAirport.hidden = false;
+      if (destRoad) destRoad.hidden = true;
     });
     roadTab.addEventListener('click', () => {
       roadTab.classList.add('active');
       airportTab.classList.remove('active');
-      resetLocationInput(endInput, { clearValue: true });
-      if (endInput) {
-        endInput.removeAttribute('disabled');
-        endInput.placeholder = 'Điểm đến';
-      }
+      if (endInput) { endInput.value = ''; endInput.disabled = false; }
+      XevipAddressAutocomplete.clearSelectedAddress(endInput);
+      if (locationInput) locationInput.disabled = true;
+      if (startSelect) startSelect.disabled = true;
+      if (endSelect) endSelect.disabled = true;
+      if (destAddressInput) destAddressInput.disabled = true;
+      if (startInput) startInput.disabled = false;
       if (startAirport) startAirport.hidden = true;
       if (startRoad) startRoad.hidden = false;
+      if (destAirport) destAirport.hidden = true;
+      if (destRoad) destRoad.hidden = false;
     });
   }
 
-  const swapBtn = widget.querySelector('.swap-btn');
-  if (swapBtn && startInput && endInput) {
+  if (swapBtn) {
     swapBtn.addEventListener('click', () => {
-      if (endInput.hasAttribute('disabled')) return;
-      const readLocationData = (input) => ({
-        value: input.value,
-        provinceCode: input.dataset.provinceCode,
-        wardCode: input.dataset.wardCode,
-        isKhanhHoa: input.dataset.isKhanhHoa,
-      });
-      const applyLocationData = (input, data) => {
-        input.value = data.value;
-        ['provinceCode', 'wardCode', 'isKhanhHoa'].forEach((key) => {
-          if (data[key]) input.dataset[key] = data[key];
-          else delete input.dataset[key];
-        });
-      };
-      const startData = readLocationData(startInput);
-      const endData = readLocationData(endInput);
-      applyLocationData(startInput, endData);
-      applyLocationData(endInput, startData);
+      const isAirportTab = !airportTab || airportTab.classList.contains('active');
+      if (isAirportTab) {
+        airportSwapped = !airportSwapped;
+        applyAirportSwap();
+      } else if (startInput && endInput) {
+        const tmpValue = startInput.value;
+        const tmpAddress = XevipAddressAutocomplete.getSelectedAddress(startInput);
+        const endAddress = XevipAddressAutocomplete.getSelectedAddress(endInput);
+        startInput.value = endInput.value;
+        endInput.value = tmpValue;
+        XevipAddressAutocomplete.setSelectedAddress(startInput, endAddress);
+        XevipAddressAutocomplete.setSelectedAddress(endInput, tmpAddress);
+      }
     });
   }
 
   const carTypeSelect = widget.querySelector('.select-car-type');
+  const bookingForm = widget.querySelector('.booking-form');
   const submitBtn = widget.querySelector('.booking-submit');
   const modal = document.querySelector('#priceModal');
-  if (submitBtn && modal) {
-    submitBtn.addEventListener('click', (e) => {
+  if (bookingForm && modal) {
+    // Lắng nghe 'submit' (không phải 'click' trên nút) để trình duyệt tự chạy
+    // validate required trên các input trước — khớp hành vi form cũ.
+    bookingForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const isAirportTab = !airportTab || airportTab.classList.contains('active');
-      const isKhanhHoa = !!(isAirportTab && locationInput && locationInput.dataset.isKhanhHoa === '1');
-      const carType = carTypeSelect ? carTypeSelect.value : '';
-      populateConfirmSummary(widget, modal, carType, isAirportTab);
-      updateModalPricing(modal, carType, isKhanhHoa);
+      const carTypeValue = carTypeSelect ? carTypeSelect.value : '';
+      const carTypeLabel = carTypeSelect?.selectedOptions[0]?.textContent || '';
+      const isRoundTrip = !!widget.querySelector('#roundtrip')?.checked;
+      const timeAt = getTripDateTimeIso(widget);
+
+      let tripType, startValue, endValue, checkPayload, registerAddresses;
+
+      if (isAirportTab && !airportSwapped) {
+        // FARE_WELL: địa chỉ khách (Điểm Đi) → sân bay (Điểm Đến)
+        tripType = 'FARE_WELL';
+        const addressObj = XevipAddressAutocomplete.getSelectedAddress(locationInput);
+        if (!addressObj) { reportAddressNotSelected(bookingForm, locationInput); return; }
+        startValue = locationInput?.value || '';
+        endValue = endSelect?.selectedOptions[0]?.textContent || '';
+        checkPayload = { airportId: endSelect?.value, address: addressObj, tripType, timeAt, isRoundTrip, vehicleType: carTypeValue };
+        registerAddresses = { airportId: endSelect?.value, fromAddressBooking: addressObj, toAddressBooking: null };
+      } else if (isAirportTab && airportSwapped) {
+        // PICK_UP: sân bay (Điểm Đi) → địa chỉ khách (Điểm Đến)
+        tripType = 'PICK_UP';
+        const addressObj = XevipAddressAutocomplete.getSelectedAddress(destAddressInput);
+        if (!addressObj) { reportAddressNotSelected(bookingForm, destAddressInput); return; }
+        startValue = startSelect?.selectedOptions[0]?.textContent || '';
+        endValue = destAddressInput?.value || '';
+        checkPayload = { airportId: startSelect?.value, address: addressObj, tripType, timeAt, isRoundTrip, vehicleType: carTypeValue };
+        registerAddresses = { airportId: startSelect?.value, fromAddressBooking: null, toAddressBooking: addressObj };
+      } else {
+        // OTHER: đi đường dài, cả 2 đầu đều là địa chỉ tự do
+        tripType = 'OTHER';
+        const fromAddressObj = XevipAddressAutocomplete.getSelectedAddress(startInput);
+        if (!fromAddressObj) { reportAddressNotSelected(bookingForm, startInput); return; }
+        const toAddressObj = XevipAddressAutocomplete.getSelectedAddress(endInput);
+        if (!toAddressObj) { reportAddressNotSelected(bookingForm, endInput); return; }
+        startValue = startInput?.value || '';
+        endValue = endInput?.value || '';
+        checkPayload = { tripType, isRoundTrip, vehicleType: carTypeValue, fromPlaceId: fromAddressObj.place_id, toPlaceId: toAddressObj.place_id };
+        registerAddresses = { airportId: null, fromAddressBooking: fromAddressObj, toAddressBooking: toAddressObj };
+      }
+
+      const originalBtnText = submitBtn?.textContent;
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Đang kiểm tra giá...'; }
+      const result = await XevipApi.checkPrices(checkPayload);
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
+
+      const priceEntry = result.data && result.data.length ? result.data[0] : null;
+      const price = priceEntry ? priceEntry.price : null;
+
+      populateConfirmSummary(widget, modal, carTypeLabel, endValue, startValue);
+      updateModalPricing(modal, carTypeLabel, price, result.rateLimited);
+
+      pendingTrip = Object.assign(
+        {
+          tripType,
+          isRoundTrip,
+          timeAt,
+          vehicleType: carTypeValue,
+          price: price || null,
+          start: startValue,
+          end: endValue,
+          date: getTripDateTimeDisplay(widget),
+        },
+        registerAddresses,
+      );
       modal.classList.add('open');
     });
   }
 }
 
 /* ---------------------------------------------------------------- */
-let placesIndexCache = null;
-function loadPlacesIndex() {
-  if (placesIndexCache) return placesIndexCache;
-  const provinces = window.PROVINCES_DATA || [];
-  const localitiesByWardCode = new Map();
-  (window.LOCALITIES_DATA || []).forEach((w) => {
-    localitiesByWardCode.set(String(w.ward_code), w.localities || []);
-  });
+function initPriceModalSubmit() {
+  const modal = document.querySelector('#priceModal');
+  const form = document.querySelector('#finalBookingForm');
+  const successModal = document.querySelector('#bookingSuccessModal');
+  if (!modal || !form) return;
 
-  const items = [];
-  provinces.forEach((p) => {
-    const isKhanhHoa = p.codename === 'khanh_hoa';
-    (p.wards || []).forEach((w) => {
-      items.push({
-        label: `${w.name}, ${p.name}`,
-        wardName: w.name,
-        provinceName: p.name,
-        wardCode: w.code,
-        provinceCode: p.code,
-        isKhanhHoa,
-        searchWard: normalizeVN(stripAdminPrefix(w.name)),
-        searchProvince: normalizeVN(stripAdminPrefix(p.name)),
-      });
+  const nameInput = form.querySelector('#modalName');
+  const phoneInput = form.querySelector('#modalPhone');
+  const noteInput = form.querySelector('#modalNote');
+  const submitBtn = form.querySelector('.confirm-submit-btn');
+  const errorEl = form.querySelector('.confirm-submit-error');
 
-      // Khánh Hòa: đưa luôn cấp cơ sở thứ 3 (thôn/tổ dân phố) vào chỉ mục tìm kiếm
-      if (isKhanhHoa) {
-        const localities = localitiesByWardCode.get(String(w.code)) || [];
-        localities.forEach((loc) => {
-          items.push({
-            label: `${loc.name}, ${w.name}, ${p.name}`,
-            localityName: loc.name,
-            wardName: w.name,
-            provinceName: p.name,
-            wardCode: w.code,
-            provinceCode: p.code,
-            isKhanhHoa: true,
-            searchLocality: normalizeVN(loc.name),
-            searchWard: normalizeVN(stripAdminPrefix(w.name)),
-            searchProvince: normalizeVN(stripAdminPrefix(p.name)),
-          });
-        });
-      }
-    });
-  });
-  placesIndexCache = Promise.resolve(items);
-  return placesIndexCache;
-}
-
-const ADMIN_PREFIX_RE = /^(Thành phố|Tỉnh|Phường|Xã|Thị trấn|Thị xã|Quận|Huyện|Đặc khu)\s+/i;
-function stripAdminPrefix(name) {
-  return (name || '').replace(ADMIN_PREFIX_RE, '').trim();
-}
-
-function normalizeVN(str) {
-  return (str || '')
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/đ/g, 'd')
-    .trim();
-}
-
-function escapeRegExp(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-// Điểm khớp của 1 token trên 1 trường: null nếu không khớp, cao hơn khi khớp đầu tên
-// hoặc khớp trọn từ (tránh khớp nhầm vào giữa một từ khác, vd "nha" trong "nhật").
-function fieldMatchScore(text, token, startScore, includeScore, wholeWordBonus) {
-  if (!text || !text.includes(token)) return null;
-  let s = text.startsWith(token) ? startScore : includeScore;
-  if (new RegExp(`\\b${escapeRegExp(token)}\\b`).test(text)) s += wholeWordBonus;
-  return s;
-}
-
-// Với mỗi token, chỉ lấy điểm khớp tốt nhất trong 3 cấp (thôn/tổ > phường/xã > tỉnh) -
-// không cộng dồn nhiều cấp, để một khớp trùng ngẫu nhiên ở cấp không liên quan không
-// đội điểm lên trên một khớp đúng và rõ ràng hơn ở cấp khác.
-function scorePlaceMatch(tokens, item) {
-  let score = 0;
-  for (const token of tokens) {
-    const candidates = [
-      item.searchLocality ? fieldMatchScore(item.searchLocality, token, 70, 30, 10) : null,
-      fieldMatchScore(item.searchWard, token, 60, 30, 15),
-      fieldMatchScore(item.searchProvince, token, 25, 12, 6),
-    ].filter((s) => s !== null);
-    if (!candidates.length) return -1;
-    score += Math.max(...candidates);
-  }
-  // Thưởng thêm khi cả cụm từ khớp liên tiếp, nhưng chỉ xét trong TỪNG trường riêng lẻ -
-  // không ghép nối các trường lại rồi kiểm tra, vì từ cuối của trường này nối với từ đầu
-  // của trường kia có thể vô tình tạo thành một địa danh khác không liên quan.
-  const joined = tokens.length > 1 ? tokens.join(' ') : null;
-  if (joined) {
-    const matchesWholePhrase = [item.searchLocality, item.searchWard, item.searchProvince].some(
-      (field) => field && field.includes(joined)
-    );
-    if (matchesWholePhrase) score += 30;
-  }
-  return score;
-}
-
-function searchPlaces(items, query) {
-  const tokens = normalizeVN(query).split(/[\s,]+/).filter(Boolean);
-  if (!tokens.length) return [];
-  const results = [];
-  for (const item of items) {
-    const score = scorePlaceMatch(tokens, item);
-    if (score >= 0) results.push({ item, score });
-  }
-  results.sort((a, b) => b.score - a.score || a.item.wardName.localeCompare(b.item.wardName, 'vi'));
-  return results.slice(0, 20).map((r) => r.item);
-}
-
-function attachLocationAutocomplete(input, list) {
-  if (!input || !list) return;
-
-  let activeIndex = -1;
-  let currentItems = [];
-  let debounceTimer = null;
-
-  function clearSelection() {
-    delete input.dataset.provinceCode;
-    delete input.dataset.wardCode;
-    delete input.dataset.isKhanhHoa;
-  }
-
-  function closeList() {
-    list.hidden = true;
-    list.innerHTML = '';
-    activeIndex = -1;
-    currentItems = [];
-  }
-
-  function renderList(items) {
-    currentItems = items;
-    activeIndex = -1;
-    if (!items.length) {
-      closeList();
-      return;
-    }
-    list.innerHTML = items
-      .map((item, i) => {
-        const main = item.localityName || item.wardName;
-        const rest = item.localityName ? `${item.wardName}, ${item.provinceName}` : item.provinceName;
-        return `<li class="location-suggestion-item" data-index="${i}"><strong>${main}</strong>, ${rest}</li>`;
-      })
-      .join('');
-    list.hidden = false;
-  }
-
-  function selectItem(item) {
-    input.value = item.label;
-    input.dataset.provinceCode = item.provinceCode;
-    input.dataset.wardCode = item.wardCode;
-    input.dataset.isKhanhHoa = item.isKhanhHoa ? '1' : '';
-    closeList();
-  }
-
-  function setActive(index) {
-    const children = list.querySelectorAll('.location-suggestion-item');
-    children.forEach((el) => el.classList.remove('active'));
-    if (index >= 0 && children[index]) {
-      children[index].classList.add('active');
-      children[index].scrollIntoView({ block: 'nearest' });
-    }
-    activeIndex = index;
-  }
-
-  input.addEventListener('input', () => {
-    clearSelection();
-    const query = input.value;
-    clearTimeout(debounceTimer);
-    if (!query.trim()) {
-      closeList();
-      return;
-    }
-    debounceTimer = setTimeout(() => {
-      loadPlacesIndex().then((items) => renderList(searchPlaces(items, query)));
-    }, 250);
-  });
-
-  input.addEventListener('keydown', (e) => {
-    if (list.hidden || !currentItems.length) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActive((activeIndex + 1) % currentItems.length);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setActive((activeIndex - 1 + currentItems.length) % currentItems.length);
-    } else if (e.key === 'Enter') {
-      if (activeIndex >= 0) {
-        e.preventDefault();
-        selectItem(currentItems[activeIndex]);
-      }
-    } else if (e.key === 'Escape') {
-      closeList();
-    }
-  });
-
-  list.addEventListener('mousedown', (e) => {
-    const item = e.target.closest('.location-suggestion-item');
-    if (!item) return;
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const idx = Number(item.dataset.index);
-    if (currentItems[idx]) selectItem(currentItems[idx]);
-  });
+    if (!pendingTrip) return;
+    if (errorEl) errorEl.hidden = true;
 
-  document.addEventListener('click', (e) => {
-    if (e.target !== input && !list.contains(e.target)) closeList();
-  });
-}
+    const payload = {
+      phone: phoneInput?.value.trim() || '',
+      tripType: pendingTrip.tripType,
+      isRoundTrip: pendingTrip.isRoundTrip,
+      timeAt: pendingTrip.timeAt,
+      vehicleType: pendingTrip.vehicleType,
+      airportId: pendingTrip.airportId || null,
+      fromAddressBooking: pendingTrip.fromAddressBooking || null,
+      toAddressBooking: pendingTrip.toAddressBooking || null,
+      name: nameInput?.value.trim() || null,
+      price: pendingTrip.price,
+      note: noteInput?.value.trim() || null,
+    };
 
-// Áp dụng cho cả điểm đi (sân bay và đường dài) và điểm đến (đường dài)
-function initLocationSearch() {
-  document.querySelectorAll('.location-autocomplete-input').forEach((input) => {
-    const list = input.closest('.location-search-wrap')?.querySelector('.location-suggestions');
-    attachLocationAutocomplete(input, list);
-  });
-}
+    const originalBtnText = submitBtn?.textContent;
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Đang gửi...'; }
+    const result = await XevipApi.submitTripRegister(payload);
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
 
-function resetLocationInput(input, { clearValue = false } = {}) {
-  if (!input) return;
-  if (clearValue) input.value = '';
-  delete input.dataset.provinceCode;
-  delete input.dataset.wardCode;
-  delete input.dataset.isKhanhHoa;
-  const list = input.closest('.location-search-wrap')?.querySelector('.location-suggestions');
-  if (list) {
-    list.hidden = true;
-    list.innerHTML = '';
-  }
+    if (!result.success) {
+      if (errorEl) {
+        const firstError = result.error?.errors?.[0];
+        errorEl.textContent = firstError
+          ? `Không gửi được: ${firstError.field} (${firstError.code}). Vui lòng kiểm tra lại hoặc gọi hotline.`
+          : 'Không gửi được đăng ký chuyến, vui lòng thử lại hoặc gọi hotline.';
+        errorEl.hidden = false;
+      }
+      return;
+    }
+
+    console.info('[booking] Đăng ký chuyến thành công:', result.data);
+    modal.classList.remove('open');
+    form.reset();
+    successModal?.classList.add('open');
+  });
 }
 
 document.addEventListener('click', (e) => {
@@ -456,6 +433,175 @@ document.addEventListener('click', (e) => {
     document.querySelectorAll('.modal-overlay').forEach((m) => m.classList.remove('open'));
   }
 });
+
+/* ---------------------------------------------------------------- */
+// Tab "Bảng Giá Sân Bay" — dữ liệu giá thật cho 9/10 sân bay (Nội Bài đã có
+// sẵn bảng tĩnh trong HTML, giữ nguyên làm trạng thái mặc định). Số cột giá
+// mỗi sân bay khác nhau tuỳ loại xe họ phục vụ: 2 cột = Xe 4 chỗ/Xe 7 chỗ,
+// 3 cột = Xe 4 chỗ/Xe 7 chỗ/Xe 16 chỗ.
+const AIRPORT_PRICING = {
+  phubai: {
+    columns: ['Xe 4 chỗ', 'Xe 7 chỗ'],
+    rows: [
+      { from: 'Sân Bay Phú Bài', to: 'TP Huế', arrow: '⇄', prices: ['Từ 170.000đ', 'Từ 230.000đ'] },
+      { from: 'Sân Bay Phú Bài', to: 'Vedana Lagoon Resort', arrow: '⇄', prices: ['Từ 380.000đ', 'Từ 600.000đ'] },
+      { from: 'Sân Bay Phú Bài', to: 'La Vang, Hải Lăng', arrow: '⇄', prices: ['Từ 900.000đ', 'Từ 1.100.000đ'] },
+      { from: 'TP Huế', to: 'Lăng Cô', arrow: '⇄', prices: ['Từ 750.000đ', 'Từ 850.000đ'] },
+      { from: 'TP Huế', to: 'Đà Nẵng', arrow: '⇄', prices: ['Từ 1.200.000đ', 'Từ 1.400.000đ'] },
+      { from: 'TP Huế', to: 'Hội An', arrow: '⇄', prices: ['Từ 1.300.000đ', 'Từ 1.500.000đ'] },
+    ],
+  },
+  danang: {
+    columns: ['Xe 4 chỗ', 'Xe 7 chỗ', 'Xe 16 chỗ'],
+    rows: [
+      { from: 'Sân Bay Đà Nẵng', to: 'Trung tâm TP', arrow: '➜', prices: ['Từ 120.000đ', 'Từ 150.000đ', 'Từ 310.000đ'] },
+      { from: 'Sân Bay Đà Nẵng', to: 'Khu Hội An', arrow: '➜', prices: ['Từ 240.000đ', 'Từ 290.000đ', 'Từ 430.000đ'] },
+      { from: 'Đà Nẵng', to: 'VinPearl Nam Hội An', arrow: '➜', prices: ['Từ 350.000đ', 'Từ 450.000đ', 'Từ 550.000đ'] },
+      { from: 'Hội An', to: 'Bà Nà Hill', arrow: '➜', prices: ['Từ 450.000đ', 'Từ 600.000đ', 'Từ 750.000đ'] },
+    ],
+  },
+  camranh: {
+    columns: ['Xe 4 chỗ', 'Xe 7 chỗ', 'Xe 16 chỗ'],
+    rows: [
+      { from: 'Nha Trang', to: 'Sân Bay Cam Ranh', arrow: '➜', prices: ['Từ 290.000đ', 'Từ 340.000đ', 'Từ 550.000đ'] },
+      { from: 'Sân Bay Cam Ranh', to: 'Nha Trang', arrow: '➜', prices: ['Từ 290.000đ', 'Từ 340.000đ', 'Từ 550.000đ'] },
+      { from: 'Nha Trang', to: 'Đảo Khỉ', arrow: '➜', prices: ['Từ 280.000đ', 'Từ 330.000đ', '—'] },
+      { from: 'Nha Trang', to: 'Cầu Ngọc Hội', arrow: '➜', prices: ['Từ 290.000đ', 'Từ 340.000đ', '—'] },
+      { from: 'Nha Trang', to: 'Núi Chín Khúc', arrow: '➜', prices: ['Từ 340.000đ', 'Từ 390.000đ', '—'] },
+      { from: 'Nha Trang', to: 'Ninh Hòa', arrow: '➜', prices: ['Từ 430.000đ', 'Từ 430.000đ', '—'] },
+      { from: 'Nha Trang', to: 'Dốc Lết', arrow: '➜', prices: ['Từ 480.000đ', 'Từ 530.000đ', '—'] },
+      { from: 'Nha Trang', to: 'Hòn Bà', arrow: '➜', prices: ['Từ 580.000đ', 'Từ 630.000đ', '—'] },
+      { from: 'Nha Trang', to: 'Đà Lạt', arrow: '➜', prices: ['Từ 1.250.000đ', 'Từ 1.400.000đ', '—'] },
+      { label: 'Hai chiều (trong ngày)', prices: ['—', '—', 'Từ 950.000đ'] },
+    ],
+  },
+  phucat: {
+    columns: ['Xe 4 chỗ', 'Xe 7 chỗ', 'Xe 16 chỗ'],
+    rows: [
+      { from: 'Sân Bay Phù Cát', to: 'TP Quy Nhơn', arrow: '➜', prices: ['Từ 220.000đ', 'Từ 340.000đ', 'Từ 780.000đ'] },
+      { from: 'Sân Bay Phù Cát', to: 'Maia Resort', arrow: '➜', prices: ['Từ 270.000đ', 'Từ 340.000đ', 'Từ 750.000đ'] },
+      { from: 'Sân Bay Phù Cát', to: 'FLC Nhơn Lý', arrow: '➜', prices: ['Từ 280.000đ', 'Từ 350.000đ', 'Từ 800.000đ'] },
+      { from: 'Sân Bay Phù Cát', to: 'Avani Resort', arrow: '➜', prices: ['Từ 320.000đ', 'Từ 420.000đ', 'Từ 880.000đ'] },
+    ],
+  },
+  longthanh: {
+    columns: ['Xe 4 chỗ', 'Xe 7 chỗ', 'Xe 16 chỗ'],
+    rows: [
+      { from: 'TP HCM', to: 'SB Long Thành', arrow: '➜', prices: ['Từ 280.000đ', 'Từ 380.000đ', 'Từ 750.000đ'] },
+      { from: 'TP HCM', to: 'SB Long Thành (Hai Chiều)', arrow: '⇄', prices: ['Từ 490.000đ', 'Từ 590.000đ', 'Từ 1.050.000đ'] },
+      { label: 'Thuê xe đường dài', prices: ['Từ 8.000đ/km', 'Từ 10.000đ/km', 'Từ 14.000đ/km'] },
+    ],
+  },
+  tansonnhat: {
+    columns: ['Xe 4 chỗ', 'Xe 7 chỗ', 'Xe 16 chỗ'],
+    rows: [
+      { from: 'Quận 1,3,4,5', to: 'SB Tân Sơn Nhất', arrow: '➜', prices: ['Từ 150.000đ', 'Từ 220.000đ', 'Từ 330.000đ'] },
+      { from: 'Q.Bình Thạnh, Tân Phú', to: 'SB Tân Sơn Nhất', arrow: '➜', prices: ['Từ 190.000đ', 'Từ 240.000đ', 'Từ 430.000đ'] },
+      { from: 'Q.Tân Bình, Phú Nhuận', to: 'SB Tân Sơn Nhất', arrow: '➜', prices: ['Từ 370.000đ', 'Từ 410.000đ', 'Từ 650.000đ'] },
+      { from: 'Q2,6,7, Bình Tân, Tân Phú', to: 'SB Tân Sơn Nhất', arrow: '➜', prices: ['Từ 370.000đ', 'Từ 410.000đ', 'Từ 650.000đ'] },
+      { label: 'Thuê xe đường dài', prices: ['Từ 8.000đ/km', 'Từ 10.000đ/km', 'Từ 14.000đ/km'] },
+    ],
+  },
+  lienkhuong: {
+    columns: ['Xe 4 chỗ', 'Xe 7 chỗ'],
+    rows: [
+      { from: 'Liên Khương', to: 'Đà Lạt', arrow: '➜', prices: ['Từ 350.000đ', 'Từ 450.000đ'] },
+      { from: 'Liên Khương', to: 'Bảo Lộc', arrow: '➜', prices: ['Từ 1.000.000đ', 'Từ 1.100.000đ'] },
+      { from: 'Liên Khương', to: 'Phan Rang', arrow: '➜', prices: ['Từ 1.200.000đ', 'Từ 1.450.000đ'] },
+      { from: 'Liên Khương', to: 'Cam Ranh', arrow: '➜', prices: ['Từ 1.500.000đ', 'Từ 1.750.000đ'] },
+      { from: 'Liên Khương', to: 'Nha Trang', arrow: '➜', prices: ['Từ 1.600.000đ', 'Từ 1.850.000đ'] },
+      { from: 'Liên Khương', to: 'Mũi Né', arrow: '➜', prices: ['Từ 1.600.000đ', 'Từ 1.900.000đ'] },
+      { from: 'Liên Khương', to: 'Phan Thiết', arrow: '➜', prices: ['Từ 1.700.000đ', 'Từ 2.000.000đ'] },
+      { from: 'Liên Khương', to: 'Vũng Tàu', arrow: '➜', prices: ['Từ 2.700.000đ', 'Từ 3.000.000đ'] },
+      { from: 'Liên Khương', to: 'Vĩnh Hy', arrow: '➜', prices: ['Từ 1.450.000đ', 'Từ 1.700.000đ'] },
+    ],
+  },
+  phuquoc: {
+    columns: ['Xe 4 chỗ', 'Xe 7 chỗ', 'Xe 16 chỗ'],
+    rows: [
+      { from: 'SB Phú Quốc', to: 'Vinpearl Sarafi', arrow: '➜', prices: ['Từ 390.000đ', 'Từ 490.000đ', 'Từ 690.000đ'] },
+      { from: 'SB Phú Quốc', to: 'Dương Đông', arrow: '➜', prices: ['Từ 170.000đ', 'Từ 190.000đ', 'Từ 400.000đ'] },
+      { from: 'SB Phú Quốc', to: 'Ông Lang', arrow: '➜', prices: ['Từ 240.000đ', 'Từ 340.000đ', 'Từ 690.000đ'] },
+      { from: 'SB Phú Quốc', to: 'Bãi Trường', arrow: '➜', prices: ['Từ 150.000đ', 'Từ 190.000đ', 'Từ 400.000đ'] },
+      { from: 'SB Phú Quốc', to: 'An Thới', arrow: '➜', prices: ['Từ 240.000đ', 'Từ 320.000đ', 'Từ 600.000đ'] },
+      { from: 'Dương Đông', to: 'Vinpearl Sarafi', arrow: '➜', prices: ['Từ 350.000đ', 'Từ 450.000đ', 'Từ 600.000đ'] },
+      { from: 'Dương Đông', to: 'An Thới', arrow: '➜', prices: ['Từ 350.000đ', 'Từ 450.000đ', 'Từ 600.000đ'] },
+      { from: 'Ông Lang', to: 'An Thới', arrow: '➜', prices: ['Từ 390.000đ', 'Từ 490.000đ', 'Từ 690.000đ'] },
+      { label: 'City Tour 5 tiếng 70km', prices: ['Từ 700.000đ', 'Từ 800.000đ', 'Từ 1.100.000đ'] },
+      { label: 'City Tour 10 tiếng 120km', prices: ['Từ 1.100.000đ', 'Từ 1.300.000đ', 'Từ 1.800.000đ'] },
+    ],
+  },
+  cantho: {
+    columns: ['Xe 4 chỗ', 'Xe 7 chỗ', 'Xe 16 chỗ'],
+    rows: [
+      { from: 'Trung tâm TP. Cần Thơ', to: 'Sân bay', arrow: '➜', prices: ['Từ 200.000đ', 'Từ 250.000đ', 'Từ 750.000đ'] },
+      { from: 'Sân bay', to: 'Vĩnh Long', arrow: '➜', prices: ['Từ 500.000đ', 'Từ 600.000đ', 'Từ 1.500.000đ'] },
+      { from: 'Sân bay', to: 'Hậu Giang', arrow: '➜', prices: ['Từ 550.000đ', 'Từ 650.000đ', 'Từ 1.550.000đ'] },
+      { from: 'Sân bay', to: 'Sóc Trăng', arrow: '➜', prices: ['Từ 650.000đ', 'Từ 750.000đ', 'Từ 1.800.000đ'] },
+      { from: 'Sân bay', to: 'Đồng Tháp', arrow: '➜', prices: ['Từ 700.000đ', 'Từ 850.000đ', 'Từ 1.700.000đ'] },
+      { from: 'Sân bay', to: 'An Giang', arrow: '➜', prices: ['Từ 850.000đ', 'Từ 950.000đ', 'Từ 1.900.000đ'] },
+      { from: 'Sân bay', to: 'Cà Mau', arrow: '➜', prices: ['Từ 1.200.000đ', 'Từ 1.400.000đ', 'Từ 1.900.000đ'] },
+      { from: 'Sân bay', to: 'Kiên Giang / Rạch Giá', arrow: '➜', prices: ['Từ 1.100.000đ', 'Từ 1.300.000đ', 'Từ 1.900.000đ'] },
+    ],
+  },
+};
+
+function renderPricingTable(airportKey, airportName) {
+  const data = AIRPORT_PRICING[airportKey];
+  if (!data) return '';
+  const headCells = data.columns.map((c) => '<th>' + c + '</th>').join('');
+  const bodyRows = data.rows
+    .map((row) => {
+      const destCell = row.label
+        ? row.label
+        : '<span class="pricing-route"><span class="pricing-route-point">' + row.from +
+          '</span><span class="pricing-route-arrow" aria-label="đến">' + row.arrow +
+          '</span><span class="pricing-route-point">' + row.to + '</span></span>';
+      const priceCells = row.prices.map((p) => '<td class="price">' + p + '</td>').join('');
+      return '<tr><td class="destination">' + destCell + '</td>' + priceCells + '</tr>';
+    })
+    .join('');
+  return (
+    '<table class="pricing-table" role="table" aria-label="Bảng giá ' + airportName + '">' +
+    '<thead><tr><th>Điểm đến</th>' + headCells + '</tr></thead>' +
+    '<tbody>' + bodyRows + '</tbody></table>'
+  );
+}
+
+function initPricingTabs() {
+  const tabsWrap = document.querySelector('#priceTabs');
+  const container = document.querySelector('#priceTableContainer');
+  if (!tabsWrap || !container) return;
+
+  const tabs = tabsWrap.querySelectorAll('button[role="tab"]');
+  const activeTab = tabsWrap.querySelector('button.active') || tabs[0];
+  const dataByKey = {};
+  if (activeTab) dataByKey[activeTab.dataset.key] = container.innerHTML;
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      if (tab.classList.contains('active')) return;
+      tabs.forEach((t) => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      const key = tab.dataset.key;
+      const airportName = tab.querySelector('.pricing-tab-name')?.textContent || '';
+      if (dataByKey[key]) {
+        container.innerHTML = dataByKey[key];
+      } else if (AIRPORT_PRICING[key]) {
+        container.innerHTML = renderPricingTable(key, airportName);
+      } else {
+        container.innerHTML =
+          '<p class="pricing-placeholder">Bảng giá ' + airportName +
+          ' đang được cập nhật. Vui lòng liên hệ hotline 1900.9144 để được báo giá chính xác nhất.</p>';
+      }
+    });
+  });
+}
 
 /* ---------------------------------------------------------------- */
 function initFareTabs() {
@@ -468,6 +614,27 @@ function initFareTabs() {
       tab.classList.add('active');
       const target = tab.dataset.target;
       grids.forEach((g) => g.classList.toggle('active', g.dataset.panel === target));
+    });
+  });
+}
+
+/* ---------------------------------------------------------------- */
+// Video khách hàng — click-to-load: không có <video>/<source> nào trong DOM
+// cho tới khi người dùng chủ động bấm play, nên không tốn băng thông/ảnh
+// hưởng tốc độ tải trang hay SEO lúc vào trang, và không video nào tự bật.
+function initVideoShowcase() {
+  document.querySelectorAll('.video-card').forEach((card) => {
+    const playBtn = card.querySelector('.video-play-btn');
+    const src = card.dataset.videoSrc;
+    if (!playBtn || !src) return;
+    playBtn.addEventListener('click', () => {
+      const video = document.createElement('video');
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      card.innerHTML = '';
+      card.appendChild(video);
     });
   });
 }

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xe VIP Sân Bay Cam Ranh - Đặt xe đưa đón sân bay Cam Ranh giá rẻ 24/7</title>
-<meta name="description" content="Dịch vụ xe taxi sân bay Cam Ranh, xe đường dài giá rẻ, chuyên nghiệp uy tín. Đặt xe nhanh chóng, giá cước niêm yết, phục vụ 24/7.">
+<title>Xe VIP Sân Bay - Đặt xe đưa đón sân bay giá rẻ 24/7</title>
+<meta name="description" content="Dịch vụ xe taxi sân bay, xe đường dài giá rẻ, chuyên nghiệp uy tín. Đặt xe nhanh chóng, giá cước niêm yết, phục vụ 24/7.">
 <link rel="icon" type="image/png" href="images/cropped-logo-xe-vip-noi-bai-final-32x32.png">
 <link rel="apple-touch-icon" href="images/cropped-logo-xe-vip-noi-bai-final-180x180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,11 +24,12 @@
       </span>
     </a>
     <ul class="main-nav">
+      <li class="active"><a href="index.html">TRANG CHỦ</a></li>
       <li><a href="ve-chung-toi.html">VỀ CHÚNG TÔI</a></li>
       <li>
         <a href="#">DỊCH VỤ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a>
         <ul class="sub-menu">
-          <li><a href="dich-vu-xe-san-bay-cam-ranh.html">Dịch vụ xe taxi sân bay Cam Ranh</a></li>
+          <li><a href="dich-vu-xe-san-bay.html">Dịch vụ xe taxi sân bay</a></li>
           <li><a href="dich-vu-xe-duong-dai.html">Dịch vụ xe đường dài</a></li>
         </ul>
       </li>
@@ -48,6 +49,7 @@
 </header>
 
 <div class="mobile-nav-drawer">
+  <a href="index.html">Trang chủ</a>
   <a href="ve-chung-toi.html">Về chúng tôi</a>
   <div class="drawer-item">
     <button class="drawer-parent-link" type="button" aria-expanded="false">
@@ -56,7 +58,7 @@
     </button>
     <div class="drawer-submenu">
       <div class="drawer-submenu-inner">
-        <a href="dich-vu-xe-san-bay-cam-ranh.html" class="sub-link">Dịch vụ xe taxi sân bay Cam Ranh</a>
+        <a href="dich-vu-xe-san-bay.html" class="sub-link">Dịch vụ xe taxi sân bay</a>
         <a href="dich-vu-xe-duong-dai.html" class="sub-link">Dịch vụ xe đường dài</a>
       </div>
     </div>
@@ -68,17 +70,15 @@
 
 <section class="hero">
   <div class="hero-slides">
-    <div class="hero-slide active" style="background-image:url('images/camranh-1.jpg')"></div>
+    <div class="hero-slide active"></div>
   </div>
   <div class="container hero-inner">
     <div class="hero-text">
-      <h1>Xe vip sân bay Cam Ranh – xe đưa đón sân bay</h1>
-      <p>Trải nghiệm dịch vụ đặt xe taxi sân bay, xe đi tỉnh nhanh với phong cách chuyên nghiệp giá cả hợp lý của Xe VIP Cam Ranh</p>
-      <a class="btn btn-primary" href="#priceModal" onclick="document.getElementById('priceModal').classList.add('open');return false;">Gọi ngay</a>
+      <h1>Xevipsanbay.com – xe đưa đón sân bay</h1>
     </div>
 
     <div class="booking-widget">
-      <div class="hotline-line"><a href="tel:19009144">HOTLINE: 1900.9144</a></div>
+      <div class="hotline-line"><a href="tel:19009144">📞 1900 9144</a></div>
       <div class="booking-tabs">
         <button class="tab-airport active">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 16v-2l-8.5-5V3.5a1.5 1.5 0 0 0-3 0V9L2 14v2l8.5-2.5V19L8 20.5V22l4-1 4 1v-1.5L13.5 19v-5.5z"/></svg>
@@ -89,215 +89,115 @@
           Đi đường dài
         </button>
       </div>
-      <div class="booking-form">
+      <form class="booking-form" id="quickBookingForm">
         <div class="form-row start-point-airport">
-          <label>Điểm đi:</label>
-          <div class="input-wrap location-search-wrap">
-            <input type="text" class="input-location-search location-autocomplete-input" placeholder="Nhập tỉnh/thành, phường/xã..." autocomplete="off">
-            <ul class="location-suggestions" hidden></ul>
+          <label>Điểm Đi *</label>
+          <div class="input-wrap">
+            <input type="text" class="input-location-search place-autocomplete-input" placeholder="Nhập địa chỉ cụ thể..." autocomplete="off" required>
+            <ul class="address-suggestions" hidden></ul>
+            <select class="start-point-select airport-select" required hidden disabled>
+              <option value="">Đang tải danh sách sân bay...</option>
+            </select>
           </div>
         </div>
         <div class="form-row start-point-road" hidden>
-          <label>Điểm đi:</label>
-          <div class="input-wrap location-search-wrap">
-            <input type="text" class="input-start-point location-autocomplete-input" placeholder="Điểm đi" autocomplete="off">
-            <ul class="location-suggestions" hidden></ul>
+          <label>Điểm Đi *</label>
+          <div class="input-wrap">
+            <input type="text" class="input-start-point place-autocomplete-input" placeholder="Nhập địa chỉ cụ thể..." autocomplete="off" required disabled>
+            <ul class="address-suggestions" hidden></ul>
           </div>
         </div>
-        <div class="form-row">
-          <label>Điểm đến:</label>
-          <div class="input-wrap location-search-wrap">
-            <input type="text" class="end-point-input location-autocomplete-input" value="Sân bay Cam Ranh" disabled autocomplete="off">
-            <ul class="location-suggestions" hidden></ul>
+        <div class="form-row destination-point-airport">
+          <label>Điểm Đến *</label>
+          <div class="input-wrap">
+            <select class="end-point-select airport-select" required>
+              <option value="">Đang tải danh sách sân bay...</option>
+            </select>
+            <input type="text" class="destination-address-input place-autocomplete-input" placeholder="Nhập địa chỉ cụ thể..." autocomplete="off" required hidden disabled>
+            <ul class="address-suggestions" hidden></ul>
+          </div>
+        </div>
+        <div class="form-row destination-point-road" hidden>
+          <label>Điểm Đến *</label>
+          <div class="input-wrap">
+            <input type="text" class="end-point-input place-autocomplete-input" placeholder="Nhập địa chỉ cụ thể..." autocomplete="off" required disabled>
+            <ul class="address-suggestions" hidden></ul>
           </div>
         </div>
         <div class="booking-checks">
-          <span class="check-item"><input type="checkbox" id="roundtrip"><label for="roundtrip">Hai chiều</label></span>
+          <span class="check-item"><input type="checkbox" id="roundtrip"><label for="roundtrip">Chuyến 2 chiều</label></span>
           <button class="swap-btn" type="button">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg>
-            Đảo Chiều
+            Đảo chiều
           </button>
         </div>
         <div class="booking-row-2">
-          <input type="text" class="input-ngaydatxe" placeholder="Ngày đặt xe">
-          <select class="select-car-type">
-            <option value="">-- Loại xe --</option>
-            <option value="Xe 4 chỗ">Xe 4 chỗ</option>
-            <option value="Xe 5 chỗ">Xe 5 chỗ</option>
-            <option value="Xe 7 chỗ">Xe 7 chỗ</option>
-            <option value="Xe 16 chỗ">Xe 16 chỗ</option>
+          <input type="date" class="input-trip-date" aria-label="Ngày Đi" required>
+          <input type="time" class="input-trip-time" aria-label="Giờ Đi" required>
+        </div>
+        <div class="booking-row-2 booking-row-2--single">
+          <select class="select-car-type" required>
+            <option value="">Chọn loại xe</option>
+            <option value="4_SEAT">Xe 4 chỗ</option>
+            <option value="5_SEAT">Xe 5 chỗ</option>
+            <option value="7_SEAT">Xe 7 chỗ</option>
+            <option value="16_SEAT">Xe 16 chỗ</option>
           </select>
         </div>
-        <button class="booking-submit" type="button">KIỂM TRA GIÁ</button>
-      </div>
+        <button class="booking-submit" type="submit">💰 Kiểm Tra Giá</button>
+      </form>
     </div>
   </div>
 </section>
 
-<section class="section pricing-section">
-  <div class="container">
-    <div class="intro-heading">
-      <span class="section-tag">BẢNG GIÁ CHI TIẾT</span>
-      <h2 class="section-title">BẢNG GIÁ SÂN BAY CAM RANH</h2>
-    </div>
+<section class="pricing-section" id="pricing">
+    <div class="pricing-container">
+        <h2 class="pricing-title">Bảng Giá Sân Bay</h2>
+        <div class="pricing-tabs" id="priceTabs" role="tablist"><button type="button" role="tab" data-key="noibai" class="active"><span class="pricing-tab-name">SÂN BAY NỘI BÀI</span></button><button type="button" role="tab" data-key="phubai"><span class="pricing-tab-name">SÂN BAY PHÚ BÀI</span></button><button type="button" role="tab" data-key="danang"><span class="pricing-tab-name">SÂN BAY ĐÀ NẴNG</span></button><button type="button" role="tab" data-key="camranh"><span class="pricing-tab-name">SÂN BAY CAM RANH</span></button><button type="button" role="tab" data-key="phucat"><span class="pricing-tab-name">SÂN BAY PHÙ CÁT</span></button><button type="button" role="tab" data-key="longthanh"><span class="pricing-tab-name">SÂN BAY LONG THÀNH</span></button><button type="button" role="tab" data-key="tansonnhat"><span class="pricing-tab-name">SÂN BAY TÂN SƠN NHẤT</span></button><button type="button" role="tab" data-key="lienkhuong"><span class="pricing-tab-name">SÂN BAY LIÊN KHƯƠNG</span></button><button type="button" role="tab" data-key="phuquoc"><span class="pricing-tab-name">SÂN BAY PHÚ QUỐC</span></button><button type="button" role="tab" data-key="cantho"><span class="pricing-tab-name">SÂN BAY CẦN THƠ</span></button></div>
+        <div class="pricing-table-wrapper" id="priceTableContainer">
+        <table class="pricing-table" role="table" aria-label="Bảng giá SÂN BAY NỘI BÀI">
+            <thead>
+                <tr>
+                    <th>Điểm đến</th><th>Xe 4 chỗ</th><th>Xe 5 chỗ</th><th>Xe 7 chỗ</th><th>Xe 16 chỗ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="destination"><span class="pricing-route"><span class="pricing-route-point">Hà Nội</span><span class="pricing-route-arrow" aria-label="đến">➜</span><span class="pricing-route-point">Nội Bài</span></span></td>
+                    <td class="price">Từ 170.000đ</td>
 
-    <div class="pricing-table-wrapper">
-      <table class="pricing-table">
-        <thead>
-          <tr>
-            <th>Điểm đến</th>
-            <th>Xe 4 chỗ</th>
-            <th>Xe 7 chỗ</th>
-            <th>Xe 16 chỗ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="destination">Nha Trang <span class="route-arrow">→</span> Sân bay Cam Ranh</td>
-            <td>Từ 290.000đ</td>
-            <td>Từ 340.000đ</td>
-            <td>Từ 550.000đ</td>
-          </tr>
-          <tr>
-            <td class="destination">Sân bay Cam Ranh <span class="route-arrow">→</span> Nha Trang</td>
-            <td>Từ 290.000đ</td>
-            <td>Từ 340.000đ</td>
-            <td>Từ 550.000đ</td>
-          </tr>
-          <tr>
-            <td class="destination">Nha Trang <span class="route-arrow">→</span> Đảo Khỉ</td>
-            <td>Từ 280.000đ</td>
-            <td>Từ 330.000đ</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td class="destination">Nha Trang <span class="route-arrow">→</span> Cầu Ngọc Hội</td>
-            <td>Từ 290.000đ</td>
-            <td>Từ 340.000đ</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td class="destination">Nha Trang <span class="route-arrow">→</span> Núi Chín Khúc</td>
-            <td>Từ 340.000đ</td>
-            <td>Từ 390.000đ</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td class="destination">Nha Trang <span class="route-arrow">→</span> Ninh Hòa</td>
-            <td>Từ 430.000đ</td>
-            <td>Từ 430.000đ</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td class="destination">Nha Trang <span class="route-arrow">→</span> Dốc Lết</td>
-            <td>Từ 480.000đ</td>
-            <td>Từ 530.000đ</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td class="destination">Nha Trang <span class="route-arrow">→</span> Hòn Bà</td>
-            <td>Từ 580.000đ</td>
-            <td>Từ 630.000đ</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td class="destination">Nha Trang <span class="route-arrow">→</span> Đà Lạt</td>
-            <td>Từ 1.250.000đ</td>
-            <td>Từ 1.400.000đ</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td class="destination">Hai chiều (trong ngày)</td>
-            <td>—</td>
-            <td>—</td>
-            <td>Từ 950.000đ</td>
-          </tr>
-        </tbody>
-      </table>
+                    <td class="price">Từ 180.000đ</td>
 
-      <div class="pricing-cards">
-        <div class="pricing-card">
-          <div class="pricing-card-title">Nha Trang <span class="route-arrow">→</span> Sân bay Cam Ranh</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 4 chỗ</span><span class="pricing-card-price">Từ 290.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 7 chỗ</span><span class="pricing-card-price">Từ 340.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 16 chỗ</span><span class="pricing-card-price">Từ 550.000đ</span></div>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-card-title">Sân bay Cam Ranh <span class="route-arrow">→</span> Nha Trang</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 4 chỗ</span><span class="pricing-card-price">Từ 290.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 7 chỗ</span><span class="pricing-card-price">Từ 340.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 16 chỗ</span><span class="pricing-card-price">Từ 550.000đ</span></div>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-card-title">Nha Trang <span class="route-arrow">→</span> Đảo Khỉ</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 4 chỗ</span><span class="pricing-card-price">Từ 280.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 7 chỗ</span><span class="pricing-card-price">Từ 330.000đ</span></div>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-card-title">Nha Trang <span class="route-arrow">→</span> Cầu Ngọc Hội</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 4 chỗ</span><span class="pricing-card-price">Từ 290.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 7 chỗ</span><span class="pricing-card-price">Từ 340.000đ</span></div>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-card-title">Nha Trang <span class="route-arrow">→</span> Núi Chín Khúc</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 4 chỗ</span><span class="pricing-card-price">Từ 340.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 7 chỗ</span><span class="pricing-card-price">Từ 390.000đ</span></div>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-card-title">Nha Trang <span class="route-arrow">→</span> Ninh Hòa</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 4 chỗ</span><span class="pricing-card-price">Từ 430.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 7 chỗ</span><span class="pricing-card-price">Từ 430.000đ</span></div>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-card-title">Nha Trang <span class="route-arrow">→</span> Dốc Lết</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 4 chỗ</span><span class="pricing-card-price">Từ 480.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 7 chỗ</span><span class="pricing-card-price">Từ 530.000đ</span></div>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-card-title">Nha Trang <span class="route-arrow">→</span> Hòn Bà</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 4 chỗ</span><span class="pricing-card-price">Từ 580.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 7 chỗ</span><span class="pricing-card-price">Từ 630.000đ</span></div>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-card-title">Nha Trang <span class="route-arrow">→</span> Đà Lạt</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 4 chỗ</span><span class="pricing-card-price">Từ 1.250.000đ</span></div>
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 7 chỗ</span><span class="pricing-card-price">Từ 1.400.000đ</span></div>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-card-title">Hai chiều (trong ngày)</div>
-          <div class="pricing-card-prices">
-            <div class="pricing-card-price-row"><span class="pricing-card-vehicle">Xe 16 chỗ</span><span class="pricing-card-price">Từ 950.000đ</span></div>
-          </div>
-        </div>
-      </div>
+                    <td class="price">Từ 220.000đ</td>
+
+                    <td class="price">Từ 330.000đ</td>
+                </tr><tr><td class="destination"><span class="pricing-route"><span class="pricing-route-point">Nội Bài</span><span class="pricing-route-arrow" aria-label="đến">➜</span><span class="pricing-route-point">Hà Nội</span></span></td>
+                    <td class="price">Từ 180.000đ</td>
+
+                    <td class="price">Từ 190.000đ</td>
+
+                    <td class="price">Từ 240.000đ</td>
+
+                    <td class="price">Từ 430.000đ</td>
+                </tr><tr><td class="destination">Hai chiều (trong ngày)</td>
+                    <td class="price">Từ 360.000đ</td>
+
+                    <td class="price">Từ 370.000đ</td>
+
+                    <td class="price">Từ 410.000đ</td>
+
+                    <td class="price">Từ 650.000đ</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <p class="pricing-note">*Bảng giá mang tính chất tham khảo, có thể thay đổi tuỳ thời điểm và địa điểm đón/trả cụ thể. Vui lòng liên hệ hotline để được báo giá chính xác nhất.</p>
-  </div>
+    </div>
 </section>
 
 <section class="section">
   <div class="container">
     <div class="intro-heading">
       <span class="section-tag">XIN CHÀO BẠN</span>
-      <h2>DỊCH VỤ CỦA XE VIP CAM RANH</h2>
+      <h2>DỊCH VỤ CỦA XE VIP SÂN BAY</h2>
     </div>
     <div class="services-row">
       <div class="service-item">
@@ -308,7 +208,7 @@
       <div class="service-item">
         <img src="images/icon2.png" alt="">
         <h3>Xe riêng, xe tiện chuyến</h3>
-        <p>Cung cấp các chuyến xe riêng, xe tiện chuyến đi các tỉnh miền Bắc, miền Trung…</p>
+        <p>Cung cấp các chuyến xe riêng, xe tiện chuyến đi các tỉnh miền Bắc, miền Trung, miền Nam và tất cả các sân bay trên cả nước</p>
       </div>
       <div class="service-item">
         <img src="images/icon3.png" alt="">
@@ -327,7 +227,7 @@
 <section class="section fare-section">
   <div class="container">
     <div class="intro-heading">
-      <span class="section-tag">CÙNG TRẢI NGHIỆM XE VIP CAM RANH</span>
+      <span class="section-tag">CÙNG TRẢI NGHIỆM XE VIP SÂN BAY</span>
       <h2 class="section-title">GIÁ CƯỚC TIÊU BIỂU</h2>
     </div>
     <div class="fare-tabs">
@@ -337,70 +237,70 @@
 
     <div class="fare-grid active" data-panel="san-bay">
       <div class="fare-card">
-        <div class="fare-img"><img src="images/camranh-2.jpg" alt="Tháp rùa Hà Nội"></div>
+        <div class="fare-img"><img src="images/san-bay-noi-bai-home.jpg" alt="Sân bay Nội Bài"></div>
+        <div class="fare-body">
+          <h3>Hà Nội – Sân bay Nội Bài</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Hà Nội – Sân bay Nội Bài. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 170.000đ</h4>
+        </div>
+      </div>
+      <div class="fare-card">
+        <div class="fare-img"><img src="images/camranh-2.jpg" alt="Sân bay Cam Ranh"></div>
         <div class="fare-body">
           <h3>Nha Trang – Sân bay Cam Ranh</h3>
           <p>Giá cước cơ bản cho xe Sedan tuyến Nha Trang – Sân bay Cam Ranh. Xe 7-16 chỗ giá cước cao hơn</p>
-          <h4>Từ 129.000đ</h4>
+          <h4>Từ 290.000đ</h4>
         </div>
       </div>
       <div class="fare-card">
-        <div class="fare-img"><img src="images/nha-trang.png" alt="Sân bay Cam Ranh"></div>
+        <div class="fare-img"><img src="images/sanbay-tansonnhat.jpg" alt="Sân bay Tân Sơn Nhất"></div>
         <div class="fare-body">
-          <h3>Sân bay Cam Ranh – Nha Trang</h3>
-          <p>Giá cước cơ bản cho xe Sedan tuyến Sân bay Cam Ranh – Nha Trang. Xe 7-16 chỗ giá cước cao hơn</p>
-          <h4>Từ 179.000đ</h4>
+          <h3>Quận 1 – Sân bay Tân Sơn Nhất</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Quận 1 – Sân bay Tân Sơn Nhất. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 150.000đ</h4>
         </div>
       </div>
       <div class="fare-card">
-        <div class="fare-img"><img src="images/camranh-3.jpg" alt="Ninh Bình"></div>
+        <div class="fare-img"><img src="images/sanbay-phuquoc.jpg" alt="Sân bay Phú Quốc"></div>
         <div class="fare-body">
-          <h3>Sân bay Cam Ranh – Bãi Dài</h3>
-          <p>Giá cước cơ bản cho xe Sedan tuyến Sân bay Cam Ranh – Bãi Dài. Xe 7-16 chỗ giá cước cao hơn</p>
-          <h4>Từ 800.000đ</h4>
-        </div>
-      </div>
-      <div class="fare-card">
-        <div class="fare-img"><img src="images/camranh-1.jpg" alt="Hạ Long"></div>
-        <div class="fare-body">
-          <h3>Sân bay Cam Ranh – Thành phố Cam Ranh</h3>
-          <p>Giá cước cơ bản cho xe Sedan tuyến Sân bay Cam Ranh – Thành phố Cam Ranh. Xe 7-16 chỗ giá cước cao hơn</p>
-          <h4>Từ 1.100.000đ</h4>
+          <h3>Sân bay Phú Quốc – Dương Đông</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Sân bay Phú Quốc – Dương Đông. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 170.000đ</h4>
         </div>
       </div>
     </div>
 
     <div class="fare-grid" data-panel="duong-dai">
       <div class="fare-card">
-        <div class="fare-img"><img src="images/bien-ha-long.jpg" alt="Hạ Long"></div>
+        <div class="fare-img"><img src="images/lao-cai-01.jpg" alt="Sapa"></div>
         <div class="fare-body">
-          <h3>Thành phố Cam Ranh – Đảo Bình Ba</h3>
-          <p>Giá cước cơ bản cho xe Sedan tuyến Thành phố Cam Ranh – Đảo Bình Ba. Xe 7-16 chỗ giá cước cao hơn</p>
-          <h4>Từ 800.000đ</h4>
+          <h3>Hà Nội – Sapa</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Hà Nội – Sapa. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 500.000đ</h4>
         </div>
       </div>
       <div class="fare-card">
-        <div class="fare-img"><img src="images/hai-phong-01.jpg" alt="Hải Phòng"></div>
+        <div class="fare-img"><img src="images/da-nang-hoi-an-new.jpg" alt="Đà Nẵng – Hội An"></div>
         <div class="fare-body">
-          <h3>Thành phố Cam Ranh – Nha Trang</h3>
-          <p>Giá cước cơ bản cho xe Sedan tuyến Thành phố Cam Ranh – Nha Trang. Xe 7-16 chỗ giá cước cao hơn</p>
-          <h4>Từ 700.000đ</h4>
+          <h3>Đà Nẵng – Hội An</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Đà Nẵng – Hội An. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 150.000đ</h4>
         </div>
       </div>
       <div class="fare-card">
-        <div class="fare-img"><img src="images/ninh-binh.jpg" alt="Ninh Bình"></div>
+        <div class="fare-img"><img src="images/camranh-1.jpg" alt="Nha Trang"></div>
         <div class="fare-body">
-          <h3>Nha Trang – Đảo Bình Ba</h3>
-          <p>Giá cước cơ bản cho xe Sedan tuyến Nha Trang – Đảo Bình Ba. Xe 7-16 chỗ giá cước cao hơn</p>
-          <h4>Từ 600.000đ</h4>
+          <h3>Nha Trang – Khánh Hòa</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến Nha Trang – Khánh Hòa. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 200.000đ</h4>
         </div>
       </div>
       <div class="fare-card">
-        <div class="fare-img"><img src="images/lao-cai-01.jpg" alt="Lào Cai"></div>
+        <div class="fare-img"><img src="images/dalat-xuanhuong.jpg" alt="Đà Lạt"></div>
         <div class="fare-body">
-          <h3>Bãi Dài – Đảo Bình Ba</h3>
-          <p>Giá cước cơ bản cho xe Sedan tuyến Bãi Dài – Đảo Bình Ba. Xe 7-16 chỗ giá cước cao hơn</p>
-          <h4>Từ 900.000đ</h4>
+          <h3>TP.HCM – Đà Lạt</h3>
+          <p>Giá cước cơ bản cho xe Sedan tuyến TP.HCM – Đà Lạt. Xe 7-16 chỗ giá cước cao hơn</p>
+          <h4>Từ 450.000đ</h4>
         </div>
       </div>
     </div>
@@ -410,7 +310,8 @@
 <section class="section why-us">
   <div class="container">
     <h2 class="text-center">Tại sao nên đặt xe sân bay của chúng tôi?</h2>
-    <p class="section-lead">Chúng tôi trân trọng và cảm ơn sự tin tưởng hợp tác của quý đối tác và khách hàng trong suốt 6 năm qua.</p>
+    <p class="section-lead">Chúng tôi trân trọng và cảm ơn sự tin tưởng của khách hàng trong những
+  năm qua.</p>
     <div class="why-us-grid">
       <div class="why-us-col">
         <div class="why-us-item">
@@ -429,7 +330,7 @@
         </div>
       </div>
       <div class="why-us-center">
-        <img src="images/xevipsanbay-banner2.jpeg" alt="Dịch vụ đặt xe giá rẻ">
+        <img src="images/sub-banner.png" alt="Dịch vụ đặt xe giá rẻ">
       </div>
       <div class="why-us-col right">
         <div class="why-us-item">
@@ -451,22 +352,28 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container partner-cta">
-    <img src="images/doi-tac-dai-ly.jpg" alt="Đối tác Xe VIP Cam Ranh">
-    <div>
-      <h2>ĐỐI TÁC ĐẠI LÝ</h2>
-      <p class="lead">GIA TĂNG THU NHẬP</p>
-      <p>Không chỉ chia sẻ doanh thu với đối tác vận chuyển (đối tác lái xe), Xe VIP Cam Ranh còn chia sẻ doanh thu với các đối tác chiến lược như các đơn vị du lịch, các đối tác cá nhân có thể kết nối khách hàng sử dụng dịch vụ của chúng tôi.</p>
-      <ul class="partner-features">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Đăng ký dễ dàng, miễn phí</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Làm việc mọi lúc, mọi nơi</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Gia tăng nguồn thu nhập</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Dễ dàng tiếp cận khách hàng</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Hệ thống quản lý chuyên nghiệp</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Nhận thanh toán nhanh chóng, dễ dàng</li>
-      </ul>
-      <a class="btn btn-primary" href="#">Đăng ký đối tác đại lý</a>
+<section class="section video-showcase">
+  <div class="container">
+    <div class="intro-heading">
+      <span class="section-tag">TRẢI NGHIỆM THỰC TẾ</span>
+      <h2 class="section-title">VIDEO XE VIP SÂN BAY</h2>
+    </div>
+    <div class="video-grid">
+      <div class="video-card" data-video-src="images/video-1.mp4">
+        <button class="video-play-btn" type="button" aria-label="Phát video 1">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="video-card" data-video-src="images/video-2.mp4">
+        <button class="video-play-btn" type="button" aria-label="Phát video 2">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="video-card" data-video-src="images/video-3.mp4">
+        <button class="video-play-btn" type="button" aria-label="Phát video 3">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -505,15 +412,25 @@
       <div class="branch-card">
         <span class="branch-tag">Trụ sở chính — Hà Nội</span>
         <p>Tầng 10, Tòa nhà CEO, Lô HH2-1, Khu đô thị Mễ Trì Hạ, Đường Phạm Hùng, Phường Từ Liêm, Thành phố Hà Nội</p>
+        <div class="branch-contact">
+          <p><strong>Hotline:</strong> <a href="tel:19009144">1900.9144</a></p>
+          <p><strong>Email:</strong> <a href="mailto:xevipsanbay86@gmail.com">xevipsanbay86@gmail.com</a></p>
+          <p><strong>Website:</strong> xevipsanbaycamranh.com</p>
+        </div>
         <div class="branch-map-wrap">
-          <iframe class="branch-map" title="Bản đồ trụ sở Xe VIP Cam Ranh - Hà Nội" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d465.61080396753476!2d105.78285283691874!3d21.0156489850177!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454aad5fd2a59%3A0x73fac596a4383d9e!2zQ8O0bmcgdHkgY-G7lSBwaOG6p24gVOG6rXAgxJBvw6BuIEMuRS5P!5e0!3m2!1svi!2sus!4v1780907326239!5m2!1svi!2sus" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe class="branch-map" title="Bản đồ trụ sở Xe VIP Sân Bay - Hà Nội" src="https://www.google.com/maps?q=T%E1%BA%A7ng+10%2C+T%C3%B2a+nh%C3%A0+CEO%2C+L%C3%B4+HH2-1%2C+Khu+%C4%91%C3%B4+th%E1%BB%8B+M%E1%BB%85+Tr%C3%AC+H%E1%BA%A1%2C+%C4%90%C6%B0%E1%BB%9Dng+Ph%E1%BA%A1m+H%C3%B9ng%2C+Ph%C6%B0%E1%BB%9Dng+T%E1%BB%AB+Li%C3%AAm%2C+Th%C3%A0nh+ph%E1%BB%91+H%C3%A0+N%E1%BB%99i&output=embed&hl=vi" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
       <div class="branch-card">
         <span class="branch-tag">Chi nhánh — TP. Hồ Chí Minh</span>
         <p>159 Đường Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh</p>
+        <div class="branch-contact">
+          <p><strong>Hotline:</strong> <a href="tel:19009144">1900.9144</a></p>
+          <p><strong>Email:</strong> <a href="mailto:xevipsanbay86@gmail.com">xevipsanbay86@gmail.com</a></p>
+          <p><strong>Website:</strong> xevipsanbaycamranh.com</p>
+        </div>
         <div class="branch-map-wrap">
-          <iframe class="branch-map" title="Bản đồ chi nhánh Xe VIP Cam Ranh - TP. Hồ Chí Minh" src="https://www.google.com/maps?q=159+%C4%90%C6%B0%E1%BB%9Dng+%C4%90i%E1%BB%87n+Bi%C3%AAn+Ph%E1%BB%A7,+Gia+%C4%90%E1%BB%8Bnh,+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh&output=embed" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe class="branch-map" title="Bản đồ chi nhánh Xe VIP Sân Bay - TP. Hồ Chí Minh" src="https://www.google.com/maps?q=159+%C4%90%C6%B0%E1%BB%9Dng+%C4%90i%E1%BB%87n+Bi%C3%AAn+Ph%E1%BB%A7,+Gia+%C4%90%E1%BB%8Bnh,+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh&output=embed&hl=vi" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
@@ -521,14 +438,14 @@
   <div class="container footer-main">
     <div class="footer-about">
       <h3>Về chúng tôi</h3>
-      <p><strong>Xe VIP Sân Bay Cam Ranh</strong> tự hào là một trong những công ty dịch vụ xe sân bay, xe đường dài chuyên nghiệp hàng đầu khu vực Miền Bắc và Miền Trung. Chúng tôi đã phát triển tại tất cả các sân bay.</p>
+      <p><strong>Xe VIP Sân Bay</strong> tự hào là một trong những công ty dịch vụ xe sân bay, xe đường dài chuyên nghiệp hàng đầu khu vực Miền Bắc, Miền Trung và Miền Nam. Chúng tôi đã phát triển tại tất cả các sân bay trên cả nước.</p>
     </div>
     <div>
       <h3>Khám phá</h3>
       <ul class="footer-links">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Trang chủ</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Về chúng tôi</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Bảng giá xe sân bay Cam Ranh</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Bảng giá xe sân bay</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Bảng giá xe đường dài</li>
       </ul>
     </div>
@@ -551,7 +468,7 @@
     </div>
   </div>
   <div class="container footer-bottom">
-    <span>© 2024 Xe VIP Cam Ranh — Công ty TNHH Đầu Tư Thăng Long Global. All Rights Reserved.</span>  </div>
+    <span>© 2024 Xe VIP Sân Bay — Công ty TNHH Đầu Tư Thăng Long Global. All Rights Reserved.</span>  </div>
 </footer>
 
 <button class="scroll-top-btn" aria-label="Lên đầu trang">
@@ -589,26 +506,41 @@
       <span class="confirm-price-amount"></span>
     </div>
     <p class="price-unavailable-note" hidden>Giá xe ở địa chỉ này chưa được cập nhật chúng tôi sẽ liên hệ và báo giá.</p>
-    <div class="confirm-form-grid">
-      <div class="confirm-field">
-        <label>Họ Tên *</label>
-        <input type="text" placeholder="Nguyễn Văn A">
+    <form id="finalBookingForm" class="confirm-form">
+      <div class="confirm-form-grid">
+        <div class="confirm-field">
+          <label for="modalName">Họ Tên *</label>
+          <input type="text" id="modalName" name="name" placeholder="Nguyễn Văn A" autocomplete="name" required>
+        </div>
+        <div class="confirm-field">
+          <label for="modalPhone">Số Điện Thoại *</label>
+          <input type="tel" id="modalPhone" name="phone" placeholder="0123456789" autocomplete="tel" inputmode="tel" required>
+        </div>
       </div>
       <div class="confirm-field">
-        <label>Số Điện Thoại *</label>
-        <input type="tel" placeholder="0123456789">
+        <label for="modalNote">Ghi Chú</label>
+        <textarea id="modalNote" name="note" placeholder="Nhập ghi chú" rows="3" autocomplete="off"></textarea>
       </div>
-    </div>
-    <div class="confirm-field">
-      <label>Ghi Chú</label>
-      <textarea placeholder="Nhập ghi chú" rows="3"></textarea>
-    </div>
-    <button class="confirm-submit-btn" type="button" onclick="alert('Cảm ơn bạn! Chúng tôi sẽ liên hệ lại trong ít phút.'); document.getElementById('priceModal').classList.remove('open');">Đặt xe với giá này</button>
+      <p class="confirm-submit-error price-unavailable-note" hidden></p>
+      <button class="confirm-submit-btn" type="submit">Đặt xe với giá này</button>
+    </form>
   </div>
 </div>
 
-<script src="area/provinces-data.js"></script>
-<script src="area/localities-data.js"></script>
+<div class="modal-overlay" id="bookingSuccessModal">
+  <div class="modal-box confirm-box modal-box--success">
+    <div class="confirm-header">
+      <h2 class="confirm-title">Đặt chuyến thành công</h2>
+      <span class="modal-close">&times;</span>
+    </div>
+    <div class="booking-success-icon" aria-hidden="true">&#10003;</div>
+    <p class="booking-success-message">Khách hàng đã đặt chuyến thành công, chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất.</p>
+    <button class="confirm-submit-btn modal-close" type="button">Đóng</button>
+  </div>
+</div>
+
+<script src="js/xevip-api.js"></script>
+<script src="js/xevip-address-autocomplete.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
