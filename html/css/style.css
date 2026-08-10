@@ -608,6 +608,33 @@ body.nav-open .site-header {
 .address-suggestion-item.active strong {
   color: var(--color-primary);
 }
+.airport-select-native {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.airport-select-native[hidden] { display: none; }
+.airport-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  max-height: 260px;
+  overflow-y: auto;
+}
+.airport-suggestions[hidden] { display: none; }
 .booking-checks {
   display: flex;
   align-items: center;
@@ -1174,12 +1201,27 @@ body.nav-open .site-header {
   align-items: center;
   justify-content: center;
 }
-.video-card video {
+.video-card video,
+.video-card .video-poster {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
+.video-card .video-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.video-card:has(.video-poster)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  z-index: 1;
+  pointer-events: none;
+}
+.video-play-btn { position: relative; z-index: 2; }
 .video-play-btn {
   width: 64px;
   height: 64px;

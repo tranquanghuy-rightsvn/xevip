@@ -157,7 +157,112 @@ async function populateAirportSelects() {
       sel.appendChild(opt);
     });
     sel.value = '';
+    enhanceAirportSelect(sel);
   });
+}
+
+// Bỏ dấu tiếng Việt để so khớp gõ tìm không phân biệt dấu (vd. "noi bai"
+// vẫn khớp "Nội Bài").
+function normalizeForSearch(str) {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd');
+}
+
+// Biến mỗi <select class="airport-select"> thành ô vừa gõ tìm vừa chọn từ
+// danh sách sân bay: <select> gốc được giữ nguyên trong DOM (ẩn bằng
+// opacity/pointer-events, không display:none) để toàn bộ logic hiện có
+// (giá trị .value, .selectedOptions, required, hidden/disabled khi đảo
+// chiều/đổi tab) không cần sửa gì — chỉ thêm lớp UI gõ-tìm phía trên.
+function enhanceAirportSelect(select) {
+  if (!select || select.dataset.enhanced) return;
+  select.dataset.enhanced = '1';
+  select.tabIndex = -1;
+  select.setAttribute('aria-hidden', 'true');
+  select.classList.add('airport-select-native');
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'airport-search-input';
+  input.placeholder = 'Nhập hoặc chọn sân bay';
+  input.autocomplete = 'off';
+
+  const list = document.createElement('ul');
+  list.className = 'airport-suggestions';
+  list.hidden = true;
+
+  select.insertAdjacentElement('afterend', list);
+  select.insertAdjacentElement('afterend', input);
+
+  const getOptions = () => Array.from(select.options).filter((o) => o.value);
+  const selectedName = () => {
+    const opt = getOptions().find((o) => o.value === select.value);
+    return opt ? opt.textContent : '';
+  };
+
+  function renderList(filter) {
+    const q = normalizeForSearch(filter || '');
+    const opts = getOptions().filter((o) => !q || normalizeForSearch(o.textContent).includes(q));
+    list.innerHTML = '';
+    if (!opts.length) {
+      const li = document.createElement('li');
+      li.className = 'address-suggestion-item';
+      li.textContent = 'Không tìm thấy sân bay phù hợp';
+      list.appendChild(li);
+    } else {
+      opts.forEach((o) => {
+        const li = document.createElement('li');
+        li.className = 'address-suggestion-item';
+        li.textContent = o.textContent;
+        li.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          select.value = o.value;
+          select.setCustomValidity('');
+          input.value = o.textContent;
+          list.hidden = true;
+        });
+        list.appendChild(li);
+      });
+    }
+    list.hidden = false;
+  }
+
+  input.addEventListener('focus', () => {
+    input.select();
+    renderList('');
+  });
+  input.addEventListener('input', () => {
+    select.value = '';
+    renderList(input.value);
+  });
+  input.addEventListener('blur', () => {
+    setTimeout(() => {
+      list.hidden = true;
+      if (!select.value) input.value = '';
+    }, 150);
+  });
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') list.hidden = true;
+  });
+
+  function syncVisibility() {
+    input.hidden = select.hidden;
+    input.disabled = select.disabled;
+    if (select.hidden || select.disabled) list.hidden = true;
+    if (!select.hidden && select.value) input.value = selectedName();
+  }
+  syncVisibility();
+  new MutationObserver(syncVisibility).observe(select, { attributes: true, attributeFilter: ['hidden', 'disabled'] });
+}
+
+// Báo chưa chọn sân bay từ danh sách gợi ý, cùng cơ chế bubble validate
+// native với reportAddressNotSelected ở trên.
+function reportAirportNotSelected(bookingForm, select) {
+  select.setCustomValidity('Vui lòng nhập và chọn sân bay từ danh sách gợi ý bên dưới ô này.');
+  bookingForm.reportValidity();
+  select.setCustomValidity('');
 }
 
 function formatVnd(amount) {
@@ -318,6 +423,7 @@ function setupBookingWidget(widget) {
         tripType = 'FARE_WELL';
         const addressObj = XevipAddressAutocomplete.getSelectedAddress(locationInput);
         if (!addressObj) { reportAddressNotSelected(bookingForm, locationInput); return; }
+        if (!endSelect?.value) { reportAirportNotSelected(bookingForm, endSelect); return; }
         startValue = locationInput?.value || '';
         endValue = endSelect?.selectedOptions[0]?.textContent || '';
         checkPayload = { airportId: endSelect?.value, address: addressObj, tripType, timeAt, isRoundTrip, vehicleType: carTypeValue };
@@ -327,6 +433,7 @@ function setupBookingWidget(widget) {
         tripType = 'PICK_UP';
         const addressObj = XevipAddressAutocomplete.getSelectedAddress(destAddressInput);
         if (!addressObj) { reportAddressNotSelected(bookingForm, destAddressInput); return; }
+        if (!startSelect?.value) { reportAirportNotSelected(bookingForm, startSelect); return; }
         startValue = startSelect?.selectedOptions[0]?.textContent || '';
         endValue = destAddressInput?.value || '';
         checkPayload = { airportId: startSelect?.value, address: addressObj, tripType, timeAt, isRoundTrip, vehicleType: carTypeValue };
