@@ -131,14 +131,30 @@
             Đảo chiều
           </button>
         </div>
-        <div class="booking-row-2">
-          <input type="date" class="input-trip-date" aria-label="Ngày Đi" required>
-          <input type="time" class="input-trip-time" aria-label="Giờ Đi" required>
+        <div class="booking-row-2 date-time-row">
+          <div class="form-group">
+            <label for="tripDate">Ngày Đi *</label>
+            <input type="date" id="tripDate" class="input-trip-date" required>
+          </div>
+          <div class="form-group">
+            <label>Giờ Đi *</label>
+            <div class="ant-time-picker">
+              <div class="ant-time-picker-trigger" tabindex="0" role="combobox" aria-label="Chọn giờ">
+                <span class="ant-time-picker-value">Chọn giờ</span>
+                <span class="ant-time-picker-suffix">🕐</span>
+              </div>
+              <div class="ant-time-picker-dropdown">
+                <div class="ant-time-picker-column ant-time-picker-hour"></div>
+                <div class="ant-time-picker-column ant-time-picker-minute"></div>
+              </div>
+              <input type="hidden" class="input-trip-time" required>
+            </div>
+          </div>
         </div>
         <div class="booking-row-2 booking-row-2--single">
           <select class="select-car-type" required>
             <option value="">Chọn loại xe</option>
-            <option value="4_SEAT">Xe 4 chỗ</option>
+            <option value="4_SEAT" selected>Xe 4 chỗ</option>
             <option value="5_SEAT">Xe 5 chỗ</option>
             <option value="7_SEAT">Xe 7 chỗ</option>
             <option value="16_SEAT">Xe 16 chỗ</option>
@@ -421,7 +437,7 @@
           <p><strong>Website:</strong> xevipsanbaycamranh.com</p>
         </div>
         <div class="branch-map-wrap">
-          <iframe class="branch-map" title="Bản đồ trụ sở Xe VIP Sân Bay - Hà Nội" src="https://www.google.com/maps?q=T%E1%BA%A7ng+10%2C+T%C3%B2a+nh%C3%A0+CEO%2C+L%C3%B4+HH2-1%2C+Khu+%C4%91%C3%B4+th%E1%BB%8B+M%E1%BB%85+Tr%C3%AC+H%E1%BA%A1%2C+%C4%90%C6%B0%E1%BB%9Dng+Ph%E1%BA%A1m+H%C3%B9ng%2C+Ph%C6%B0%E1%BB%9Dng+T%E1%BB%AB+Li%C3%AAm%2C+Th%C3%A0nh+ph%E1%BB%91+H%C3%A0+N%E1%BB%99i&output=embed&hl=vi" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe class="branch-map" title="Bản đồ trụ sở Xe VIP Sân Bay - Hà Nội" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d465.61080396753476!2d105.78285283691874!3d21.0156489850177!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454aad5fd2a59%3A0x73fac596a4383d9e!2zQ8O0bmcgdHkgY-G7lSBwaOG6p24gVOG6rXAgxJBvw6BuIEMuRS5P!5e0!3m2!1svi!2sus!4v1780907326239!5m2!1svi!2sus" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
       <div class="branch-card">
@@ -434,7 +450,7 @@
           <p><strong>Website:</strong> xevipsanbaycamranh.com</p>
         </div>
         <div class="branch-map-wrap">
-          <iframe class="branch-map" title="Bản đồ chi nhánh Xe VIP Sân Bay - TP. Hồ Chí Minh" src="https://www.google.com/maps?q=159+%C4%90%C6%B0%E1%BB%9Dng+%C4%90i%E1%BB%87n+Bi%C3%AAn+Ph%E1%BB%A7,+Gia+%C4%90%E1%BB%8Bnh,+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh&output=embed&hl=vi" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe class="branch-map" title="Bản đồ chi nhánh Xe VIP Sân Bay - TP. Hồ Chí Minh" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.398!2d106.7038845!3d10.7978357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b710baaaab%3A0xfe88b419428c891!2sHUD+Building!5e0!3m2!1svi!2s!4v1755000000000!5m2!1svi!2s" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>

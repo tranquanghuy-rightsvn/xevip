@@ -90,15 +90,15 @@ function pad(n) {
   return n < 10 ? '0' + n : String(n);
 }
 
+// Ngày Đi vẫn là input[type=date] gốc của trình duyệt — chỉ set min/value mặc
+// định là hôm nay. Giờ Đi tự set giá trị mặc định riêng bên trong
+// setupTimePicker() (đã đổi sang kiểu cuộn chọn, xem hàm đó).
 function initDateDefault() {
   const dateInputs = document.querySelectorAll('.input-trip-date');
-  const timeInputs = document.querySelectorAll('.input-trip-time');
-  if (!dateInputs.length && !timeInputs.length) return;
+  if (!dateInputs.length) return;
   const now = new Date();
   const dateValue = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-  const timeValue = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  dateInputs.forEach((i) => { i.value = dateValue; });
-  timeInputs.forEach((i) => { i.value = timeValue; });
+  dateInputs.forEach((i) => { i.min = dateValue; i.value = dateValue; });
 }
 
 // Ghép ngày (yyyy-mm-dd) + giờ (HH:mm) của widget thành chuỗi hiển thị dd/mm/yyyy HH:mm
@@ -265,6 +265,192 @@ function reportAirportNotSelected(bookingForm, select) {
   select.setCustomValidity('');
 }
 
+// Giờ đi và ngày đi cộng lại phải sau thời điểm hiện tại — báo lỗi qua
+// setCustomValidity trên chính hidden input .input-trip-time để trình duyệt
+// tự chặn submit và hiện bubble, giống getDepartureValidationMessage của
+// xevipsanbay/html/index.html.
+function validateDepartureNotPast(widget) {
+  const dateInput = widget.querySelector('.input-trip-date');
+  const timeInput = widget.querySelector('.input-trip-time');
+  if (!dateInput || !timeInput || !dateInput.value || !timeInput.value) return;
+  const dt = new Date(`${dateInput.value}T${timeInput.value}`);
+  const invalid = Number.isNaN(dt.getTime()) || dt <= new Date();
+  timeInput.setCustomValidity(invalid ? 'Ngày đi và giờ đi phải sau thời điểm hiện tại!' : '');
+}
+
+// Time picker kiểu Ant Design (cuộn chọn giờ/phút, click để chọn và tự đóng)
+// — port 1:1 cơ chế chọn từ xevipsanbay/html/index.html. Chỉ khác là dùng
+// class/querySelector theo widget thay vì id cố định để không đụng logic
+// initBookingWidget áp cho nhiều widget hiện có.
+function setupTimePicker(widget) {
+  const picker = widget.querySelector('.ant-time-picker');
+  if (!picker) return;
+  const trigger = picker.querySelector('.ant-time-picker-trigger');
+  const dropdown = picker.querySelector('.ant-time-picker-dropdown');
+  const hourCol = picker.querySelector('.ant-time-picker-hour');
+  const minuteCol = picker.querySelector('.ant-time-picker-minute');
+  const hiddenInput = picker.querySelector('.input-trip-time');
+  const display = trigger.querySelector('.ant-time-picker-value');
+  if (!trigger || !dropdown || !hourCol || !minuteCol || !hiddenInput || !display) return;
+
+  let hour = null;
+  let minute = null;
+  const highlight = document.createElement('div');
+  highlight.className = 'ant-time-picker-highlight';
+  dropdown.appendChild(highlight);
+
+  for (let h = 0; h < 24; h++) {
+    const v = pad(h);
+    const item = document.createElement('div');
+    item.className = 'ant-time-picker-item';
+    item.dataset.value = v;
+    item.textContent = v;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hour = v;
+      updateSelectedClasses();
+      updateDisplay();
+      commitValue();
+      close();
+    });
+    hourCol.appendChild(item);
+  }
+  for (let m = 0; m < 60; m++) {
+    const v = pad(m);
+    const item = document.createElement('div');
+    item.className = 'ant-time-picker-item';
+    item.dataset.value = v;
+    item.textContent = v;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      minute = v;
+      updateSelectedClasses();
+      updateDisplay();
+      commitValue();
+      close();
+    });
+    minuteCol.appendChild(item);
+  }
+
+  const defaultTime = new Date(Date.now() + 10 * 60 * 1000);
+  hour = pad(defaultTime.getHours());
+  minute = pad(defaultTime.getMinutes());
+  updateDisplay();
+  commitValue();
+  updateSelectedClasses();
+
+  function updateDisplay() {
+    if (hour && minute) {
+      display.textContent = `${hour}:${minute}`;
+      display.classList.add('has-value');
+    } else {
+      display.textContent = 'Chọn giờ';
+      display.classList.remove('has-value');
+    }
+  }
+
+  function commitValue() {
+    hiddenInput.value = hour && minute ? `${hour}:${minute}` : '';
+    hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+    hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  function updateSelectedClasses() {
+    hourCol.querySelectorAll('.ant-time-picker-item').forEach((el) => {
+      el.classList.toggle('selected', el.dataset.value === hour);
+    });
+    minuteCol.querySelectorAll('.ant-time-picker-item').forEach((el) => {
+      el.classList.toggle('selected', el.dataset.value === minute);
+    });
+  }
+
+  function nearestItemToCenter(col) {
+    const rect = col.getBoundingClientRect();
+    const centerY = rect.top + rect.height / 2;
+    let closest = null;
+    let minDist = Infinity;
+    col.querySelectorAll('.ant-time-picker-item').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const dist = Math.abs(r.top + r.height / 2 - centerY);
+      if (dist < minDist) { minDist = dist; closest = el; }
+    });
+    return minDist < 80 ? closest : null;
+  }
+
+  let scrollTimer = null;
+  function handleColumnScroll(col, isHour) {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const item = nearestItemToCenter(col);
+      if (!item) return;
+      if (isHour) hour = item.dataset.value; else minute = item.dataset.value;
+      updateSelectedClasses();
+      updateDisplay();
+      commitValue();
+    }, 100);
+  }
+  hourCol.addEventListener('scroll', () => handleColumnScroll(hourCol, true));
+  minuteCol.addEventListener('scroll', () => handleColumnScroll(minuteCol, false));
+
+  function positionHighlight() {
+    const rect = dropdown.getBoundingClientRect();
+    const centerY = rect.top + rect.height / 2;
+    highlight.style.top = `${centerY - 18}px`;
+    highlight.style.left = `${rect.left + 4}px`;
+    highlight.style.width = `${rect.width - 8}px`;
+    highlight.style.height = '36px';
+  }
+  function positionDropdown() {
+    const rect = trigger.getBoundingClientRect();
+    dropdown.style.top = `${rect.bottom + 4}px`;
+    dropdown.style.left = `${rect.left}px`;
+    dropdown.style.width = `${rect.width}px`;
+    dropdown.style.position = 'fixed';
+  }
+  const onWindowScrollOrResize = () => { positionDropdown(); positionHighlight(); };
+
+  function open() {
+    if (dropdown.parentElement !== document.body) document.body.appendChild(dropdown);
+    positionDropdown();
+    dropdown.classList.add('open');
+    trigger.classList.add('open');
+    positionHighlight();
+    hourCol.addEventListener('scroll', positionHighlight);
+    minuteCol.addEventListener('scroll', positionHighlight);
+    window.addEventListener('scroll', onWindowScrollOrResize, true);
+    window.addEventListener('resize', onWindowScrollOrResize);
+    requestAnimationFrame(() => {
+      const selHour = hourCol.querySelector('.selected');
+      const selMinute = minuteCol.querySelector('.selected');
+      selHour?.scrollIntoView({ block: 'center', behavior: 'auto' });
+      selMinute?.scrollIntoView({ block: 'center', behavior: 'auto' });
+    });
+  }
+  function close() {
+    dropdown.classList.remove('open');
+    trigger.classList.remove('open');
+    hourCol.removeEventListener('scroll', positionHighlight);
+    minuteCol.removeEventListener('scroll', positionHighlight);
+    window.removeEventListener('scroll', onWindowScrollOrResize, true);
+    window.removeEventListener('resize', onWindowScrollOrResize);
+  }
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.contains('open') ? close() : open();
+  });
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dropdown.classList.contains('open') ? close() : open(); }
+    if (e.key === 'Escape') close();
+  });
+  document.addEventListener('click', (e) => {
+    if (!picker.contains(e.target) && !dropdown.contains(e.target)) close();
+  });
+
+  hiddenInput.addEventListener('change', () => validateDepartureNotPast(widget));
+  widget.querySelector('.input-trip-date')?.addEventListener('change', () => validateDepartureNotPast(widget));
+}
+
 function formatVnd(amount) {
   return amount.toLocaleString('vi-VN') + 'đ';
 }
@@ -317,6 +503,7 @@ function reportAddressNotSelected(bookingForm, input) {
 }
 
 function setupBookingWidget(widget) {
+  setupTimePicker(widget);
   const airportTab = widget.querySelector('.tab-airport');
   const roadTab = widget.querySelector('.tab-road');
   const startAirport = widget.querySelector('.start-point-airport');
