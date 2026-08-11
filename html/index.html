@@ -183,42 +183,7 @@
     <div class="pricing-container">
         <h2 class="pricing-title">Bảng Giá Sân Bay</h2>
         <div class="pricing-tabs" id="priceTabs" role="tablist"><button type="button" role="tab" data-key="noibai" class="active"><span class="pricing-tab-name">SÂN BAY NỘI BÀI</span></button><button type="button" role="tab" data-key="phubai"><span class="pricing-tab-name">SÂN BAY PHÚ BÀI</span></button><button type="button" role="tab" data-key="danang"><span class="pricing-tab-name">SÂN BAY ĐÀ NẴNG</span></button><button type="button" role="tab" data-key="camranh"><span class="pricing-tab-name">SÂN BAY CAM RANH</span></button><button type="button" role="tab" data-key="phucat"><span class="pricing-tab-name">SÂN BAY PHÙ CÁT</span></button><button type="button" role="tab" data-key="longthanh"><span class="pricing-tab-name">SÂN BAY LONG THÀNH</span></button><button type="button" role="tab" data-key="tansonnhat"><span class="pricing-tab-name">SÂN BAY TÂN SƠN NHẤT</span></button><button type="button" role="tab" data-key="lienkhuong"><span class="pricing-tab-name">SÂN BAY LIÊN KHƯƠNG</span></button><button type="button" role="tab" data-key="phuquoc"><span class="pricing-tab-name">SÂN BAY PHÚ QUỐC</span></button><button type="button" role="tab" data-key="cantho"><span class="pricing-tab-name">SÂN BAY CẦN THƠ</span></button></div>
-        <div class="pricing-table-wrapper" id="priceTableContainer">
-        <table class="pricing-table" role="table" aria-label="Bảng giá SÂN BAY NỘI BÀI">
-            <thead>
-                <tr>
-                    <th>Điểm đến</th><th>Xe 4 chỗ</th><th>Xe 5 chỗ</th><th>Xe 7 chỗ</th><th>Xe 16 chỗ</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td class="destination"><span class="pricing-route"><span class="pricing-route-point">Hà Nội</span><span class="pricing-route-arrow" aria-label="đến">➜</span><span class="pricing-route-point">Nội Bài</span></span></td>
-                    <td class="price">Từ 170.000đ</td>
-
-                    <td class="price">Từ 180.000đ</td>
-
-                    <td class="price">Từ 220.000đ</td>
-
-                    <td class="price">Từ 330.000đ</td>
-                </tr><tr><td class="destination"><span class="pricing-route"><span class="pricing-route-point">Nội Bài</span><span class="pricing-route-arrow" aria-label="đến">➜</span><span class="pricing-route-point">Hà Nội</span></span></td>
-                    <td class="price">Từ 180.000đ</td>
-
-                    <td class="price">Từ 190.000đ</td>
-
-                    <td class="price">Từ 240.000đ</td>
-
-                    <td class="price">Từ 430.000đ</td>
-                </tr><tr><td class="destination">Hai chiều (trong ngày)</td>
-                    <td class="price">Từ 360.000đ</td>
-
-                    <td class="price">Từ 370.000đ</td>
-
-                    <td class="price">Từ 410.000đ</td>
-
-                    <td class="price">Từ 650.000đ</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="pricing-table-wrapper" id="priceTableContainer"></div>
     </div>
 </section>
 
@@ -538,7 +503,13 @@
       <span class="confirm-price-cartype">Chưa chọn loại xe</span>
       <span class="confirm-price-amount"></span>
     </div>
-    <p class="price-unavailable-note" hidden>Giá xe ở địa chỉ này chưa được cập nhật chúng tôi sẽ liên hệ và báo giá.</p>
+    <div class="price-notice" hidden>
+      <div class="price-notice-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span class="price-notice-title-text"></span>
+      </div>
+      <p class="price-notice-body"></p>
+    </div>
     <form id="finalBookingForm" class="confirm-form">
       <div class="confirm-form-grid">
         <div class="confirm-field">

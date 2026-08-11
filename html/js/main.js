@@ -455,19 +455,28 @@ function formatVnd(amount) {
   return amount.toLocaleString('vi-VN') + 'đ';
 }
 
-const RATE_LIMIT_NOTE = 'Hệ thống đang bận, vui lòng thử kiểm tra giá lại sau ít phút.';
-const DEFAULT_UNAVAILABLE_NOTE = 'Giá xe ở địa chỉ này chưa được cập nhật chúng tôi sẽ liên hệ và báo giá.';
+const RATE_LIMIT_TITLE = 'Hệ thống đang bận, vui lòng thử kiểm tra giá lại sau ít phút.';
+const UNAVAILABLE_TITLE_HTML = 'Chưa có bảng giá cho khu vực này - Liên hệ : <a href="tel:19009144">1900 9144</a>';
+const UNAVAILABLE_BODY = 'Vui lòng để lại thông tin, chúng tôi sẽ liên hệ báo giá sớm nhất.';
 
 function updateModalPricing(modal, carTypeLabel, price, rateLimited) {
   const cartypeEl = modal.querySelector('.confirm-price-cartype');
   const amountEl = modal.querySelector('.confirm-price-amount');
-  const note = modal.querySelector('.price-unavailable-note');
+  const notice = modal.querySelector('.price-notice');
+  const noticeTitle = modal.querySelector('.price-notice-title-text');
+  const noticeBody = modal.querySelector('.price-notice-body');
 
   if (cartypeEl) cartypeEl.textContent = carTypeLabel || 'Chưa chọn loại xe';
   if (amountEl) amountEl.textContent = price ? formatVnd(price) : '';
-  if (note) {
-    note.textContent = rateLimited ? RATE_LIMIT_NOTE : DEFAULT_UNAVAILABLE_NOTE;
-    note.hidden = !carTypeLabel || !!price;
+  if (notice && noticeTitle && noticeBody) {
+    if (rateLimited) {
+      noticeTitle.textContent = RATE_LIMIT_TITLE;
+      noticeBody.textContent = '';
+    } else {
+      noticeTitle.innerHTML = UNAVAILABLE_TITLE_HTML;
+      noticeBody.textContent = UNAVAILABLE_BODY;
+    }
+    notice.hidden = !carTypeLabel || !!price;
   }
 }
 
@@ -734,6 +743,14 @@ document.addEventListener('click', (e) => {
 // mỗi sân bay khác nhau tuỳ loại xe họ phục vụ: 2 cột = Xe 4 chỗ/Xe 7 chỗ,
 // 3 cột = Xe 4 chỗ/Xe 7 chỗ/Xe 16 chỗ.
 const AIRPORT_PRICING = {
+  noibai: {
+    columns: ['Xe 4 chỗ', 'Xe 5 chỗ', 'Xe 7 chỗ', 'Xe 16 chỗ'],
+    rows: [
+      { from: 'Hà Nội', to: 'Nội Bài', arrow: '➜', prices: ['Từ 170.000đ', 'Từ 180.000đ', 'Từ 220.000đ', 'Từ 330.000đ'] },
+      { from: 'Nội Bài', to: 'Hà Nội', arrow: '➜', prices: ['Từ 180.000đ', 'Từ 190.000đ', 'Từ 240.000đ', 'Từ 430.000đ'] },
+      { label: 'Hai chiều (trong ngày)', prices: ['Từ 360.000đ', 'Từ 370.000đ', 'Từ 410.000đ', 'Từ 650.000đ'] },
+    ],
+  },
   phubai: {
     columns: ['Xe 4 chỗ', 'Xe 7 chỗ'],
     rows: [
@@ -840,26 +857,49 @@ const AIRPORT_PRICING = {
   },
 };
 
+function pricingDestinationCell(row) {
+  return row.label
+    ? row.label
+    : '<span class="pricing-route"><span class="pricing-route-point">' + row.from +
+      '</span><span class="pricing-route-arrow" aria-label="đến">' + row.arrow +
+      '</span><span class="pricing-route-point">' + row.to + '</span></span>';
+}
+
+// Trả về cả bảng rộng nhiều cột (desktop) và bộ bảng nhỏ tách riêng theo mỗi
+// loại xe (mobile) từ CÙNG một nguồn dữ liệu — CSS chỉ ẩn/hiện cái phù hợp
+// theo breakpoint, tránh phải cuộn ngang bảng nhiều cột trên màn hình nhỏ.
 function renderPricingTable(airportKey, airportName) {
   const data = AIRPORT_PRICING[airportKey];
   if (!data) return '';
+
   const headCells = data.columns.map((c) => '<th>' + c + '</th>').join('');
   const bodyRows = data.rows
     .map((row) => {
-      const destCell = row.label
-        ? row.label
-        : '<span class="pricing-route"><span class="pricing-route-point">' + row.from +
-          '</span><span class="pricing-route-arrow" aria-label="đến">' + row.arrow +
-          '</span><span class="pricing-route-point">' + row.to + '</span></span>';
       const priceCells = row.prices.map((p) => '<td class="price">' + p + '</td>').join('');
-      return '<tr><td class="destination">' + destCell + '</td>' + priceCells + '</tr>';
+      return '<tr><td class="destination">' + pricingDestinationCell(row) + '</td>' + priceCells + '</tr>';
     })
     .join('');
-  return (
+  const wideTable =
     '<table class="pricing-table" role="table" aria-label="Bảng giá ' + airportName + '">' +
     '<thead><tr><th>Điểm đến</th>' + headCells + '</tr></thead>' +
-    '<tbody>' + bodyRows + '</tbody></table>'
-  );
+    '<tbody>' + bodyRows + '</tbody></table>';
+
+  const cardGroups = data.columns
+    .map((col, colIndex) => {
+      const rows = data.rows
+        .map((row) => '<tr><td class="destination">' + pricingDestinationCell(row) + '</td><td class="price">' + row.prices[colIndex] + '</td></tr>')
+        .join('');
+      return (
+        '<div class="pricing-card-group">' +
+        '<h3 class="pricing-card-group-title">' + col + '</h3>' +
+        '<table class="pricing-mini-table" role="table" aria-label="Bảng giá ' + airportName + ' - ' + col + '">' +
+        '<tbody>' + rows + '</tbody></table></div>'
+      );
+    })
+    .join('');
+  const cards = '<div class="pricing-cards">' + cardGroups + '</div>';
+
+  return wideTable + cards;
 }
 
 function initPricingTabs() {
@@ -869,8 +909,10 @@ function initPricingTabs() {
 
   const tabs = tabsWrap.querySelectorAll('button[role="tab"]');
   const activeTab = tabsWrap.querySelector('button.active') || tabs[0];
-  const dataByKey = {};
-  if (activeTab) dataByKey[activeTab.dataset.key] = container.innerHTML;
+  if (activeTab) {
+    const airportName = activeTab.querySelector('.pricing-tab-name')?.textContent || '';
+    container.innerHTML = renderPricingTable(activeTab.dataset.key, airportName);
+  }
 
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
@@ -884,9 +926,7 @@ function initPricingTabs() {
 
       const key = tab.dataset.key;
       const airportName = tab.querySelector('.pricing-tab-name')?.textContent || '';
-      if (dataByKey[key]) {
-        container.innerHTML = dataByKey[key];
-      } else if (AIRPORT_PRICING[key]) {
+      if (AIRPORT_PRICING[key]) {
         container.innerHTML = renderPricingTable(key, airportName);
       } else {
         container.innerHTML =
