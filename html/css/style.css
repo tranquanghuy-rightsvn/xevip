@@ -1705,7 +1705,7 @@ body.nav-open .site-header {
 .page-title-banner {
   background: linear-gradient(rgba(20,20,20,0.75), rgba(20,20,20,0.75)),
     repeating-linear-gradient(135deg, #333 0 2px, #2b2b2b 2px 40px);
-  padding: 60px 0;
+  padding: 60px 20px;
   text-align: center;
 }
 .page-title-banner h1 {
@@ -1724,7 +1724,8 @@ body.nav-open .site-header {
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 50px;
-  padding: 60px 0;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 .main-col article h2 {
   font-size: 24px;
