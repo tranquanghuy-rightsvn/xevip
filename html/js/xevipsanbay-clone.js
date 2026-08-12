@@ -3,11 +3,24 @@
  * Source: https://xevipsanbay.com/script.min.js?v=20260710-video-fs
  * Fetched: 2026-08-12
  *
- * This is the verbatim logic (unminified/renamed only for readability of control flow,
- * no behavior changed) that drives the ".compact-mobile-form" markup: address autocomplete
- * (native <select> overlay appended to <body> — the key detail that keeps long suggestion
- * text from ever affecting the form's layout width), the time picker, trip-mode tab
- * switching, the pickup/destination swap, and vehicle-type population.
+ * UPDATE: the address-autocomplete suggestion box and the time picker used to be this
+ * file's own reimplementation (a native <select> overlay appended to <body> for
+ * suggestions, and a hand-rolled scroll picker). On real Android hardware the block
+ * below still overflowed while the site's own production form (same page, above this
+ * one) did not — and both forms hit the exact same CORS-restricted backend for address
+ * suggestions (see xevip-api.js), so it isn't a "real API works here, not there" story.
+ * Rather than guess further, this now calls the PRODUCTION form's own, already-hardened
+ * code directly: window.setupTimePicker (main.js) and the XevipAddressAutocomplete module
+ * (xevip-address-autocomplete.js) — the same functions running the top form. The two
+ * mobile address inputs got the `.place-autocomplete-input` class + a sibling
+ * `<ul class="address-suggestions">` in the HTML so that shared module's own
+ * querySelectorAll('.place-autocomplete-input') picks them up automatically; the time
+ * inputs got `.ant-time-picker-hour` / `.ant-time-picker-minute` / `.input-trip-time` /
+ * `.input-trip-date` alongside their existing ids/classes for the same reason. Only the
+ * trip-mode-tab switching, pickup/destination swap, and vehicle-type population below
+ * are still this file's own — they don't share any markup shape with the top form (row-
+ * swap vs. inline-field-mode toggle), so reusing main.js's version for those would mean
+ * rebuilding this form's HTML to match the top one, which is a separate, bigger change.
  *
  * Deliberately NOT copied (out of scope for the layout bug being tested, and each one
  * touches something outside this form on the host page, which we must not disturb):
@@ -61,31 +74,12 @@
     if (mobileBtn) mobileBtn.textContent = mobileLabel;
   }
 
-  function formatDateToInputValue(d) {
-    var y = d.getFullYear();
-    var m = String(d.getMonth() + 1).padStart(2, "0");
-    var day = String(d.getDate()).padStart(2, "0");
-    return y + "-" + m + "-" + day;
-  }
-
-  function formatTimeToInputValue(d) {
-    var h = String(d.getHours()).padStart(2, "0");
-    var m = String(d.getMinutes()).padStart(2, "0");
-    return h + ":" + m;
-  }
-
   function isValid24HourTime(v) {
     if (!/^\d{2}:\d{2}$/.test(String(v || ""))) return false;
     var parts = v.split(":");
     var h = Number(parts[0]);
     var m = Number(parts[1]);
     return Number.isInteger(h) && Number.isInteger(m) && h >= 0 && h <= 23 && m >= 0 && m <= 59;
-  }
-
-  function getFutureDepartureDateTime(minutesAhead) {
-    minutesAhead = minutesAhead === undefined ? 10 : minutesAhead;
-    var d = new Date(Date.now() + minutesAhead * 60 * 1000);
-    return { date: formatDateToInputValue(d), time: formatTimeToInputValue(d) };
   }
 
   function getDepartureValidationMessage(dateStr, timeStr) {
@@ -234,18 +228,6 @@
     return { airportId: "", airportName: "" };
   }
 
-  function getSelectedAddressObject(el) {
-    if (!el) return {};
-    var raw = el.dataset && el.dataset.place;
-    if (!raw) return {};
-    try {
-      return JSON.parse(raw);
-    } catch (err) {
-      console.error("Không đọc được địa chỉ đã chọn:", err);
-      return {};
-    }
-  }
-
   function applyBookingMode(mode, isMobile) {
     updateSubmitButtonLabels(mode);
     var pickupSelects = document.getElementById(isMobile ? "pickupSelectsMobile" : "pickupSelects");
@@ -310,16 +292,20 @@
     var destAirportSelect = document.getElementById("destinationAirportMobileSelect");
     if (!pickupInput || !destInput || !pickupAirport || !destAirport) return;
 
+    // Selected-address bookkeeping now goes through the shared
+    // XevipAddressAutocomplete module (used by the top form's own swap
+    // logic too) instead of a home-grown dataset.place convention.
+    var addrApi = window.XevipAddressAutocomplete;
     if (isFromAirportMobile) {
       if (pickupAirportSelect && destAirportSelect) {
         destAirportSelect.value = pickupAirportSelect.value;
         syncAirportSelectUi(destAirportSelect);
       }
+      var destAddr = addrApi && addrApi.getSelectedAddress(destInput);
       pickupInput.value = destInput.value || "";
-      if (destInput.dataset.place) pickupInput.dataset.place = destInput.dataset.place;
-      else delete pickupInput.dataset.place;
+      if (addrApi) addrApi.setSelectedAddress(pickupInput, destAddr);
       destInput.value = "";
-      delete destInput.dataset.place;
+      if (addrApi) addrApi.clearSelectedAddress(destInput);
       setMobilePickupFieldMode(false);
       setMobileDestinationFieldMode(true);
       isFromAirportMobile = false;
@@ -328,309 +314,15 @@
         pickupAirportSelect.value = destAirportSelect.value;
         syncAirportSelectUi(pickupAirportSelect);
       }
+      var pickupAddr = addrApi && addrApi.getSelectedAddress(pickupInput);
       destInput.value = pickupInput.value || "";
-      if (pickupInput.dataset.place) destInput.dataset.place = pickupInput.dataset.place;
-      else delete destInput.dataset.place;
+      if (addrApi) addrApi.setSelectedAddress(destInput, pickupAddr);
       pickupInput.value = "";
-      delete pickupInput.dataset.place;
+      if (addrApi) addrApi.clearSelectedAddress(pickupInput);
       setMobilePickupFieldMode(true);
       setMobileDestinationFieldMode(false);
       isFromAirportMobile = true;
     }
-  }
-
-  function debounce(fn, wait) {
-    wait = wait === undefined ? 700 : wait;
-    var timer;
-    return function () {
-      var args = arguments;
-      var self = this;
-      clearTimeout(timer);
-      timer = setTimeout(function () { fn.apply(self, args); }, wait);
-    };
-  }
-
-  async function fetchAutocompleteSuggestions(query) {
-    if (!query) return [];
-    try {
-      var url = HOST_URL + "/v1/goong-map/autocomplete?input=" + encodeURIComponent(query) + "&has_deprecated_administrative_unit=true";
-      var res = await fetch(url, { method: "GET" });
-      if (!res.ok) {
-        console.error("API response not ok:", res.status, res.statusText);
-        return [];
-      }
-      var data = await res.json();
-      return data.predictions || (data.data && data.data.predictions) || [];
-    } catch (err) {
-      return [];
-    }
-  }
-
-  // Key layout-safety detail from the source site: the suggestion list is a native
-  // <select size="5">, absolutely positioned and appended to <body> — i.e. it lives
-  // OUTSIDE the form's flex/grid tree entirely, so no amount of suggestion text can
-  // ever push on the form's width. Kept 1:1, including the same element choice.
-  function ensureSuggestionBox(input) {
-    var box = input._suggestionBox;
-    if (box && document.body.contains(box)) return box;
-    box = document.createElement("select");
-    box.className = "places-suggestions";
-    box.id = (input.id || "address") + "-suggestions";
-    box.name = (input.name || input.id || "address") + "Suggestions";
-    box.setAttribute("aria-label", "Gợi ý địa chỉ");
-    box.setAttribute("autocomplete", "off");
-    box.size = 5;
-    box.style.position = "absolute";
-    box.style.zIndex = "9999";
-    box.style.background = "#fff";
-    box.style.border = "1px solid #ddd";
-    box.style.boxShadow = "0 2px 6px rgba(0,0,0,0.12)";
-    box.style.maxHeight = "240px";
-    box.style.overflowY = "auto";
-    box.style.width = Math.max(240, input.offsetWidth) + "px";
-    box.style.display = "none";
-    box.style.padding = "4px 0";
-    document.body.appendChild(box);
-    input._suggestionBox = box;
-
-    function reposition() {
-      var rect = input.getBoundingClientRect();
-      box.style.left = window.pageXOffset + rect.left + "px";
-      box.style.top = window.pageYOffset + rect.bottom + "px";
-      box.style.width = rect.width + "px";
-    }
-    window.addEventListener("resize", reposition);
-    window.addEventListener("scroll", reposition, true);
-    return box;
-  }
-
-  function attachAutocomplete(inputId) {
-    var input = document.getElementById(inputId);
-    if (!input) return;
-    var box = ensureSuggestionBox(input);
-
-    function renderSuggestions(predictions) {
-      box.innerHTML = "";
-      if (!predictions || predictions.length === 0) {
-        box.style.display = "none";
-        return;
-      }
-      predictions.forEach(function (p) {
-        var option = document.createElement("option");
-        option.className = "places-suggestion-item";
-        option.value = p.description || "";
-        var mainText = p.structured_formatting && p.structured_formatting.main_text;
-        var secondaryText = p.structured_formatting && p.structured_formatting.secondary_text;
-        var label = p.description || ((mainText || "") + (secondaryText ? ", " + secondaryText : "")) || "";
-        option.textContent = label;
-        option.dataset.place = JSON.stringify(p);
-        box.appendChild(option);
-      });
-      var rect = input.getBoundingClientRect();
-      box.style.left = window.pageXOffset + rect.left + "px";
-      box.style.top = window.pageYOffset + rect.bottom + "px";
-      box.style.width = rect.width + "px";
-      box.style.display = "block";
-    }
-
-    var onInput = debounce(async function () {
-      var query = input.value.trim();
-      if (!query) {
-        box.style.display = "none";
-        delete input.dataset.place;
-        return;
-      }
-      try {
-        var predictions = await fetchAutocompleteSuggestions(query);
-        renderSuggestions(predictions);
-      } catch (err) {
-        console.error("Autocomplete error:", err);
-        box.style.display = "none";
-      }
-    }, 700);
-
-    input.addEventListener("input", onInput);
-    input.addEventListener("focus", onInput);
-
-    box.addEventListener("change", function () {
-      var selected = box.selectedOptions[0];
-      if (!selected) return;
-      var place = selected.dataset.place ? JSON.parse(selected.dataset.place) : null;
-      var value = selected.value || selected.textContent || "";
-      input.value = value;
-      if (place) input.dataset.place = JSON.stringify(place);
-      box.style.display = "none";
-      input.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-
-    document.addEventListener("click", function (evt) {
-      if (evt.target !== input && !box.contains(evt.target)) box.style.display = "none";
-    });
-  }
-
-  function initMobileTimePicker(cfg) {
-    var trigger = document.getElementById(cfg.triggerId);
-    var hourCol = document.getElementById(cfg.hourColId);
-    var minuteCol = document.getElementById(cfg.minuteColId);
-    var hiddenInput = document.getElementById(cfg.hiddenId);
-    var display = document.getElementById(cfg.displayId);
-    var dropdown = document.getElementById(cfg.dropdownId);
-    if (!trigger || !hourCol || !minuteCol || !hiddenInput || !display || !dropdown) return;
-
-    var selectedHour = null;
-    var selectedMinute = null;
-    var highlight = document.createElement("div");
-    highlight.className = "ant-time-picker-highlight";
-    dropdown.appendChild(highlight);
-
-    for (var h = 0; h < 24; h++) {
-      var hv = String(h).padStart(2, "0");
-      var hItem = document.createElement("div");
-      hItem.className = "ant-time-picker-item";
-      hItem.dataset.value = hv;
-      hItem.textContent = hv;
-      hItem.addEventListener("click", function (evt) {
-        evt.stopPropagation();
-        selectedHour = evt.currentTarget.dataset.value;
-        markSelected();
-        updateDisplay();
-        emitChange();
-        closeDropdown();
-      });
-      hourCol.appendChild(hItem);
-    }
-    for (var m = 0; m < 60; m++) {
-      var mv = String(m).padStart(2, "0");
-      var mItem = document.createElement("div");
-      mItem.className = "ant-time-picker-item";
-      mItem.dataset.value = mv;
-      mItem.textContent = mv;
-      mItem.addEventListener("click", function (evt) {
-        evt.stopPropagation();
-        selectedMinute = evt.currentTarget.dataset.value;
-        markSelected();
-        updateDisplay();
-        emitChange();
-        closeDropdown();
-      });
-      minuteCol.appendChild(mItem);
-    }
-
-    var defaultTime = new Date(Date.now() + 600 * 1000);
-    selectedHour = String(defaultTime.getHours()).padStart(2, "0");
-    selectedMinute = String(defaultTime.getMinutes()).padStart(2, "0");
-    updateDisplay();
-    emitChange();
-    markSelected();
-
-    var scrollTimer = null;
-
-    function closestItem(col) {
-      var rect = col.getBoundingClientRect();
-      var center = rect.top + rect.height / 2;
-      var best = null;
-      var bestDist = Infinity;
-      col.querySelectorAll(".ant-time-picker-item").forEach(function (item) {
-        var itemRect = item.getBoundingClientRect();
-        var itemCenter = itemRect.top + itemRect.height / 2;
-        var dist = Math.abs(itemCenter - center);
-        if (dist < bestDist) { bestDist = dist; best = item; }
-      });
-      return bestDist < 80 ? best : null;
-    }
-
-    function onColumnScroll(col, isHour) {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(function () {
-        var item = closestItem(col);
-        if (!item) return;
-        if (isHour) selectedHour = item.dataset.value;
-        else selectedMinute = item.dataset.value;
-        markSelected();
-        updateDisplay();
-      }, 100);
-    }
-    hourCol.addEventListener("scroll", function () { onColumnScroll(hourCol, true); });
-    minuteCol.addEventListener("scroll", function () { onColumnScroll(minuteCol, false); });
-
-    function positionHighlight() {
-      var rect = dropdown.getBoundingClientRect();
-      var centerY = rect.top + rect.height / 2;
-      highlight.style.top = centerY - 18 + "px";
-      highlight.style.left = rect.left + 4 + "px";
-      highlight.style.width = rect.width - 8 + "px";
-      highlight.style.height = "36px";
-    }
-
-    function updateDisplay() {
-      if (selectedHour && selectedMinute) {
-        display.textContent = selectedHour + ":" + selectedMinute;
-        display.classList.add("has-value");
-      } else {
-        display.textContent = "Chọn giờ";
-        display.classList.remove("has-value");
-      }
-    }
-
-    function emitChange() {
-      hiddenInput.value = selectedHour && selectedMinute ? selectedHour + ":" + selectedMinute : "";
-      hiddenInput.dispatchEvent(new Event("change", { bubbles: true }));
-      hiddenInput.dispatchEvent(new Event("input", { bubbles: true }));
-    }
-
-    function markSelected() {
-      hourCol.querySelectorAll(".ant-time-picker-item").forEach(function (item) {
-        item.classList.toggle("selected", item.dataset.value === selectedHour);
-      });
-      minuteCol.querySelectorAll(".ant-time-picker-item").forEach(function (item) {
-        item.classList.toggle("selected", item.dataset.value === selectedMinute);
-      });
-    }
-
-    function positionDropdown() {
-      var rect = trigger.getBoundingClientRect();
-      dropdown.style.top = rect.bottom + 4 + "px";
-      dropdown.style.left = rect.left + "px";
-      dropdown.style.width = rect.width + "px";
-      dropdown.style.position = "fixed";
-    }
-
-    function onReposition() { positionDropdown(); positionHighlight(); }
-
-    function openDropdown() {
-      if (dropdown.parentElement !== document.body) document.body.appendChild(dropdown);
-      positionDropdown();
-      dropdown.classList.add("open");
-      positionHighlight();
-      hourCol.addEventListener("scroll", positionHighlight);
-      minuteCol.addEventListener("scroll", positionHighlight);
-      window.addEventListener("scroll", onReposition, true);
-      window.addEventListener("resize", onReposition);
-      requestAnimationFrame(function () {
-        var hSel = hourCol.querySelector(".selected");
-        var mSel = minuteCol.querySelector(".selected");
-        if (hSel) hSel.scrollIntoView({ block: "center", behavior: "auto" });
-        if (mSel) mSel.scrollIntoView({ block: "center", behavior: "auto" });
-      });
-    }
-
-    function closeDropdown() {
-      dropdown.classList.remove("open");
-      hourCol.removeEventListener("scroll", positionHighlight);
-      minuteCol.removeEventListener("scroll", positionHighlight);
-      window.removeEventListener("scroll", onReposition, true);
-      window.removeEventListener("resize", onReposition);
-    }
-
-    trigger.addEventListener("click", function (evt) {
-      evt.stopPropagation();
-      if (dropdown.classList.contains("open")) closeDropdown();
-      else openDropdown();
-    });
-    document.addEventListener("click", function (evt) {
-      var picker = document.getElementById(cfg.pickerId);
-      if (picker && !picker.contains(evt.target)) closeDropdown();
-    });
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -645,8 +337,11 @@
       destinationSelectsMobile.querySelectorAll("select").forEach(function (s) { s.disabled = true; });
     }
 
-    attachAutocomplete("pickupAddressMobile");
-    attachAutocomplete("destinationAddressMobile");
+    // Address autocomplete for #pickupAddressMobile/#destinationAddressMobile is wired
+    // automatically by xevip-address-autocomplete.js's own DOMContentLoaded handler
+    // (it queries every .place-autocomplete-input on the page, ours included, and
+    // renders into the sibling <ul class="address-suggestions"> already in the HTML)
+    // — nothing to call here.
 
     var tripModeTabsMobile = document.getElementById("tripModeTabsMobile");
     if (tripModeTabsMobile) {
@@ -667,20 +362,13 @@
     populateVehicleTypeSelects();
     loadAirportData();
 
-    initMobileTimePicker({
-      pickerId: "timeMobilePicker",
-      triggerId: "timeMobileTrigger",
-      hourColId: "timeMobileHourCol",
-      minuteColId: "timeMobileMinuteCol",
-      hiddenId: "timeMobile",
-      displayId: "timeMobileDisplay",
-      dropdownId: "timeMobileDropdown"
-    });
-
-    var dateMobileInput = document.getElementById("dateMobile");
-    if (dateMobileInput) {
-      dateMobileInput.setAttribute("min", formatDateToInputValue(new Date()));
-      dateMobileInput.value = getFutureDepartureDateTime().date;
+    // Time picker: same window.setupTimePicker(widget) main.js uses for the top form's
+    // own .ant-time-picker, pointed at this form instead of writing a second one here.
+    // (main.js's initDateDefault() already set #dateMobile's min/value via its new
+    // .input-trip-date class, so there's nothing left to do for the date field either.)
+    var mobileBookingFormEl = document.getElementById("mobileBookingForm");
+    if (mobileBookingFormEl && typeof window.setupTimePicker === "function") {
+      window.setupTimePicker(mobileBookingFormEl);
     }
   });
 
