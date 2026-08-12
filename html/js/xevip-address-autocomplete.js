@@ -68,6 +68,32 @@
         })
         .join("");
       list.hidden = false;
+      clampListToViewport();
+    }
+
+    // CSS (max-width:100%, overflow-x:hidden, word-break:break-all) is supposed to
+    // keep this dropdown inside the screen on its own, but real Android browsers
+    // have been seen to still let a long suggestion push the page wider than the
+    // viewport while the on-screen keyboard is open. Re-measure right after
+    // rendering and shrink/close as a hard backstop so this can never leave the
+    // page stuck wider than the screen — CSS is the primary defense, this is
+    // just insurance for whatever CSS alone didn't catch on that device.
+    function clampListToViewport() {
+      requestAnimationFrame(function () {
+        if (list.hidden) return;
+        var rect = list.getBoundingClientRect();
+        var viewportWidth = document.documentElement.clientWidth;
+        var overflowRight = rect.right - viewportWidth;
+        if (overflowRight > 0) {
+          list.style.maxWidth = Math.max(0, rect.width - overflowRight - 4) + "px";
+        }
+        if (document.documentElement.scrollWidth > viewportWidth) {
+          // Still wider than the screen even after shrinking — something else in
+          // this dropdown escaped the clamp. Close it rather than leave the page
+          // stuck overflowed; the user can keep typing to try again.
+          closeList();
+        }
+      });
     }
 
     function selectItem(item) {

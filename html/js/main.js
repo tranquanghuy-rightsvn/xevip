@@ -11,7 +11,25 @@ document.addEventListener('DOMContentLoaded', () => {
   populateAirportSelects();
   initPricingTabs();
   initVideoShowcase();
+  initHorizontalOverflowGuard();
 });
+
+/* ---------------------------------------------------------------- */
+// Lưới an toàn toàn trang: dù CSS overflow-x:hidden đã đặt trên html/body,
+// một số máy Android thật vẫn để trang bị đẩy rộng hơn màn hình lúc gõ địa
+// chỉ dài (bàn phím ảo mở) và KẸT LUÔN ở trạng thái đó — cuộn ngang bị lệch,
+// không tự về lại được, phải tải lại trang mới hết. Theo dõi liên tục và ép
+// cuộn ngang về 0 ngay khi phát hiện, để trang tự sửa mà không cần reload.
+function initHorizontalOverflowGuard() {
+  function snapBack() {
+    if (window.scrollX !== 0) window.scrollTo(0, window.scrollY);
+  }
+  window.addEventListener('scroll', snapBack, { passive: true });
+  window.addEventListener('resize', snapBack);
+  document.addEventListener('input', snapBack, true);
+  document.addEventListener('focusin', snapBack, true);
+  snapBack();
+}
 
 /* ---------------------------------------------------------------- */
 function initLogoEntrance() {
