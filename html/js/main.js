@@ -482,7 +482,7 @@ function updateModalPricing(modal, carTypeLabel, price, rateLimited) {
 
 function populateConfirmSummary(widget, modal, carTypeLabel, endValue, startValue) {
   const dateValue = getTripDateTimeDisplay(widget);
-  const isRoundtrip = widget.querySelector('#roundtrip')?.checked;
+  const isRoundtrip = widget.querySelector('.roundtrip-checkbox')?.checked;
   const tripType = isRoundtrip ? 'Chuyến 2 chiều' : 'Chuyến 1 chiều';
 
   const startEl = modal.querySelector('.confirm-start');
@@ -609,7 +609,7 @@ function setupBookingWidget(widget) {
       const isAirportTab = !airportTab || airportTab.classList.contains('active');
       const carTypeValue = carTypeSelect ? carTypeSelect.value : '';
       const carTypeLabel = carTypeSelect?.selectedOptions[0]?.textContent || '';
-      const isRoundTrip = !!widget.querySelector('#roundtrip')?.checked;
+      const isRoundTrip = !!widget.querySelector('.roundtrip-checkbox')?.checked;
       const timeAt = getTripDateTimeIso(widget);
 
       let tripType, startValue, endValue, checkPayload, registerAddresses;
