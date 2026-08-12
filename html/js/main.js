@@ -484,6 +484,7 @@ const UNAVAILABLE_TITLE_HTML = 'Chưa có bảng giá cho khu vực này - Liên
 const UNAVAILABLE_BODY = 'Vui lòng để lại thông tin, chúng tôi sẽ liên hệ báo giá sớm nhất.';
 
 function updateModalPricing(modal, carTypeLabel, price, rateLimited) {
+  const priceBox = modal.querySelector('.confirm-price-box');
   const cartypeEl = modal.querySelector('.confirm-price-cartype');
   const amountEl = modal.querySelector('.confirm-price-amount');
   const notice = modal.querySelector('.price-notice');
@@ -492,6 +493,9 @@ function updateModalPricing(modal, carTypeLabel, price, rateLimited) {
 
   if (cartypeEl) cartypeEl.textContent = carTypeLabel || 'Chưa chọn loại xe';
   if (amountEl) amountEl.textContent = price ? formatVnd(price) : '';
+  // Không có giá thì ẩn luôn ô giá: lúc đó nó chỉ còn trơ tên loại xe, mà thông
+  // tin này đã có ở dòng "Loại:" trong .confirm-summary phía trên.
+  if (priceBox) priceBox.hidden = !price;
   if (notice && noticeTitle && noticeBody) {
     if (rateLimited) {
       noticeTitle.textContent = RATE_LIMIT_TITLE;

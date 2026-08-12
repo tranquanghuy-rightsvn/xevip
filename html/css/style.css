@@ -157,12 +157,18 @@ p {
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
+/* Header trải rộng hơn phần thân trang: nới max-width và giảm padding ngang so
+   với .container mặc định (1170px / 0 20px) để logo và nút hotline nằm gần 2
+   mép màn hình hơn. Hai rule cùng độ ưu tiên nhưng .header-inner đứng sau
+   .container trong file nên ghi đè được. */
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: var(--header-height);
   transition: height 0.25s ease;
+  max-width: 1600px;
+  padding: 0 16px;
 }
 
 .site-header.is-stuck .header-inner {
@@ -236,7 +242,7 @@ p {
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 10px 14px;
+  padding: 10px 10px;
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 15px;
@@ -551,11 +557,17 @@ body.nav-open .site-header {
   border-color: var(--color-primary);
 }
 
+/* Nhãn ("Điểm Đi *"/"Điểm Đến *") nằm CÙNG HÀNG với ô nhập.
+   Layout ngang này từng bị đổi sang xếp dọc (commit 279c77d) vì nghi là nguyên
+   nhân tràn viền trên Android; nguyên nhân thật sau đó đã tìm ra và xử lý ở chỗ
+   khác (overflow-x: clip cho html/body + đưa con trỏ về đầu ô sau khi chọn gợi
+   ý), nên trả lại được. Vẫn giữ đủ chốt chống tràn: min-width: 0 ở cả hàng và
+   .input-wrap là BẮT BUỘC, vì flex item mặc định có min-width: auto nên không
+   co nhỏ hơn nội dung — đúng cái bẫy gây tràn ngang khi địa chỉ dài. */
 .booking-form .form-row {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 6px;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 10px;
   min-width: 0;
   max-width: 100%;
@@ -568,8 +580,17 @@ body.nav-open .site-header {
   font-size: 16px;
   font-weight: 600;
 }
+/* Chỉ nhắm nhãn của hàng Điểm Đi/Điểm Đến — không đụng nhãn Ngày Đi/Giờ Đi
+   trong .date-time-row hay nhãn checkbox "Chuyến 2 chiều". Bề rộng cố định để
+   ô nhập của 2 hàng thẳng nhau. */
+.booking-form .form-row > label {
+  flex: 0 0 96px;
+  white-space: nowrap;
+}
+/* flex: 1 1 0 (basis 0) để ô nhập lấy đúng phần còn lại sau nhãn, không bị nội
+   dung bên trong đẩy rộng ra. */
 .booking-form .input-wrap {
-  width: 100%;
+  flex: 1 1 0;
   max-width: 100%;
   min-width: 0;
   position: relative;
@@ -924,6 +945,10 @@ body.nav-open .site-header {
   padding: 14px 18px;
   margin-bottom: 16px;
 }
+/* Bắt buộc, cùng lý do như .price-notice[hidden]: `display: flex` ở trên là
+   style của tác giả nên nó đè lên `[hidden] { display: none }` của trình duyệt,
+   khiến JS set .hidden = true mà ô vẫn hiện. */
+.confirm-price-box[hidden] { display: none; }
 .confirm-price-cartype {
   font-size: 18px;
   font-weight: 700;
@@ -954,6 +979,13 @@ body.nav-open .site-header {
   padding: 12px 14px;
   margin: 0 0 16px;
 }
+/* Bắt buộc phải có: `display: block` ở trên là style của tác giả nên nó ĐÈ LÊN
+   rule `[hidden] { display: none }` của trình duyệt (author style thắng UA
+   style). Hậu quả: JS đã set notice.hidden = true khi tìm được giá, nhưng khối
+   này vẫn hiện, làm khách thấy "Chưa có bảng giá cho khu vực này" ngay cả với
+   địa điểm CÓ giá. Selector class + attribute có độ ưu tiên cao hơn nên thắng.
+   Cùng cách xử lý đã dùng cho .address-suggestions[hidden] bên trên. */
+.price-notice[hidden] { display: none; }
 .price-notice-title {
   display: flex;
   align-items: center;
@@ -996,7 +1028,10 @@ body.nav-open .site-header {
   border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 12px 14px;
-  font-size: 15px;
+  /* KHÔNG hạ xuống dưới 16px: iOS Safari tự zoom cả trang khi focus vào input
+     có cỡ chữ nhỏ hơn 16px, gây giật/lệch layout đúng kiểu đã phải xử lý ở form
+     chính. Form chính cũng dùng 16px vì lý do này. */
+  font-size: 16px;
   font-family: var(--font-body);
   resize: vertical;
 }
@@ -1931,7 +1966,8 @@ body.nav-open .site-header {
   border-radius: 8px;
   padding: 13px 16px;
   font-family: var(--font-body);
-  font-size: 15px;
+  /* Không hạ dưới 16px — xem ghi chú ở .confirm-field input (iOS tự zoom). */
+  font-size: 16px;
   margin-bottom: 16px;
 }
 .contact-form textarea { min-height: 130px; resize: vertical; }
@@ -1994,8 +2030,12 @@ body.nav-open .site-header {
   .hotline-btn { display: none; }
   .nav-toggle { display: flex; }
 
-  .hero-inner { flex-direction: column; }
-  .hero-text { padding: 40px 0 0; text-align: center; }
+  /* Kéo tiêu đề lên: khoảng trống phía trên nó còn 1/2 (40px -> 20px).
+     Kéo form lên: gap giữa tiêu đề và form còn 2/3 (40px -> 26px) — gap này
+     kế thừa từ .hero-inner gốc, ở mobile chỉ đổi hướng thành cột nên nó trở
+     thành khoảng cách dọc giữa 2 khối. */
+  .hero-inner { flex-direction: column; gap: 26px; }
+  .hero-text { padding: 20px 0 0; text-align: center; }
   .hero-text h1 { font-size: 30px; }
   .booking-widget { width: 100%; margin-bottom: 30px; }
   .hero-slide { background-image: url('../images/hero-bg-1024x439.jpg'); }
@@ -2022,10 +2062,36 @@ body.nav-open .site-header {
 
 @media (max-width: 700px) {
   .hero-slide { background-image: url('../images/hero-bg-640x274.jpg'); }
+  /* Trên điện thoại form vốn bị thụt vào tới 46px mỗi bên: 20px padding của
+     .container (mà .hero-inner đang dùng) + 26px padding của chính form. Giảm
+     cả hai, giữ 8px ở .hero-inner làm khoảng cách ra lề (cũng đủ chỗ cho
+     box-shadow của form không bị cắt cụt ở rìa màn hình). */
+  .hero-inner { padding: 0 8px; }
+  .booking-widget { margin-bottom: 14px; padding: 12px 8px 10px; }
   .booking-row-2 { grid-template-columns: 1fr; }
   .booking-row-2.date-time-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
   .date-time-row .form-group label { font-size: 16px; }
   .ant-time-picker-trigger { padding: 8px 8px; font-size: 16px; }
+
+  /* Popup báo giá (#priceModal) — trước đây không có override nào cho mobile nên
+     vẫn dùng nguyên số của desktop: lề 2 bên là TỔNG 20px (.modal-overlay) +
+     30px (.modal-box) = 50px mỗi bên, rất chật trên điện thoại. Giảm cả 2 lớp
+     và bóp padding/margin của từng khối con bên trong. */
+  .modal-overlay { padding: 16px; }
+  .modal-box { padding: 16px 12px; border-radius: 8px; }
+  .confirm-header { margin-bottom: 12px; }
+  .confirm-title { font-size: 20px; }
+  .confirm-summary { padding: 12px; margin-bottom: 10px; }
+  .confirm-summary p { margin-bottom: 8px; }
+  .confirm-price-box { padding: 10px 12px; margin-bottom: 10px; }
+  .price-notice { padding: 10px 12px; margin-bottom: 10px; }
+  .confirm-form-grid { gap: 10px; margin-bottom: 10px; }
+  .confirm-field { margin-bottom: 10px; }
+  .confirm-field label { margin-bottom: 4px; }
+  .confirm-field input,
+  .confirm-field textarea { padding: 9px 10px; }
+  .confirm-submit-btn { padding: 12px; }
+
   .services-row { grid-template-columns: 1fr 1fr; }
   .service-item { border-right: none; border-bottom: 1px dashed var(--color-border); }
   .fare-grid { grid-template-columns: 1fr 1fr; }
