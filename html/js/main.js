@@ -15,16 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ---------------------------------------------------------------- */
-// Lưới an toàn toàn trang: dù CSS overflow-x:hidden đã đặt trên html/body,
-// một số máy Android thật vẫn để trang bị đẩy rộng hơn màn hình lúc gõ địa
-// chỉ dài (bàn phím ảo mở) và KẸT LUÔN ở trạng thái đó — cuộn ngang bị lệch,
-// không tự về lại được, phải tải lại trang mới hết. Theo dõi liên tục và ép
-// cuộn ngang về 0 ngay khi phát hiện, để trang tự sửa mà không cần reload.
+// Lưới an toàn cuối: bản trước của hàm này CHỈ kiểm tra window.scrollX và gọi
+// window.scrollTo — vô dụng đúng trong tình huống đang lỗi, vì phần tử bị cuộn
+// lệch là chính <body> (do overflow-x:hidden khiến nó thành scroll container):
+// khi body cuộn, window.scrollX vẫn bằng 0 và window.scrollTo không chạm tới
+// nó. Nay reset trực tiếp scrollLeft trên documentElement + body. Sự kiện
+// 'scroll' của phần tử không bubble nên phải bắt ở pha capture mới nhận được
+// scroll phát ra từ body.
+// Chỉ là phòng tuyến cuối: fix chính là overflow-x:clip trong style.css và
+// việc đưa con trỏ về đầu ô input trong xevip-address-autocomplete.js.
 function initHorizontalOverflowGuard() {
   function snapBack() {
     if (window.scrollX !== 0) window.scrollTo(0, window.scrollY);
+    if (document.documentElement.scrollLeft !== 0) document.documentElement.scrollLeft = 0;
+    if (document.body.scrollLeft !== 0) document.body.scrollLeft = 0;
   }
-  window.addEventListener('scroll', snapBack, { passive: true });
+  document.addEventListener('scroll', snapBack, true);
   window.addEventListener('resize', snapBack);
   document.addEventListener('input', snapBack, true);
   document.addEventListener('focusin', snapBack, true);

@@ -24,9 +24,23 @@
   box-sizing: border-box;
 }
 
+/* overflow-x: clip (KHÔNG phải hidden) là điểm khác biệt quyết định so với
+   xevipsanbay.com — họ dùng clip nên không bị lỗi này, ta dùng hidden nên bị:
+   - `hidden` biến phần tử thành scroll container: KHÔNG có thanh cuộn và ngón
+     tay không kéo lại được, NHƯNG trình duyệt vẫn cuộn nó được bằng code. Trên
+     Android, khi chọn 1 gợi ý địa chỉ dài, con trỏ nhảy tới cuối đoạn text nên
+     Chrome tự cuộn ngang các ancestor để "lộ" con trỏ ra → body bị cuộn lệch và
+     người dùng KHÔNG THỂ kéo về, phải tải lại trang (đúng hiện tượng đang gặp).
+   - `clip` chỉ cắt, không tạo scroll container → không cuộn được kể cả bằng
+     code, nên không thể bị kẹt.
+   Ngoài ra `overflow-x: hidden` + `overflow-y: visible` bị spec ép overflow-y
+   thành `auto`, tức body thành scroll container cả 2 chiều; với `clip` thì
+   overflow-y giữ nguyên `visible`.
+   Giữ dòng `hidden` phía trước làm fallback cho trình duyệt cũ chưa hiểu clip. */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
 }
 
@@ -38,6 +52,7 @@ body {
   line-height: 1.6;
   background: #fff;
   overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
   width: 100%;
   position: relative;

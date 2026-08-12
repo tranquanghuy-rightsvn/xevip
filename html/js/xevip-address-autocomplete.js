@@ -98,6 +98,20 @@
 
     function selectItem(item) {
       input.value = item.description || "";
+      // Handler mousedown bên dưới gọi preventDefault() nên focus VẪN nằm ở
+      // input này. Vừa gán 1 địa chỉ dài ("Bến xe Nước Ngầm, Phường Hoàng
+      // Liệt, ...") thì con trỏ nhảy về CUỐI đoạn text, nằm ngoài khung input
+      // → Android Chrome tự cuộn ngang mọi ancestor cuộn được để "lộ" con trỏ,
+      // làm cả trang bị đẩy lệch. Đưa con trỏ về đầu và reset cuộn nội bộ của
+      // input ngay tại đây để không còn gì nằm ngoài khung cần cuộn tới.
+      // (xevipsanbay không gặp vì lúc họ gán giá trị, focus đang ở thẻ <select>
+      // gợi ý chứ không ở ô text, nên ô text không có con trỏ.)
+      try {
+        input.setSelectionRange(0, 0);
+      } catch (err) {
+        /* setSelectionRange không áp dụng cho vài loại input — bỏ qua */
+      }
+      input.scrollLeft = 0;
       selectedAddressByInput.set(input, item);
       closeList();
     }
