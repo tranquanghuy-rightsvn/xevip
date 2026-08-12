@@ -524,8 +524,8 @@ body.nav-open .site-header {
 .booking-widget .hotline-line {
   text-align: center;
   font-weight: 700;
-  color: var(--color-alert);
-  font-size: 18px;
+  color: var(--color-primary);
+  font-size: 28px;
   margin-bottom: 16px;
 }
 .booking-widget .hotline-line a { color: inherit; }
