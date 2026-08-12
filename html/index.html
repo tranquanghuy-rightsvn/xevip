@@ -22,7 +22,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Fira+Sans+Condensed:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"TaxiService","@id":"https://xevipsanbay.com/#organization","name":"Xe VIP Sân Bay","alternateName":"Công ty TNHH Đầu Tư Thăng Long Global","url":"https://xevipsanbay.com/","logo":"https://xevipsanbay.com/images/logo.png","image":"https://xevipsanbay.com/images/xevipsanbay-banner2.jpeg","telephone":"+84-1900-9144","email":"xevipsanbay86@gmail.com","priceRange":"$$","areaServed":"VN","sameAs":["https://www.facebook.com/profile.php?id=61569742115236","https://zalo.me/4394992068447532874"],"address":{"@type":"PostalAddress","streetAddress":"Tầng 10, Tòa nhà CEO, Lô HH2-1, Khu đô thị Mễ Trì Hạ, Đường Phạm Hùng, Phường Từ Liêm","addressLocality":"Hà Nội","addressCountry":"VN"},"department":[{"@type":"TaxiService","name":"Xe VIP Sân Bay - Chi nhánh TP. Hồ Chí Minh","telephone":"+84-1900-9144","address":{"@type":"PostalAddress","streetAddress":"159 Đường Điện Biên Phủ, Phường Gia Định","addressLocality":"Thành phố Hồ Chí Minh","addressCountry":"VN"}}]}</script>
+<link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TaxiService","@id":"https://xevipsanbay.com/#organization","name":"Xe VIP Sân Bay","alternateName":"Công ty TNHH Đầu Tư Thăng Long Global","url":"https://xevipsanbay.com/","logo":"https://xevipsanbay.com/images/logo.png","image":"https://xevipsanbay.com/images/xevipsanbay-banner2.jpeg","telephone":"+84-1900-9144","email":"xevipsanbay86@gmail.com","priceRange":"$$","areaServed":"VN","sameAs":["https://www.facebook.com/profile.php?id=61569742115236","https://zalo.me/4394992068447532874"],"address":{"@type":"PostalAddress","streetAddress":"Tầng 10, Tòa nhà CEO, Lô HH2-1, Khu đô thị Mễ Trì Hạ, Đường Phạm Hùng, Phường Từ Liêm","addressLocality":"Hà Nội","addressCountry":"VN"},"department":[{"@type":"TaxiService","name":"Xe VIP Sân Bay - Chi nhánh TP. Hồ Chí Minh","telephone":"+84-1900-9144","address":{"@type":"PostalAddress","streetAddress":"159 Đường Điện Biên Phủ, Phường Gia Định","addressLocality":"Thành phố Hồ Chí Minh","addressCountry":"VN"}}]}</script>
 </head>
 <body>
 
@@ -147,109 +148,6 @@
           <div class="form-group">
             <label for="tripDate">Ngày Đi *</label>
             <input type="date" id="tripDate" class="input-trip-date" required>
-          </div>
-          <div class="form-group">
-            <label>Giờ Đi *</label>
-            <div class="ant-time-picker">
-              <div class="ant-time-picker-trigger" tabindex="0" role="combobox" aria-label="Chọn giờ">
-                <span class="ant-time-picker-value">Chọn giờ</span>
-                <span class="ant-time-picker-suffix">🕐</span>
-              </div>
-              <div class="ant-time-picker-dropdown">
-                <div class="ant-time-picker-column ant-time-picker-hour"></div>
-                <div class="ant-time-picker-column ant-time-picker-minute"></div>
-              </div>
-              <input type="hidden" class="input-trip-time" required>
-            </div>
-          </div>
-        </div>
-        <div class="booking-row-2 booking-row-2--single">
-          <select class="select-car-type" required>
-            <option value="">Chọn loại xe</option>
-            <option value="4_SEAT" selected>Xe 4 chỗ</option>
-            <option value="5_SEAT">Xe 5 chỗ</option>
-            <option value="7_SEAT">Xe 7 chỗ</option>
-            <option value="16_SEAT">Xe 16 chỗ</option>
-          </select>
-        </div>
-        <button class="booking-submit" type="submit">💰 Kiểm Tra Giá</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!--
-  ================================================================
-  [TEST] Bản sao HTML/CSS y hệt form đặt xe phía trên (banner), để so sánh.
-  Không viết CSS/JS riêng — dùng lại đúng class/markup của form gốc nên tự
-  động được main.js (initBookingWidget quét mọi .booking-widget) và
-  style.css (đã qua các lần vá lỗi tràn viền) xử lý giống 100% form trên,
-  không có nguy cơ lệch hành vi giữa 2 bản như trước. Xoá cả khối
-  <section id="booking-widget-test">...</section> này khi không cần so
-  sánh nữa — không còn phụ thuộc file css/js riêng nào để dọn theo.
-  ================================================================
--->
-<section class="section" id="booking-widget-test">
-  <div class="container" style="max-width: 480px;">
-    <p style="text-align:center;font-size:13px;color:#8a8a8a;margin:0 0 12px;">🧪 Form thử nghiệm — bản sao y hệt form đặt xe phía trên</p>
-    <div class="booking-widget" style="margin: 0 auto;">
-      <div class="hotline-line"><a href="tel:19009144">📞 1900 9144</a></div>
-      <div class="booking-tabs">
-        <button class="tab-airport active">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 16v-2l-8.5-5V3.5a1.5 1.5 0 0 0-3 0V9L2 14v2l8.5-2.5V19L8 20.5V22l4-1 4 1v-1.5L13.5 19v-5.5z"/></svg>
-          Đi sân bay
-        </button>
-        <button class="tab-road">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21 9 3M20 21 15 3M9 15h6"/></svg>
-          Đi đường dài
-        </button>
-      </div>
-      <form class="booking-form">
-        <div class="form-row start-point-airport">
-          <label>Điểm Đi *</label>
-          <div class="input-wrap">
-            <input type="text" class="input-location-search place-autocomplete-input" placeholder="Nhập địa chỉ cụ thể..." autocomplete="off" required>
-            <ul class="address-suggestions" hidden></ul>
-            <select class="start-point-select airport-select" required hidden disabled>
-              <option value="">Đang tải danh sách sân bay...</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row start-point-road" hidden>
-          <label>Điểm Đi *</label>
-          <div class="input-wrap">
-            <input type="text" class="input-start-point place-autocomplete-input" placeholder="Nhập địa chỉ cụ thể..." autocomplete="off" required disabled>
-            <ul class="address-suggestions" hidden></ul>
-          </div>
-        </div>
-        <div class="form-row destination-point-airport">
-          <label>Điểm Đến *</label>
-          <div class="input-wrap">
-            <select class="end-point-select airport-select" required>
-              <option value="">Đang tải danh sách sân bay...</option>
-            </select>
-            <input type="text" class="destination-address-input place-autocomplete-input" placeholder="Nhập địa chỉ cụ thể..." autocomplete="off" required hidden disabled>
-            <ul class="address-suggestions" hidden></ul>
-          </div>
-        </div>
-        <div class="form-row destination-point-road" hidden>
-          <label>Điểm Đến *</label>
-          <div class="input-wrap">
-            <input type="text" class="end-point-input place-autocomplete-input" placeholder="Nhập địa chỉ cụ thể..." autocomplete="off" required disabled>
-            <ul class="address-suggestions" hidden></ul>
-          </div>
-        </div>
-        <div class="booking-checks">
-          <span class="check-item"><input type="checkbox" class="roundtrip-checkbox" id="roundtripTest"><label for="roundtripTest">Chuyến 2 chiều</label></span>
-          <button class="swap-btn" type="button">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg>
-            Đảo chiều
-          </button>
-        </div>
-        <div class="booking-row-2 date-time-row">
-          <div class="form-group">
-            <label for="tripDateTest">Ngày Đi *</label>
-            <input type="date" id="tripDateTest" class="input-trip-date" required>
           </div>
           <div class="form-group">
             <label>Giờ Đi *</label>
