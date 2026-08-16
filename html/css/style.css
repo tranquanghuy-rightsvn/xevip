@@ -1255,13 +1255,13 @@ body.nav-open .site-header {
   background: #f0f0f0;
   color: #000;
   border-radius: 8px;
-  padding: 10px 16px;
+  padding: 6px 10px;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 .pricing-tab-name {
-  font-weight: 400;
+  font-weight: 700;
 }
 .pricing-tabs button:hover { background: #e6e6e6; }
 .pricing-tabs button.active {
