@@ -1256,10 +1256,12 @@ body.nav-open .site-header {
   color: #000;
   border-radius: 8px;
   padding: 10px 16px;
-  font-weight: 700;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+.pricing-tab-name {
+  font-weight: 400;
 }
 .pricing-tabs button:hover { background: #e6e6e6; }
 .pricing-tabs button.active {
