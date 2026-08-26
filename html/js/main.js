@@ -88,21 +88,24 @@ function initMobileNav() {
     toggle.setAttribute('aria-expanded', 'true');
     document.body.classList.add('nav-open');
   };
-  const drawerItem = drawer.querySelector('.drawer-item');
-  const parentLink = drawer.querySelector('.drawer-parent-link');
   const close = () => {
     drawer.classList.remove('open');
     toggle.classList.remove('is-active');
     toggle.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('nav-open');
-    drawerItem?.classList.remove('open');
-    parentLink?.setAttribute('aria-expanded', 'false');
+    drawer.querySelectorAll('.drawer-item.open').forEach((item) => item.classList.remove('open'));
+    drawer.querySelectorAll('.drawer-parent-link').forEach((link) => link.setAttribute('aria-expanded', 'false'));
   };
   toggle.addEventListener('click', () => (isOpen() ? close() : open()));
   drawer.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
-  parentLink?.addEventListener('click', () => {
-    const expanded = drawerItem.classList.toggle('open');
-    parentLink.setAttribute('aria-expanded', String(expanded));
+  // querySelectorAll thay vì querySelector đơn lẻ — hỗ trợ nhiều cấp
+  // drawer-item lồng nhau (vd tầng 3 danh sách sân bay trong tầng 2 Dịch vụ).
+  drawer.querySelectorAll('.drawer-parent-link').forEach((parentLink) => {
+    const item = parentLink.closest('.drawer-item');
+    parentLink.addEventListener('click', () => {
+      const expanded = item.classList.toggle('open');
+      parentLink.setAttribute('aria-expanded', String(expanded));
+    });
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen()) close();
