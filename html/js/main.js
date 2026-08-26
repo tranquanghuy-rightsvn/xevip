@@ -98,6 +98,10 @@ function initMobileNav() {
   };
   toggle.addEventListener('click', () => (isOpen() ? close() : open()));
   drawer.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
+  // Desktop: các link menu cha để href="#" chỉ để toggle submenu, không redirect
+  document.querySelectorAll('.main-nav a[href="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => e.preventDefault());
+  });
   // querySelectorAll thay vì querySelector đơn lẻ — hỗ trợ nhiều cấp
   // drawer-item lồng nhau (vd tầng 3 danh sách sân bay trong tầng 2 Dịch vụ).
   drawer.querySelectorAll('.drawer-parent-link').forEach((parentLink) => {

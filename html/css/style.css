@@ -333,6 +333,12 @@ p {
   padding: 9px 12px;
   font-size: 14px;
 }
+/* Top-level "DỊCH VỤ XE SÂN BAY" — airport-menu là sub-menu trực tiếp, không phải tầng 3 lồng trong has-airport-menu */
+.main-nav > li > .airport-menu {
+  top: 100%;
+  left: 0;
+  margin-left: 0;
+}
 
 .airport-links-grid {
   display: grid;
@@ -425,7 +431,7 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: safe center;
   gap: 6px;
   padding: 110px 24px 60px;
   opacity: 0;
@@ -478,7 +484,9 @@ p {
   flex-shrink: 0;
   transition: transform 0.25s ease;
 }
-.drawer-item.open .drawer-chevron {
+.drawer-item.open > .drawer-parent-link .drawer-chevron,
+.drawer-item.open > .drawer-parent-row .drawer-chevron,
+.drawer-item.open > .drawer-top-link-row .drawer-chevron {
   transform: rotate(180deg);
 }
 .drawer-submenu {
@@ -486,7 +494,10 @@ p {
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.3s ease;
 }
-.drawer-item.open .drawer-submenu {
+/* Dùng combinator con trực tiếp (>) — nếu để descendant selector thường,
+   mở tầng 2 (Dịch vụ) sẽ ép luôn submenu tầng 3 (danh sách sân bay) lồng
+   bên trong mở theo, khiến tầng 3 không bao giờ đóng lại được. */
+.drawer-item.open > .drawer-submenu {
   grid-template-rows: 1fr;
 }
 .drawer-submenu-inner {
@@ -519,6 +530,28 @@ p {
 .drawer-parent-row .drawer-parent-link {
   width: auto;
   padding: 10px 6px;
+}
+.drawer-top-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+.drawer-top-link-row > a {
+  display: block;
+  padding: 14px 0;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  color: inherit;
+  flex: 1;
+  min-width: 0;
+}
+.drawer-top-link-row .drawer-parent-link {
+  width: auto;
+  flex-shrink: 0;
+  padding: 14px 8px;
 }
 .drawer-item-nested .drawer-submenu-inner {
   padding-left: 16px;
