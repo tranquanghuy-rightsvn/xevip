@@ -191,6 +191,37 @@ function normalizeForSearch(str) {
     .replace(/đ/g, 'd');
 }
 
+// ---------------- Tên sân bay: xử lý dữ liệu gõ sai ----------------
+// Vài tên trong /v1/airports/all bị gõ sai chính tả. Bảng này ánh xạ tên SAI (đang lưu trong
+// hệ thống) sang tên ĐÚNG mà người dùng và Google Maps thật sự dùng.
+//
+// ⚠️ Dùng CHUNG cho 2 chỗ, thiếu 1 chỗ là lỗi ngay: (a) ô gõ-tìm trong danh sách sân bay,
+// (b) nhận diện sân bay từ địa chỉ Google để tự đảo chiều. Bug thật đã gặp: ban đầu chỉ áp
+// cho (b), nên gõ đúng chính tả "pleiku" vào ô chọn sân bay lại KHÔNG tìm thấy gì - danh sách
+// chỉ có "sân bay pleku".
+//
+// Chỉ THÊM lựa chọn khớp chứ không thay thế tên hiển thị, nên khi nào API sửa lại tên cho
+// đúng thì mọi thứ vẫn chạy bình thường, không phải gỡ bảng này ra.
+const AIRPORT_NAME_ALIASES = {
+  'pleku': ['pleiku'],
+  'buon ma thuat': ['buon ma thuot'],
+};
+
+/** Mọi chuỗi có thể dùng để nhận ra 1 sân bay: tên đầy đủ, phần tên riêng (bỏ tiền tố
+ * "sân bay"/"cảng hàng không"...), và các tên thay thế cho trường hợp gõ sai. */
+function airportMatchTerms(name) {
+  const full = normalizeForSearch(String(name || '')).replace(/\s+/g, ' ').trim();
+  const core = airportCoreName(name);
+  const terms = [full];
+  if (core && core !== full) terms.push(core);
+  (AIRPORT_NAME_ALIASES[core] || []).forEach((alias) => {
+    terms.push(alias);
+    // Thêm cả dạng đầy đủ đã sửa chính tả để gõ "sân bay pleiku" cũng khớp.
+    if (full !== core) terms.push(full.replace(core, alias));
+  });
+  return terms;
+}
+
 // Biến mỗi <select class="airport-select"> thành ô vừa gõ tìm vừa chọn từ
 // danh sách sân bay: <select> gốc được giữ nguyên trong DOM (ẩn bằng
 // opacity/pointer-events, không display:none) để toàn bộ logic hiện có
@@ -224,7 +255,9 @@ function enhanceAirportSelect(select) {
 
   function renderList(filter) {
     const q = normalizeForSearch(filter || '');
-    const opts = getOptions().filter((o) => !q || normalizeForSearch(o.textContent).includes(q));
+    const opts = getOptions().filter(
+      (o) => !q || airportMatchTerms(o.textContent).some((t) => t.includes(q))
+    );
     list.innerHTML = '';
     if (!opts.length) {
       const li = document.createElement('li');
@@ -292,13 +325,6 @@ function enhanceAirportSelect(select) {
 // Địa chỉ phải chứa 1 trong các từ khoá này thì mới xét tiếp. Đây chính là quy tắc chủ dự
 // án chốt: "có chữ sân bay trong tên".
 const AIRPORT_ADDRESS_KEYWORDS = ['san bay', 'airport', 'cang hang khong'];
-
-// Tên bị gõ sai trong dữ liệu API -> tên Google Maps thật sự dùng. Chỉ THÊM lựa chọn khớp,
-// không thay thế, nên khi nào API sửa lại tên đúng thì cơ chế vẫn chạy bình thường.
-const AIRPORT_NAME_ALIASES = {
-  'pleku': ['pleiku'],
-  'buon ma thuat': ['buon ma thuot'],
-};
 
 function escapeRegExp(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
