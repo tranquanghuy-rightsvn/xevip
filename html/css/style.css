@@ -1188,6 +1188,9 @@ body.nav-open .site-header {
   color: var(--color-text);
   margin: 0 0 20px;
 }
+/* Biến thể LỖI cho cùng khuôn icon trên (dùng ở popup kết quả gửi form Liên hệ) - vòng tròn
+   xanh lá kèm dấu "!" sẽ đọc như báo thành công, sai hẳn ý nghĩa. */
+.booking-success-icon.is-error { background: #c0392b; }
 
 /* ==========================================================================
    Services icons row
@@ -2119,6 +2122,23 @@ body.nav-open .site-header {
   margin-top: 10px;
 }
 .contact-form .form-status.show { display: block; }
+.contact-form .form-status.is-error { color: #c0392b; }
+
+/* Honeypot chống bot — ẩn khỏi mắt người dùng nhưng vẫn nằm trong DOM để bot form-filler tự
+   động điền vào (dấu hiệu nhận biết bot).
+   ⚠️ THIẾU RULE NÀY LÀ HỎNG NGHIỆP VỤ, KHÔNG PHẢI CHỈ XẤU GIAO DIỆN: ô bẫy sẽ hiện ra như
+   một ô nhập bình thường, khách thật (hoặc autofill của trình duyệt) điền vào là server coi
+   như bot và ÂM THẦM BỎ QUA liên hệ đó — mất khách mà không ai biết. Đã xảy ra thật trên
+   production khi rule này bị mất trong một lần merge.
+   Không dùng display:none/hidden vì một số bot cố tình bỏ qua các trường đó. */
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
 
 /* ==========================================================================
    Blog listing page

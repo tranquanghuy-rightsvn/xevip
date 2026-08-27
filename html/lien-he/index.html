@@ -153,6 +153,21 @@
   </div>
 </section>
 
+<!-- Popup báo kết quả gửi form Liên hệ. Dùng đúng khuôn .modal-overlay/.modal-box của
+     modal "Đặt chuyến thành công" ở trang chủ để giao diện đồng nhất; nút đóng mang class
+     .modal-close nên tự hoạt động nhờ handler chung trong js/main.js. -->
+<div class="modal-overlay" id="contactResultModal">
+  <div class="modal-box confirm-box modal-box--success">
+    <div class="confirm-header">
+      <h2 class="confirm-title" id="contactResultTitle">Gửi thành công</h2>
+      <span class="modal-close">&times;</span>
+    </div>
+    <div class="booking-success-icon" id="contactResultIcon" aria-hidden="true">&#10003;</div>
+    <p class="booking-success-message" id="contactResultMessage"></p>
+    <button class="confirm-submit-btn modal-close" type="button">Đóng</button>
+  </div>
+</div>
+
 <footer class="site-footer">
   <div class="container footer-main">
     <div class="footer-about">

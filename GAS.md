@@ -125,14 +125,17 @@
   hiện tại: `your-name`, `your-phone`, `your-message` → map thành `name`, `phone`, `message`.
   KHÔNG thêm field email (form không có), KHÔNG nhận đơn đặt xe (xem mục 0).
 - Honeypot: input ẩn tên `_hp`. Có giá trị → âm thầm trả `{ok:true}`, không lưu, không báo lỗi.
+  ⚠️ Ô này CHỈ ẩn nhờ rule `.hp-field` trong `html/css/style.css`. Mất rule đó là hỏng nghiệp
+  vụ chứ không phải chỉ xấu giao diện — xem mục X.
 - Rate-limit: 20 giây/lần theo số điện thoại (`CacheService`).
 - Gọi từ site tĩnh (domain khác) bằng `fetch()` tới `<GAS_EXEC_URL>` với
   `Content-Type: text/plain;charset=utf-8` để né CORS preflight (GAS không xử lý OPTIONS).
 - Trong Admin: xem danh sách, đổi trạng thái, xoá — **chỉ `admin`/`root`** (mục I.4), `editor`
   không thấy tab này. `status` hợp lệ: `"Mới"` / `"Đã xử lý"`.
-- **Thông báo: gửi EMAIL qua `MailApp` tới `NOTIFY_EMAIL`** (mặc định
-  `xevipsanbay86@gmail.com`) — quyết định của chủ dự án (đã cân nhắc và chọn email thay vì
-  Telegram). ⚠️ Dùng CHUNG quota Gmail 100 mail/ngày với OTP đăng nhập: nếu có ngày lượng liên
+- **Thông báo: gửi EMAIL qua `MailApp` tới `NOTIFY_EMAIL`** — **KHÔNG có địa chỉ mặc định
+  trong code**, chủ dự án tự khai Script Property này (chốt lại 27/08/2026). Chưa khai thì
+  không gửi mail, nhưng liên hệ VẪN được lưu vào Sheet bình thường (`requireCfg_` nằm trong
+  `try` của `sendNotificationEmail_`). ⚠️ Dùng CHUNG quota Gmail 100 mail/ngày với OTP đăng nhập: nếu có ngày lượng liên
   hệ tăng cao chạm mốc đó thì OTP sẽ không gửi được — lúc đó cân nhắc tách tài khoản Gmail
   riêng cho OTP, hoặc chuyển kênh báo sang Telegram. Gửi mail lỗi KHÔNG được làm hỏng việc đã
   lưu vào Sheet (chỉ `Logger.log`).
@@ -265,6 +268,19 @@ khoảng 1–2 phút.
   đầu (chèn ảnh cần slug). Phải xác định bằng "slug đã có trong index chưa".
 - **CI trigger theo `data/**`** → build ở commit dở dang. Chỉ trigger đúng 2 file index tổng.
 - **Sheets tự convert `"YYYY-MM-DD"` thành Date** → luôn `Utilities.formatDate` khi đọc ra.
+- **[ĐÃ GẶP THẬT trên production, 27/08/2026] Gửi form Liên hệ mà không có gì được lưu vào
+  Sheet, cũng không báo lỗi gì** → rule CSS `.hp-field` (ẩn ô honeypot `_hp`) bị mất trong một
+  lần merge lấy `style.css` bản remote. Ô bẫy hiện ra như một ô nhập bình thường ngay dưới
+  "Nội dung"; khách thật hoặc autofill của trình duyệt điền vào là server coi như bot, ÂM THẦM
+  bỏ qua và vẫn trả `{ok:true}` — mất khách mà không ai biết.
+  Cách né: sau MỌI lần merge/đổi `style.css`, kiểm lại
+  `curl -s https://xevipsanbay.com/css/style.css | grep -c hp-field` phải ra khác 0. Bản chất
+  vấn đề: cơ chế honeypot phụ thuộc 1 rule CSS ở file khác — hỏng thì hỏng im lặng, không
+  có lỗi nào để lần ra.
+- **Tưởng "form không lưu được" nhưng thật ra đang mở NHẦM Spreadsheet** → `SPREADSHEET_ID`
+  không phải khai tay (code tự tạo Sheet lần chạy đầu và tự lưu id lại), nên rất dễ không biết
+  dữ liệu nằm ở file nào trong Drive. Tab Liên hệ trong CMS có nút **"⧉ Mở Google Sheet"** trỏ
+  đúng file thật (`getDataSheetUrl`) — dùng nút đó thay vì tự tìm trong Drive.
 - **Đổi `let` → `const` khi dọn code** mà biến còn bị gán lại ở nhánh khác → `TypeError`.
 
 ## XI. Script Properties (Project Settings > Script Properties) — TÊN CỐ ĐỊNH
@@ -273,5 +289,6 @@ khoảng 1–2 phút.
 - `GITHUB_OWNER` — bắt buộc (`tranquanghuy-rightsvn`).
 - `GITHUB_REPO` — bắt buộc (`xevip`).
 - `GITHUB_BRANCH` — bắt buộc (`master`).
-- `NOTIFY_EMAIL` — tuỳ chọn, để trống mặc định `xevipsanbay86@gmail.com`.
+- `NOTIFY_EMAIL` — **bắt buộc nếu muốn nhận mail báo liên hệ**; không có giá trị mặc định
+  trong code. Để trống = không gửi mail (liên hệ vẫn lưu vào Sheet bình thường).
 - `SPREADSHEET_ID` — KHÔNG cần điền, code tự tạo Sheet lần đầu và tự lưu lại.

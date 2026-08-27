@@ -1059,11 +1059,24 @@ function initContactForm() {
   const status = form.querySelector('.form-status');
   const submitBtn = form.querySelector('button[type="submit"]');
 
-  function setStatus(message, isError) {
-    if (!status) return;
-    status.textContent = message;
-    status.classList.toggle('is-error', !!isError);
-    status.classList.add('show');
+  // Báo kết quả bằng POPUP giữa màn hình (giống modal "Đặt chuyến thành công" ở trang chủ),
+  // không phải 1 dòng chữ nhỏ dưới nút bấm - dòng chữ đó rất dễ bị bỏ sót, khách tưởng bấm
+  // hụt rồi gửi lại nhiều lần. Nếu vì lý do gì không tìm thấy modal thì mới rơi về dòng chữ.
+  function showResult(message, isError) {
+    const modal = document.getElementById('contactResultModal');
+    if (!modal) {
+      if (!status) return;
+      status.textContent = message;
+      status.classList.toggle('is-error', !!isError);
+      status.classList.add('show');
+      return;
+    }
+    modal.querySelector('#contactResultTitle').textContent = isError ? 'Gửi chưa thành công' : 'Gửi thành công';
+    modal.querySelector('#contactResultMessage').textContent = message;
+    const icon = modal.querySelector('#contactResultIcon');
+    icon.innerHTML = isError ? '!' : '&#10003;';
+    icon.classList.toggle('is-error', !!isError);
+    modal.classList.add('open');
   }
 
   form.addEventListener('submit', async (e) => {
@@ -1072,7 +1085,7 @@ function initContactForm() {
 
     if (!GAS_EXEC_URL) {
       console.warn('[xevip] GAS_EXEC_URL chưa được cấu hình — liên hệ chưa được gửi đi đâu cả.');
-      setStatus('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.', false);
+      showResult('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.', false);
       form.reset();
       return;
     }
@@ -1101,11 +1114,11 @@ function initContactForm() {
       });
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || 'Gửi không thành công');
-      setStatus('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.', false);
+      showResult('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.', false);
       form.reset();
     } catch (err) {
       console.error('[xevip] Gửi liên hệ thất bại:', err);
-      setStatus('Rất tiếc, gửi chưa thành công. Quý khách vui lòng gọi hotline 1900.9144 giúp em nhé.', true);
+      showResult('Rất tiếc, gửi chưa thành công. Quý khách vui lòng gọi hotline 1900.9144 giúp em nhé.', true);
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
