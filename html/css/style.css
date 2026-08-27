@@ -16,7 +16,6 @@
   --font-heading: "Fira Sans Condensed", sans-serif;
   --container-width: 1170px;
   --header-height: 85px;
-  --header-height-stuck: 70px;
   --radius-pill: 50px;
 }
 
@@ -149,6 +148,17 @@ p {
    Header
    ========================================================================== */
 
+/* Header dính trên đỉnh khi cuộn nhưng GIỮ NGUYÊN KÍCH THƯỚC - cố ý không thu
+   nhỏ (chủ dự án chốt 27/08/2026).
+   Bản trước có cơ chế thêm class .is-stuck để co header 85px -> 70px khi cuộn
+   quá 40px. Nó gây bug giật: header là position:sticky nên chiếm chỗ thật trong
+   trang, co lại 15px thì Chrome tự trừ scrollY đúng 15px (scroll anchoring),
+   scrollY tụt xuống dưới ngưỡng -> bỏ class -> giãn ra -> scrollY vượt ngưỡng
+   -> lặp vô hạn. Chỉ kẹt ở dải hẹp 41-55px nên rất khó tái hiện.
+   Bỏ hẳn cơ chế co giãn thì bug biến mất TẬN GỐC, không cần đi chỉnh ngưỡng.
+   ⚠️ Đừng thêm lại bất cứ thứ gì làm ĐỔI CHIỀU CAO header theo scroll - dính
+   lại đúng bug này. Muốn đổi giao diện lúc cuộn thì chỉ đổi những thứ KHÔNG
+   ảnh hưởng chiều cao (màu nền, đổ bóng...).                                  */
 .site-header {
   position: sticky;
   top: 0;
@@ -157,22 +167,18 @@ p {
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
-/* Header trải rộng hơn phần thân trang: nới max-width và giảm padding ngang so
-   với .container mặc định (1170px / 0 20px) để logo và nút hotline nằm gần 2
-   mép màn hình hơn. Hai rule cùng độ ưu tiên nhưng .header-inner đứng sau
-   .container trong file nên ghi đè được. */
+/* Header căn theo ĐÚNG bề ngang phần thân trang: logo và nút hotline thẳng hàng
+   với nội dung bên dưới thay vì bám sát 2 mép màn hình.
+   Markup đã là <div class="container header-inner"> nên chỉ cần KHÔNG ghi đè
+   max-width/padding nữa là tự ăn theo .container (1170px / 0 20px).
+   Muốn quay lại kiểu header trải rộng thì thêm lại đúng 2 dòng này:
+       max-width: 1600px;
+       padding: 0 16px;                                                        */
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: var(--header-height);
-  transition: height 0.25s ease;
-  max-width: 1600px;
-  padding: 0 16px;
-}
-
-.site-header.is-stuck .header-inner {
-  height: var(--header-height-stuck);
 }
 
 .logo {
@@ -187,7 +193,7 @@ p {
   rotate: 0deg;
   transform-origin: 85% 95%;
   opacity: 0;
-  transition: height 0.25s ease, translate 0.8s cubic-bezier(0.16, 1, 0.3, 1), rotate 0.2s ease-out, opacity 0.3s ease;
+  transition: translate 0.8s cubic-bezier(0.16, 1, 0.3, 1), rotate 0.2s ease-out, opacity 0.3s ease;
 }
 .logo-icon.in {
   translate: 0 0;
@@ -195,9 +201,6 @@ p {
 }
 .logo-icon.brake {
   rotate: 5deg;
-}
-.site-header.is-stuck .logo-icon {
-  height: 36px;
 }
 @media (prefers-reduced-motion: reduce) {
   .logo-icon {

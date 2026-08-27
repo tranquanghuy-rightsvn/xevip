@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
   initLogoEntrance();
-  initStickyHeader();
   initMobileNav();
   initBookingWidget();
   initFareTabs();
@@ -64,17 +63,6 @@ function initLogoEntrance() {
       requestAnimationFrame(watchForBrake);
     });
   });
-}
-
-/* ---------------------------------------------------------------- */
-function initStickyHeader() {
-  const header = document.querySelector('.site-header');
-  if (!header) return;
-  const onScroll = () => {
-    header.classList.toggle('is-stuck', window.scrollY > 40);
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
 }
 
 /* ---------------------------------------------------------------- */
