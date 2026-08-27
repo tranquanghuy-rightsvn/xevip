@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
     {
-      "source": "/admin(/.*)?",
+      "source": "/(admin|admin-test)(/.*)?",
       "headers": [
         {
           "key": "X-Robots-Tag",
