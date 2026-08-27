@@ -1,2 +1,5 @@
 .DS_Store
 Thumbs.db
+
+# Code CMS Google Apps Script - deploy qua clasp, khong qua git (xem gas/README.md)
+gas/

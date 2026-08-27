@@ -13,18 +13,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://xevipsanbay.com/dich-vu-xe-san-bay/</loc>
-    <lastmod>2026-08-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://xevipsanbay.com/dich-vu-xe-duong-dai/</loc>
-    <lastmod>2026-08-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://xevipsanbay.com/lien-he/</loc>
     <lastmod>2026-08-11</lastmod>
     <changefreq>yearly</changefreq>
@@ -35,6 +23,18 @@
     <lastmod>2026-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://xevipsanbay.com/dich-vu-xe-san-bay/</loc>
+    <lastmod>2026-08-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://xevipsanbay.com/dich-vu-xe-duong-dai/</loc>
+    <lastmod>2026-08-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://xevipsanbay.com/blog/kinh-nghiem-don-xe-san-bay-noi-bai/</loc>

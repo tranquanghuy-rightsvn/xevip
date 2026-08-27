@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   populateAirportSelects();
   initPricingTabs();
   initVideoShowcase();
+  initContactForm();
   initHorizontalOverflowGuard();
 });
 
@@ -1034,3 +1035,75 @@ function initScrollTop() {
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
+/* ---------------------------------------------------------------- */
+/* Form Liên hệ -> CMS (Google Apps Script).
+ *
+ * ⚠️ KHÔNG đụng gì tới luồng ĐẶT XE ở phía trên — đơn đặt xe vẫn đi thẳng backend thật
+ * api.xevipsanbay.com qua js/xevip-api.js, hoàn toàn độc lập với phần này.
+ *
+ * Dán URL "/exec" của web app GAS vào GAS_EXEC_URL sau khi deploy (xem gas/README.md).
+ * Để trống thì form giữ nguyên hành vi cũ (chỉ hiện lời cảm ơn) — không làm vỡ trang.
+ */
+const GAS_EXEC_URL = 'https://script.google.com/macros/s/AKfycbwjfcy82c6_ywQIN_pffWpCiAEfw-pVPDR996NOPEqwq5SobbP4GiX26npARxfligFHbQ/exec';
+
+function initContactForm() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  const status = form.querySelector('.form-status');
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  function setStatus(message, isError) {
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('is-error', !!isError);
+    status.classList.add('show');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    if (!GAS_EXEC_URL) {
+      console.warn('[xevip] GAS_EXEC_URL chưa được cấu hình — liên hệ chưa được gửi đi đâu cả.');
+      setStatus('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.', false);
+      form.reset();
+      return;
+    }
+
+    const payload = {
+      formType: 'contact',
+      name: form.elements['your-name'].value.trim(),
+      phone: form.elements['your-phone'].value.trim(),
+      message: form.elements['your-message'].value.trim(),
+      _hp: form.elements['_hp'] ? form.elements['_hp'].value : '',
+    };
+
+    const originalLabel = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Đang gửi...';
+    }
+    try {
+      // Content-Type text/plain (KHÔNG phải application/json) để trình duyệt giữ đây là
+      // "simple request", không tự gửi OPTIONS preflight trước — GAS không xử lý được
+      // OPTIONS nên có preflight là chắc chắn lỗi CORS.
+      const res = await fetch(GAS_EXEC_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || 'Gửi không thành công');
+      setStatus('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.', false);
+      form.reset();
+    } catch (err) {
+      console.error('[xevip] Gửi liên hệ thất bại:', err);
+      setStatus('Rất tiếc, gửi chưa thành công. Quý khách vui lòng gọi hotline 1900.9144 giúp em nhé.', true);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    }
+  });
+}

@@ -1,0 +1,54 @@
+name: Build site tĩnh từ data/
+
+# Chỉ trigger ở đúng file LUÔN là commit CHỐT của một thao tác trong CMS — KHÔNG trigger theo
+# cả thư mục data/**. Một lần Lưu bài viết sinh nhiều commit liên tiếp (ảnh -> chi tiết bài ->
+# danh sách tổng); trigger theo thư mục sẽ build ngay từ commit ĐẦU (lúc danh sách chưa cập
+# nhật) và deploy nhầm trạng thái dở dang.
+#   data/posts.json    -> commit chốt của Lưu/Xoá bài viết (Code.js ghi SAU CÙNG)
+#   data/services.json -> commit chốt của Lưu/Xoá dịch vụ (1 file duy nhất, tự nó là chốt)
+on:
+  push:
+    branches: [master]
+    paths:
+      - "data/posts.json"
+      - "data/services.json"
+      - "templates/**"
+      - "scripts/build.py"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+# Hai lần Lưu sát nhau trong CMS có thể chạy chồng 2 job; để job sau đợi job trước xong rồi
+# chạy trên dữ liệu mới nhất, tránh 2 job cùng push lên html/ và đá nhau.
+concurrency:
+  group: build-html
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build html/ từ data/ + templates/
+        run: python3 scripts/build.py
+
+      - name: Commit html/ đã build
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add html/
+          git diff --cached --quiet && echo "Không có thay đổi để commit." && exit 0
+          git commit -m "CI: build html từ data/"
+          git push
+
+      # KHÔNG có bước deploy ở đây: repo này đã nối sẵn Vercel, Vercel tự deploy khi có commit
+      # mới trên master (kể cả commit do CI đẩy lên ở bước trên). Không tự trigger vòng lặp CI
+      # vì commit của CI chỉ đụng html/, không đụng data/ (xem paths ở trên).

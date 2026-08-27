@@ -1980,6 +1980,19 @@ body.nav-open .site-header {
   margin-top: 10px;
 }
 .contact-form .form-status.show { display: block; }
+.contact-form .form-status.is-error { color: var(--color-danger, #c0392b); }
+
+/* Honeypot chống bot — ẩn khỏi mắt người dùng nhưng vẫn nằm trong DOM để bot form-filler
+   tự động điền vào (dấu hiệu nhận biết bot). Không dùng display:none/hidden vì một số bot
+   cố tình bỏ qua các trường đó. */
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
 
 /* ==========================================================================
    Blog listing page

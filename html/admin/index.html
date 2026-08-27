@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trang quản trị - Xe VIP Sân Bay</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="/images/cropped-logo-xe-vip-noi-bai-final-32x32.png">
+<!-- Trang chuyển hướng gọn cho dễ nhớ: xevipsanbay.com/admin/ -> web app CMS trên Google
+     Apps Script. File TĨNH, sửa tay — build.py cố ý KHÔNG generate lại file này (URL chỉ đổi
+     khi deploy GAS theo kiểu tạo deployment mới, rất hiếm — xem gas/README.md).
+
+     CHẶN BOT — 3 lớp độc lập, thiếu lớp nào cũng vẫn còn lớp kia:
+       1. Thẻ meta robots/googlebot/bingbot ngay dưới đây (bot đọc được HTML).
+       2. Disallow: /admin/ trong html/robots.txt (bot tuân thủ chuẩn thì không crawl tới đây).
+       3. Header HTTP X-Robots-Tag trong html/vercel.json (mạnh nhất — không phụ thuộc việc
+          bot có parse HTML hay không, áp cho cả /admin và mọi file con).
+     Bảo mật THẬT của CMS không nằm ở mấy lớp này mà ở đăng nhập OTP phía Apps Script — đây
+     chỉ là chống lộ đường dẫn lên kết quả tìm kiếm. -->
+<style>
+  body { font-family: "Open Sans", sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f5f6f8; color: #1c1c1c; }
+  .box { text-align: center; padding: 32px; }
+  a { color: #d02128; }
+</style>
+</head>
+<body>
+<div class="box">
+  <p>Đang chuyển tới trang quản trị...</p>
+  <p><a id="cms-link" href="#" rel="nofollow noreferrer noopener">Bấm vào đây nếu trình duyệt không tự chuyển</a></p>
+</div>
+<script>
+  // Dán URL /exec của web app GAS vào đây sau khi deploy.
+  var GAS_EXEC_URL = 'https://script.google.com/macros/s/AKfycbwjfcy82c6_ywQIN_pffWpCiAEfw-pVPDR996NOPEqwq5SobbP4GiX26npARxfligFHbQ/exec';
+  if (GAS_EXEC_URL) {
+    document.getElementById('cms-link').href = GAS_EXEC_URL;
+    location.replace(GAS_EXEC_URL);
+  } else {
+    document.querySelector('.box p').textContent =
+      'Chưa cấu hình đường dẫn trang quản trị (GAS_EXEC_URL trong html/admin/index.html).';
+  }
+</script>
+</body>
+</html>

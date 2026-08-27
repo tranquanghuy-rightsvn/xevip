@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog - Xe VIP Sân Bay</title>
-<meta name="description" content="Cẩm nang du lịch, kinh nghiệm đi lại, tin tức và tiện ích hay từ Xe VIP Sân Bay.">
-<link rel="canonical" href="https://xevipsanbay.com/blog/">
-<meta property="og:type" content="website">
+<title>{{SEO_TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="canonical" href="{{CANONICAL_URL}}">
+<meta property="og:type" content="article">
 <meta property="og:site_name" content="Xe VIP Sân Bay">
 <meta property="og:locale" content="vi_VN">
-<meta property="og:url" content="https://xevipsanbay.com/blog/">
-<meta property="og:title" content="Blog - Xe VIP Sân Bay">
-<meta property="og:description" content="Cẩm nang du lịch, kinh nghiệm đi lại, tin tức và tiện ích hay từ Xe VIP Sân Bay.">
-<meta property="og:image" content="https://xevipsanbay.com/images/san-bay-noi-bai-home.jpg">
+<meta property="og:url" content="{{CANONICAL_URL}}">
+<meta property="og:title" content="{{SEO_TITLE}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:image" content="{{OG_IMAGE}}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Blog - Xe VIP Sân Bay">
-<meta name="twitter:description" content="Cẩm nang du lịch, kinh nghiệm đi lại, tin tức và tiện ích hay từ Xe VIP Sân Bay.">
-<meta name="twitter:image" content="https://xevipsanbay.com/images/san-bay-noi-bai-home.jpg">
+<meta name="twitter:title" content="{{SEO_TITLE}}">
+<meta name="twitter:description" content="{{DESCRIPTION}}">
+<meta name="twitter:image" content="{{OG_IMAGE}}">
 <link rel="icon" type="image/png" href="/images/cropped-logo-xe-vip-noi-bai-final-32x32.png">
 <link rel="apple-touch-icon" href="/images/cropped-logo-xe-vip-noi-bai-final-180x180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Fira+Sans+Condensed:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TaxiService","@id":"https://xevipsanbay.com/#organization","name":"Xe VIP Sân Bay","alternateName":"Công ty TNHH Đầu Tư Thăng Long Global","url":"https://xevipsanbay.com/","logo":"https://xevipsanbay.com/images/logo.png","image":"https://xevipsanbay.com/images/xevipsanbay-banner2.jpeg","telephone":"+84-1900-9144","email":"xevipsanbay86@gmail.com","priceRange":"$$","areaServed":"VN","sameAs":["https://www.facebook.com/profile.php?id=61569742115236","https://zalo.me/4394992068447532874"],"address":{"@type":"PostalAddress","streetAddress":"Tầng 10, Tòa nhà CEO, Lô HH2-1, Khu đô thị Mễ Trì Hạ, Đường Phạm Hùng, Phường Từ Liêm","addressLocality":"Hà Nội","addressCountry":"VN"},"department":[{"@type":"TaxiService","name":"Xe VIP Sân Bay - Chi nhánh TP. Hồ Chí Minh","telephone":"+84-1900-9144","address":{"@type":"PostalAddress","streetAddress":"159 Đường Điện Biên Phủ, Phường Gia Định","addressLocality":"Thành phố Hồ Chí Minh","addressCountry":"VN"}}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://xevipsanbay.com/"},{"@type":"ListItem","position":2,"name":"Tin tức","item":"https://xevipsanbay.com/blog/"}]}</script>
+<script type="application/ld+json">{{JSONLD_BREADCRUMB}}</script>
+<script type="application/ld+json">{{JSONLD_ARTICLE}}</script>
 </head>
 <body>
 
@@ -43,10 +43,7 @@
       <li>
         <a href="#">DỊCH VỤ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a>
         <ul class="sub-menu">
-          <!-- NAV_SERVICES_START -->
-          <li><a href="/dich-vu-xe-san-bay/">Dịch vụ xe taxi sân bay</a></li>
-          <li><a href="/dich-vu-xe-duong-dai/">Dịch vụ xe đường dài</a></li>
-          <!-- NAV_SERVICES_END -->
+          <!-- NAV_SERVICES_START -->{{NAV_SERVICES}}<!-- NAV_SERVICES_END -->
         </ul>
       </li>
       <li class="active"><a href="/blog/">TIN TỨC</a></li>
@@ -74,10 +71,7 @@
     </button>
     <div class="drawer-submenu">
       <div class="drawer-submenu-inner">
-        <!-- NAV_SERVICES_DRAWER_START -->
-        <a href="/dich-vu-xe-san-bay/" class="sub-link">Dịch vụ xe taxi sân bay</a>
-        <a href="/dich-vu-xe-duong-dai/" class="sub-link">Dịch vụ xe đường dài</a>
-        <!-- NAV_SERVICES_DRAWER_END -->
+        <!-- NAV_SERVICES_DRAWER_START -->{{NAV_SERVICES_DRAWER}}<!-- NAV_SERVICES_DRAWER_END -->
       </div>
     </div>
   </div>
@@ -87,51 +81,24 @@
 </div>
 
 <div class="page-title-banner">
-  <h1>Blog</h1>
+  <h1>{{TITLE}}</h1>
 </div>
 
 <div class="container content-layout">
   <div class="main-col">
-    <div class="blog-grid">
-      <a class="blog-card" href="/blog/kinh-nghiem-don-xe-san-bay-noi-bai/">
-        <div class="thumb"><img src="/images/kinh-nghiem-don-xe-san-bay-noi-bai-cover.jpg" alt="Kinh Nghiệm Đặt Xe Đưa Đón Sân Bay Nội Bài Giá Rẻ, Đúng Giờ" loading="lazy"></div>
-        <div class="body">
-          <h3>Kinh Nghiệm Đặt Xe Đưa Đón Sân Bay Nội Bài Giá Rẻ, Đúng Giờ</h3>
-          <p>Kinh nghiệm đặt xe đưa đón sân bay Nội Bài giá rẻ, đúng giờ, không lo chặt chém. Bảng giá tham khảo và checklist chọn nhà xe uy tín từ Xe VIP Sân Bay.</p>
-        </div>
-      </a>
-      <a class="blog-card" href="/blog/kinh-nghiem-du-lich-da-lat-tu-tphcm/">
-        <div class="thumb"><img src="/images/kinh-nghiem-du-lich-da-lat-tu-tphcm-cover.jpg" alt="Kinh Nghiệm Du Lịch Đà Lạt Từ TP.HCM: Nên Đi Ô Tô Riêng Hay Xe Khách?" loading="lazy"></div>
-        <div class="body">
-          <h3>Kinh Nghiệm Du Lịch Đà Lạt Từ TP.HCM: Nên Đi Ô Tô Riêng Hay Xe Khách?</h3>
-          <p>So sánh các phương tiện đi Đà Lạt từ TP.HCM, gợi ý lịch trình 3 ngày 2 đêm và bảng giá tham khảo thuê xe riêng TP.HCM - Đà Lạt từ Xe VIP Sân Bay.</p>
-        </div>
-      </a>
-      <a class="blog-card" href="/blog/cam-nang-du-lich-sapa-tu-ha-noi/">
-        <div class="thumb"><img src="/images/cam-nang-du-lich-sapa-tu-ha-noi-cover.jpg" alt="Cẩm Nang Du Lịch Sa Pa Từ Hà Nội Mới Nhất" loading="lazy"></div>
-        <div class="body">
-          <h3>Cẩm Nang Du Lịch Sa Pa Từ Hà Nội Mới Nhất</h3>
-          <p>Cẩm nang du lịch Sa Pa từ Hà Nội: thời điểm đẹp nhất, cách di chuyển, địa điểm không thể bỏ lỡ và giá cước tham khảo thuê xe riêng Hà Nội - Sa Pa.</p>
-        </div>
-      </a>
-      <a class="blog-card" href="/blog/kinh-nghiem-thue-xe-san-bay-cam-ranh-nha-trang/">
-        <div class="thumb"><img src="/images/kinh-nghiem-thue-xe-san-bay-cam-ranh-nha-trang-cover.jpg" alt="5 Kinh Nghiệm Thuê Xe Sân Bay Cam Ranh – Nha Trang Không Bị Chặt Chém" loading="lazy"></div>
-        <div class="body">
-          <h3>5 Kinh Nghiệm Thuê Xe Sân Bay Cam Ranh – Nha Trang Không Bị Chặt Chém</h3>
-          <p>5 kinh nghiệm thuê xe sân bay Cam Ranh - Nha Trang không lo chặt chém, bảng giá tham khảo và gợi ý điểm đến gần sân bay Cam Ranh.</p>
-        </div>
-      </a>
-    </div>
+    <article>
+{{CONTENT_HTML}}
+    </article>
   </div>
 
   <aside class="main-col" style="max-width:340px;">
     <div class="sidebar-box">
       <h3>Chuyên mục bài viết</h3>
       <ul>
-        <li><a href="#">Bảng giá</a></li>
+        <li><a href="/#pricing">Bảng giá</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="/blog/">Cẩm nang du lịch</a></li>
-        <li><a href="#">Chính sách</a></li>
+        <li><a href="/lien-he/">Chính sách</a></li>
         <li><a href="/blog/">Kinh nghiệm đi lại</a></li>
         <li><a href="/blog/">Tiện ích hay</a></li>
         <li><a href="/blog/">Tin tức</a></li>

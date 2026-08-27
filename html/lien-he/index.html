@@ -43,8 +43,10 @@
       <li>
         <a href="#">DỊCH VỤ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a>
         <ul class="sub-menu">
+          <!-- NAV_SERVICES_START -->
           <li><a href="/dich-vu-xe-san-bay/">Dịch vụ xe taxi sân bay</a></li>
           <li><a href="/dich-vu-xe-duong-dai/">Dịch vụ xe đường dài</a></li>
+          <!-- NAV_SERVICES_END -->
         </ul>
       </li>
       <li><a href="/blog/">TIN TỨC</a></li>
@@ -72,8 +74,10 @@
     </button>
     <div class="drawer-submenu">
       <div class="drawer-submenu-inner">
+        <!-- NAV_SERVICES_DRAWER_START -->
         <a href="/dich-vu-xe-san-bay/" class="sub-link">Dịch vụ xe taxi sân bay</a>
         <a href="/dich-vu-xe-duong-dai/" class="sub-link">Dịch vụ xe đường dài</a>
+        <!-- NAV_SERVICES_DRAWER_END -->
       </div>
     </div>
   </div>
@@ -118,6 +122,10 @@
         <input type="text" name="your-name" placeholder="Họ và tên" required>
         <input type="tel" name="your-phone" placeholder="Số điện thoại" required>
         <textarea name="your-message" placeholder="Nội dung"></textarea>
+        <!-- Honeypot chống bot: người dùng thật không bao giờ thấy/điền ô này (ẩn bằng CSS
+             .hp-field). Bot điền form tự động thường điền cả ô ẩn — server thấy có giá trị là
+             âm thầm bỏ qua, vẫn báo "thành công" để không lộ ra là đã bị phát hiện. -->
+        <input class="hp-field" type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btn btn-primary" type="submit">Gửi thông tin</button>
         <p class="form-status">Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.</p>
       </form>
