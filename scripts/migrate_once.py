@@ -145,6 +145,19 @@ def migrate_services():
             raise SystemExit(f"Menu trỏ tới /{slug}/ nhưng không có file {path}")
         page = read(path)
         lastmod = sitemap_lastmod(f"{SITE_URL}/{slug}/", "2026-08-11")
+        # Nhóm dịch vụ - bóc theo đúng trang thật, không suy đoán theo tên slug. Field này
+        # quyết định CẢ sidebar ("Các sân bay khác" vs khối chuyên mục bài viết) LẪN breadcrumb
+        # (trang sân bay có 3 cấp, đi qua trang tổng /dich-vu-xe-san-bay/).
+        group = "airports" if "Các sân bay khác" in page else ""
+        # og:image có thể là ảnh NGOÀI (trang sân bay đang dùng ảnh Wikimedia) - giữ nguyên
+        # URL tuyệt đối; ảnh của chính site thì lưu dạng đường dẫn "/images/..." cho gọn.
+        og_image = meta_content(page, "property", "og:image")
+        # Khu vực phục vụ khai trong JSON-LD Service - mỗi sân bay là 1 tỉnh/thành riêng
+        # (SEO địa phương), dịch vụ toàn quốc thì để "VN".
+        m_area = re.search(r'"@type":"Service".*?"areaServed":"([^"]*)"', page, re.S)
+        area_served = m_area.group(1) if m_area else "VN"
+        if og_image.startswith(SITE_URL + "/"):
+            og_image = og_image[len(SITE_URL):]
         services.append({
             "slug": slug,
             "title": text_of(find1(r'<div class="page-title-banner">\s*<h1>(.*?)</h1>', page, f"h1 của {slug}", re.S)),
@@ -153,6 +166,9 @@ def migrate_services():
             "description": meta_content(page, "name", "description"),
             "nav_label": text_of(nav_label),
             "order": order,
+            "group": group,
+            "area_served": area_served,
+            "og_image": og_image,
             "content_html": article_html(page),
             "created_at": lastmod + "T00:00:00Z",
             "updated_at": lastmod + "T00:00:00Z",

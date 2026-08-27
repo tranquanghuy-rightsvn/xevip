@@ -42,13 +42,15 @@ SITE_NAME = "Xe VIP Sân Bay"
 SERVICE_SLUG_PREFIX = "dich-vu-"
 DEFAULT_OG_IMAGE = "/images/xevipsanbay-banner2.jpeg"
 
+# Dịch vụ thuộc nhóm "airports" (field `group` trong data/services.json) nằm dưới trang tổng
+# này: sidebar liệt kê các sân bay khác, breadcrumb có 3 cấp đi qua đây. Trang tổng do người
+# viết tay, build.py không sinh lại (xem STATIC_PAGES).
+AIRPORT_HUB = {"name": "Dịch vụ xe taxi sân bay", "url": "/dich-vu-xe-san-bay/"}
+
 NAV_START = "<!-- NAV_SERVICES_START -->"
 NAV_END = "<!-- NAV_SERVICES_END -->"
 DRAWER_START = "<!-- NAV_SERVICES_DRAWER_START -->"
 DRAWER_END = "<!-- NAV_SERVICES_DRAWER_END -->"
-
-# Trang không mang header/menu của site -> bỏ qua bước vá menu (không phải lỗi thiếu mốc neo).
-NO_HEADER_PAGES = {"admin"}
 
 # Trang tĩnh viết tay (không do build sinh ra) nhưng vẫn phải có mặt trong sitemap.
 STATIC_PAGES = [
@@ -56,6 +58,10 @@ STATIC_PAGES = [
     ("/ve-chung-toi/", "monthly", "0.6"),
     ("/lien-he/", "yearly", "0.5"),
     ("/blog/", "weekly", "0.7"),
+    # Trang tổng "Dịch vụ xe taxi sân bay" — viết tay, KHÔNG nằm trong menu và KHÔNG do CMS
+    # quản lý (menu chỉ gồm 12 dịch vụ trong data/services.json). Khai ở đây để nó vẫn có mặt
+    # trong sitemap; build.py không sinh lại và không xoá trang này.
+    ("/dich-vu-xe-san-bay/", "monthly", "0.8"),
 ]
 
 
@@ -153,9 +159,14 @@ def patch_nav_everywhere(services):
                 continue
             path = os.path.join(root, name)
             rel = os.path.relpath(path, BASE)
-            if os.path.relpath(root, HTML_DIR) in NO_HEADER_PAGES:
-                continue  # trang không có header site (vd /admin/ chỉ là trang chuyển hướng)
+            # Trang không mang header/menu của site thì không có gì để vá, và cũng KHÔNG
+            # phải lỗi thiếu mốc neo - bỏ qua im lặng. Nhận biết bằng chính nội dung thay vì
+            # liệt kê tay từng đường dẫn (danh sách gõ tay sẽ lỗi thời ngay khi ai đó thêm
+            # trang chuyển hướng mới). Ví dụ: /admin/, các trang redirect
+            # /dich-vu-xe-san-bay/<slug>/ trỏ sang URL phẳng.
             content = read(path)
+            if 'class="sub-menu' not in content and "drawer-submenu-inner" not in content:
+                continue
             new_content = patch_nav(content, nav_desktop, nav_drawer, rel)
             if new_content != content:
                 write(path, new_content)
@@ -238,18 +249,62 @@ def render_post_page(tpl, post):
 
 # ---------------- Dịch vụ ----------------
 
-def render_service_page(tpl, service):
+# Sidebar mặc định của các trang không phải sân bay — giữ đúng markup viết tay đang có.
+SIDEBAR_BLOG_CATEGORIES = """      <h3>Chuyên mục bài viết</h3>
+      <ul>
+        <li><a href="#">Bảng giá</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/blog/">Cẩm nang du lịch</a></li>
+        <li><a href="#">Chính sách</a></li>
+        <li><a href="/blog/">Kinh nghiệm đi lại</a></li>
+        <li><a href="/blog/">Tiện ích hay</a></li>
+        <li><a href="/blog/">Tin tức</a></li>
+      </ul>"""
+
+
+def build_service_sidebar(service, services):
+    """Trang sân bay: liệt kê CÁC SÂN BAY KHÁC (tự cập nhật khi thêm/xoá dịch vụ qua CMS).
+    Trang khác: khối chuyên mục bài viết tĩnh. Chọn kiểu nào là do field `group` trong
+    data/services.json quyết định — KHÔNG suy đoán theo tên slug (thêm 1 dịch vụ tên na ná
+    là suy đoán sai ngay)."""
+    if service.get("group") != "airports":
+        return SIDEBAR_BLOG_CATEGORIES
+    others = [s for s in services
+              if s["slug"] != service["slug"] and s.get("group") == "airports"]
+    items = "\n".join(
+        '        <li><a href="/%s/">%s</a></li>' % (esc(s["slug"]), esc(s.get("nav_label") or s["title"]))
+        for s in others
+    )
+    return "      <h3>Các sân bay khác</h3>\n      <ul>\n" + items + "\n      </ul>"
+
+
+def render_service_page(tpl, service, services):
     slug = service["slug"]
     url = f"{SITE_URL}/{slug}/"
-    og_image = SITE_URL + first_content_image(service.get("content_html"))
+    # Ưu tiên og_image đã lưu trong dữ liệu (các trang sân bay dùng ảnh ngoài, không nằm trong
+    # html/images/ — mất field này là mất luôn ảnh preview khi chia sẻ link). Không có thì lấy
+    # ảnh đầu tiên trong nội dung, cuối cùng mới tới ảnh mặc định của site.
+    saved_og = str(service.get("og_image") or "").strip()
+    if saved_og.startswith("http"):
+        og_image = saved_og
+    elif saved_og:
+        og_image = SITE_URL + saved_og
+    else:
+        og_image = SITE_URL + first_content_image(service.get("content_html"))
 
+    crumbs = [{"@type": "ListItem", "position": 1, "name": "Trang chủ", "item": f"{SITE_URL}/"}]
+    if service.get("group") == "airports":
+        crumbs.append({"@type": "ListItem", "position": 2,
+                       "name": AIRPORT_HUB["name"], "item": SITE_URL + AIRPORT_HUB["url"]})
+    # Cấp cuối lấy TÊN TRANG (title/h1), không phải nhãn menu - nhãn menu thường viết tắt
+    # cho vừa thanh menu ("Dịch vụ Sân bay Nội Bài"), còn breadcrumb nên là tên đầy đủ
+    # ("Dịch vụ đưa đón Sân bay Nội Bài").
+    crumbs.append({"@type": "ListItem", "position": len(crumbs) + 1,
+                   "name": service["title"], "item": url})
     jsonld_breadcrumb = json_ld({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
-        "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "Trang chủ", "item": f"{SITE_URL}/"},
-            {"@type": "ListItem", "position": 2, "name": service.get("nav_label") or service["title"], "item": url},
-        ],
+        "itemListElement": crumbs,
     })
     jsonld_service = json_ld({
         "@context": "https://schema.org",
@@ -258,7 +313,9 @@ def render_service_page(tpl, service):
         "name": service["title"],
         "description": service.get("description") or "",
         "provider": {"@type": "Organization", "name": SITE_NAME, "url": f"{SITE_URL}/"},
-        "areaServed": "VN",
+        # Khu vực phục vụ: mỗi sân bay khai đúng tỉnh/thành của nó (SEO địa phương) - để mặc
+        # định "VN" cho dịch vụ toàn quốc.
+        "areaServed": str(service.get("area_served") or "VN"),
         "url": url,
         "image": og_image,
     })
@@ -271,6 +328,7 @@ def render_service_page(tpl, service):
         "JSONLD_SERVICE": jsonld_service,
         "TITLE": esc(service["title"]),
         "CONTENT_HTML": service.get("content_html") or "",
+        "SIDEBAR": build_service_sidebar(service, services),
         "NAV_SERVICES": "",
         "NAV_SERVICES_DRAWER": "",
     })
@@ -372,7 +430,7 @@ def main():
     service_tpl = read_template("service.html")
     for s in services:
         out_path = os.path.join(HTML_DIR, s["slug"], "index.html")
-        write(out_path, render_service_page(service_tpl, s))
+        write(out_path, render_service_page(service_tpl, s, services))
         print("  +", os.path.relpath(out_path, BASE))
 
     print("3) Dọn trang mồ côi:")

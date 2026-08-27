@@ -20,8 +20,10 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HTML_DIR = os.path.join(BASE, "html")
 TEMPLATES_DIR = os.path.join(BASE, "templates")
 
-SUBMENU_RE = re.compile(r'(<ul class="sub-menu">)(.*?)(</ul>)', re.S)
-DRAWER_RE = re.compile(r'(<div class="drawer-submenu-inner">)(.*?)(</div>)', re.S)
+# Cho phép class phụ đi kèm (vd class="sub-menu airport-menu") - bản đầu chỉ khớp đúng
+# class="sub-menu" nên khi ai đó thêm class phụ là mốc neo lặng lẽ không được gắn vào.
+SUBMENU_RE = re.compile(r'(<ul class="sub-menu[^"]*">)(.*?)(</ul>)', re.S)
+DRAWER_RE = re.compile(r'(<div class="drawer-submenu-inner[^"]*">)(.*?)(</div>)', re.S)
 
 NAV_START = "<!-- NAV_SERVICES_START -->"
 NAV_END = "<!-- NAV_SERVICES_END -->"

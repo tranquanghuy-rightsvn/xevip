@@ -293,6 +293,76 @@ p {
   color: var(--color-primary-dark);
 }
 
+/* Tầng 3: danh sách sân bay lồng trong "Dịch vụ xe taxi sân bay" */
+.sub-menu li {
+  position: relative;
+}
+.sub-menu li.has-airport-menu > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.sub-menu li.has-airport-menu > a::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-top: 2px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.airport-menu {
+  top: -8px;
+  left: 100%;
+  margin-left: 6px;
+  min-width: 460px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 6px;
+  padding: 10px;
+}
+.sub-menu li.has-airport-menu:hover > .airport-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.airport-menu a {
+  border-radius: 4px;
+  padding: 9px 12px;
+  font-size: 14px;
+}
+/* Top-level "DỊCH VỤ XE SÂN BAY" — airport-menu là sub-menu trực tiếp, không phải tầng 3 lồng trong has-airport-menu */
+.main-nav > li > .airport-menu {
+  top: 100%;
+  left: 0;
+  margin-left: 0;
+}
+
+.airport-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 16px 0 24px;
+}
+.airport-links-grid a {
+  display: block;
+  padding: 12px 16px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--color-heading);
+  transition: all 0.2s ease;
+}
+.airport-links-grid a:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
 .hotline-btn {
   background: var(--color-primary);
   color: #fff;
@@ -361,7 +431,7 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: safe center;
   gap: 6px;
   padding: 110px 24px 60px;
   opacity: 0;
@@ -414,7 +484,9 @@ p {
   flex-shrink: 0;
   transition: transform 0.25s ease;
 }
-.drawer-item.open .drawer-chevron {
+.drawer-item.open > .drawer-parent-link .drawer-chevron,
+.drawer-item.open > .drawer-parent-row .drawer-chevron,
+.drawer-item.open > .drawer-top-link-row .drawer-chevron {
   transform: rotate(180deg);
 }
 .drawer-submenu {
@@ -422,7 +494,10 @@ p {
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.3s ease;
 }
-.drawer-item.open .drawer-submenu {
+/* Dùng combinator con trực tiếp (>) — nếu để descendant selector thường,
+   mở tầng 2 (Dịch vụ) sẽ ép luôn submenu tầng 3 (danh sách sân bay) lồng
+   bên trong mở theo, khiến tầng 3 không bao giờ đóng lại được. */
+.drawer-item.open > .drawer-submenu {
   grid-template-rows: 1fr;
 }
 .drawer-submenu-inner {
@@ -438,6 +513,52 @@ p {
 }
 .drawer-submenu .sub-link:last-child {
   padding-bottom: 14px;
+}
+.drawer-item-nested {
+  border-bottom: none;
+}
+.drawer-parent-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+.drawer-parent-row .sub-link {
+  padding: 10px 0;
+}
+.drawer-parent-row .drawer-parent-link {
+  width: auto;
+  padding: 10px 6px;
+}
+.drawer-top-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+.drawer-top-link-row > a {
+  display: block;
+  padding: 14px 0;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  color: inherit;
+  flex: 1;
+  min-width: 0;
+}
+.drawer-top-link-row .drawer-parent-link {
+  width: auto;
+  flex-shrink: 0;
+  padding: 14px 8px;
+}
+.drawer-item-nested .drawer-submenu-inner {
+  padding-left: 16px;
+}
+.drawer-item-nested .sub-link {
+  font-size: 15px;
+  color: #777;
 }
 body.nav-open {
   overflow: hidden;
@@ -1839,6 +1960,24 @@ body.nav-open .site-header {
   border-radius: 8px;
   margin: 20px 0;
 }
+.main-col article figure.article-figure {
+  margin: 20px 0;
+}
+.main-col article figure.article-figure img {
+  margin: 0;
+  width: 100%;
+  display: block;
+}
+.main-col article figure.article-figure figcaption {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+  text-align: right;
+}
+.main-col article figure.article-figure figcaption a {
+  color: #999;
+  text-decoration: underline;
+}
 .main-col article p { color: #444; }
 .main-col article strong { color: var(--color-primary-dark); }
 
@@ -1980,19 +2119,6 @@ body.nav-open .site-header {
   margin-top: 10px;
 }
 .contact-form .form-status.show { display: block; }
-.contact-form .form-status.is-error { color: var(--color-danger, #c0392b); }
-
-/* Honeypot chống bot — ẩn khỏi mắt người dùng nhưng vẫn nằm trong DOM để bot form-filler
-   tự động điền vào (dấu hiệu nhận biết bot). Không dùng display:none/hidden vì một số bot
-   cố tình bỏ qua các trường đó. */
-.hp-field {
-  position: absolute !important;
-  left: -9999px !important;
-  width: 1px !important;
-  height: 1px !important;
-  opacity: 0 !important;
-  pointer-events: none;
-}
 
 /* ==========================================================================
    Blog listing page
@@ -2034,6 +2160,12 @@ body.nav-open .site-header {
   font-size: 16px;
   color: #777;
   margin: 0;
+  /* Mô tả do người viết nhập qua CMS nên không khống chế được độ dài (bản viết tay trước đây
+     tự cắt sẵn bằng "..."). Cắt còn 3 dòng để mọi thẻ cao đều nhau, không vỡ lưới. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* ==========================================================================

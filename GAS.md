@@ -132,8 +132,18 @@
 - "Các dịch vụ ít nên lưu trực tiếp ở website" → toàn bộ dịch vụ (kể cả nội dung) nằm trong
   **1 file duy nhất `data/services.json`**, không tách index/detail như bài viết.
 - Field: `title`, `slug`, `seo_title`, `description` (meta description), `content_html`,
-  `nav_label` (chữ hiện trong menu Dịch vụ), `order` (thứ tự trong menu), `created_at`,
-  `updated_at`.
+  `nav_label` (chữ hiện trong menu Dịch vụ), `order` (thứ tự trong menu), `group`,
+  `area_served`, `og_image`, `created_at`, `updated_at`.
+- **`group`** — `"airports"` hoặc rỗng. Quyết định 2 thứ trên trang được build ra: (a) cột bên
+  phải liệt kê "Các sân bay khác" thay vì khối chuyên mục bài viết, (b) breadcrumb 3 cấp đi
+  qua trang tổng `/dich-vu-xe-san-bay/`. CHỐT bằng field này, KHÔNG suy đoán theo tiền tố slug
+  — thêm 1 dịch vụ tên na ná là suy đoán sai ngay.
+- **`area_served`** — tỉnh/thành khai trong JSON-LD `Service` (SEO địa phương: Nội Bài = "Hà
+  Nội", Đà Nẵng = "Đà Nẵng"...). Rỗng → `"VN"`.
+- **`og_image`** — KHÔNG có ô nhập trên giao diện, server giữ nguyên giá trị cũ khi Lưu. Lý do:
+  11 trang sân bay đang dùng ảnh NGOÀI (Wikimedia), không nằm trong `html/images/`; bỏ field
+  này đi là mất ảnh preview khi chia sẻ link. Dịch vụ mới tạo qua CMS để trống → build tự lấy
+  ảnh đầu tiên trong nội dung, không có thì dùng ảnh mặc định của site.
 - **`seo_title` là ô nhập TUỲ CHỌN, để trống thì = `title`** — khác bài viết (bài viết suy ra
   cứng, mục II.2). Lý do: 2 trang dịch vụ hiện có đang dùng `<title>` SEO dài hơn hẳn tên hiển
   thị (vd h1 "Dịch vụ xe taxi sân bay" nhưng `<title>` là "Dịch vụ xe taxi sân bay chuyên

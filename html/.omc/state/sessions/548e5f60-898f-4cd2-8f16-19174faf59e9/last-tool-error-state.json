@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"rm -f /home/hai/Workspaces/projects/xevip/html/_test_stage*.html\\nrm -rf /tmp/xevip_test\\npkill -f \\\"http.server 8811\\\" 2>/dev/null\\nls /home/hai/Workspaces/projects/xevip/html/_test* 2>/d...",
+  "error": "Exit code 144",
+  "timestamp": "2026-08-26T04:42:14.226Z",
+  "retry_count": 1
+}
