@@ -240,6 +240,7 @@ def render_post_page(tpl, post):
         "JSONLD_ARTICLE": jsonld_article,
         "TITLE": esc(post["title"]),
         "CONTENT_HTML": post.get("content_html") or "",
+        "SIDEBAR": build_category_sidebar(),
         # NAV_SERVICES do patch_nav_everywhere() vá sau, nhưng phải xoá placeholder ở đây để
         # không lỡ lọt ra site nếu bước vá không chạy tới trang này.
         "NAV_SERVICES": "",
@@ -249,17 +250,34 @@ def render_post_page(tpl, post):
 
 # ---------------- Dịch vụ ----------------
 
-# Sidebar mặc định của các trang không phải sân bay — giữ đúng markup viết tay đang có.
-SIDEBAR_BLOG_CATEGORIES = """      <h3>Chuyên mục bài viết</h3>
-      <ul>
-        <li><a href="#">Bảng giá</a></li>
-        <li><a href="/blog/">Blog</a></li>
-        <li><a href="/blog/">Cẩm nang du lịch</a></li>
-        <li><a href="#">Chính sách</a></li>
-        <li><a href="/blog/">Kinh nghiệm đi lại</a></li>
-        <li><a href="/blog/">Tiện ích hay</a></li>
-        <li><a href="/blog/">Tin tức</a></li>
-      </ul>"""
+# ================= Chuyên mục bài viết =================
+# NGUỒN CHÂN LÝ DUY NHẤT của danh sách chuyên mục. Dùng cho 2 việc:
+#   1. Sinh khối "Chuyên mục bài viết" ở cột phải các trang /blog/, trang bài viết và trang
+#      dịch vụ thường.
+#   2. Danh sách chọn Danh mục khi viết bài trong CMS — gas/Code.js có hằng POST_CATEGORIES
+#      PHẢI KHỚP y hệt danh sách này (gas/ không nằm trong git nên không tự đồng bộ được;
+#      sửa ở đây thì sửa luôn bên đó, xem GAS.md mục II.1).
+#
+# Danh sách CỐ ĐỊNH, không quản lý qua CMS (chốt với chủ dự án). Chưa có trang riêng cho từng
+# chuyên mục nên mọi mục tạm trỏ chung về /blog/; khi nào làm trang lọc theo chuyên mục thì
+# đổi url ở đây, mọi trang tự cập nhật theo ở lần build kế tiếp.
+POST_CATEGORIES = [
+    "Bảng giá",
+    "Cẩm nang du lịch",
+    "Chính sách",
+    "Kinh nghiệm đi lại",
+    "Tiện ích hay",
+    "Tin tức",
+]
+CATEGORY_URL = "/blog/"
+
+
+def build_category_sidebar():
+    items = "\n".join(
+        '        <li><a href="%s">%s</a></li>' % (CATEGORY_URL, esc(name))
+        for name in POST_CATEGORIES
+    )
+    return "      <h3>Chuyên mục bài viết</h3>\n      <ul>\n" + items + "\n      </ul>"
 
 
 def build_service_sidebar(service, services):
@@ -268,7 +286,7 @@ def build_service_sidebar(service, services):
     data/services.json quyết định — KHÔNG suy đoán theo tên slug (thêm 1 dịch vụ tên na ná
     là suy đoán sai ngay)."""
     if service.get("group") != "airports":
-        return SIDEBAR_BLOG_CATEGORIES
+        return build_category_sidebar()
     others = [s for s in services
               if s["slug"] != service["slug"] and s.get("group") == "airports"]
     items = "\n".join(
@@ -421,6 +439,7 @@ def main():
     index_path = os.path.join(BLOG_HTML_DIR, "index.html")
     write(index_path, render_placeholders(read_template("blog-index.html"), {
         "POST_CARDS": build_post_cards(posts_index),
+        "SIDEBAR": build_category_sidebar(),
         "NAV_SERVICES": "",
         "NAV_SERVICES_DRAWER": "",
     }))

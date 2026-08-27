@@ -55,8 +55,20 @@
    - **Tiêu đề**
    - **URL bài viết (slug)** — tự sinh từ tiêu đề (bỏ dấu, gạch ngang); bất biến sau lần Lưu
      đầu (mục III). URL công khai: `https://xevipsanbay.com/blog/<slug>/`.
-   - **Danh mục** — chữ tự do, gợi ý lại các danh mục đã dùng (datalist), không phải bảng
-     danh mục quản lý riêng.
+   - **Danh mục** — **danh sách CỐ ĐỊNH**, chọn trong ô select, KHÔNG gõ tự do và KHÔNG có
+     màn quản lý danh mục trong CMS (chốt với chủ dự án). Được phép để trống (4 bài migrate
+     từ trang viết tay chưa có danh mục). Server tự chặn giá trị lạ, không tin `<select>`.
+     6 mục hiện tại: Bảng giá, Cẩm nang du lịch, Chính sách, Kinh nghiệm đi lại, Tiện ích hay,
+     Tin tức.
+     ⚠️ Danh sách này nằm ở **2 nơi phải khớp nhau y hệt**, và `gas/` không nằm trong git nên
+     KHÔNG tự đồng bộ được — sửa một bên phải sửa luôn bên kia:
+       + `POST_CATEGORIES` trong `gas/Code.js` — danh sách chọn khi viết bài (server gửi xuống
+         client qua `boot()`, client không hard-code lại).
+       + `POST_CATEGORIES` trong `scripts/build.py` — sinh khối "Chuyên mục bài viết" ở cột
+         phải trang `/blog/`, trang bài viết và trang dịch vụ thường.
+     Chưa có trang riêng cho từng chuyên mục nên mọi mục tạm trỏ chung về `/blog/`
+     (`CATEGORY_URL` trong `build.py`). Khi nào làm trang lọc theo chuyên mục thì đổi ở đó,
+     mọi trang tự cập nhật ở lần build kế tiếp.
    - **Mô tả** — DUY NHẤT 1 field, dùng cho CẢ thẻ card ngoài `/blog/` LẪN `<meta name="description">`
      + `og:description`. Không tách "tóm tắt" và "mô tả SEO".
    - **Ảnh bìa** — riêng 1-1 cho từng bài, tên đặt CỨNG theo slug: `html/images/<slug>-cover.jpg`.
