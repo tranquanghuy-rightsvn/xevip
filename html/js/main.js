@@ -304,7 +304,10 @@ function enhanceAirportSelect(select) {
     input.hidden = select.hidden;
     input.disabled = select.disabled;
     if (select.hidden || select.disabled) list.hidden = true;
-    if (!select.hidden && select.value) input.value = selectedName();
+    // Phải xử lý CẢ trường hợp select rỗng: khi đảo chiều, giá trị sân bay được chuyển sang
+    // ô bên kia nên ô này thành rỗng - không xoá chữ thì nó vẫn hiện tên sân bay cũ trong
+    // khi <select> thật đã trống, người dùng tưởng đã chọn rồi mà bấm Lưu lại báo thiếu.
+    if (!select.hidden) input.value = select.value ? selectedName() : '';
   }
   syncVisibility();
   new MutationObserver(syncVisibility).observe(select, { attributes: true, attributeFilter: ['hidden', 'disabled'] });
@@ -636,11 +639,38 @@ function setupBookingWidget(widget) {
 
   // Tab "Đi sân bay" phủ cả 2 chiều (đón khách TẠI sân bay hoặc trả khách TẠI
   // sân bay) nên Điểm Đi/Điểm Đến mỗi bên đều có 2 kiểu field khả dụng: địa
-  // chỉ tự do và select sân bay. "Đảo chiều" chỉ đổi field nào đang hiện ở
-  // bên nào; giá trị người dùng đã nhập không tự chuyển sang field kia.
+  // chỉ tự do và select sân bay. "Đảo chiều" đổi field nào hiện ở bên nào VÀ
+  // HOÁN ĐỔI LUÔN GIÁ TRỊ đã nhập sang field tương ứng bên kia - bấm đảo chiều
+  // không được làm mất thứ người dùng vừa gõ (yêu cầu của chủ dự án).
   // Đúng theo tài liệu: !swapped = FARE_WELL (địa chỉ khách → sân bay),
   // swapped = PICK_UP (sân bay → địa chỉ khách).
   let airportSwapped = false;
+
+  // Hoán đổi nội dung 2 ô địa chỉ. Phải chuyển CẢ object địa chỉ đã chọn từ dropdown chứ
+  // không chỉ chuyển chữ: form bắt buộc phải có object đó mới cho kiểm tra giá/đăng ký
+  // (xem xevip-address-autocomplete.js) - chuyển thiếu thì ô nhìn có chữ nhưng bấm Lưu vẫn
+  // báo "chưa chọn địa chỉ từ danh sách gợi ý".
+  function swapAddressInputs(a, b) {
+    if (!a || !b) return;
+    const textA = a.value;
+    const addrA = XevipAddressAutocomplete.getSelectedAddress(a);
+    const addrB = XevipAddressAutocomplete.getSelectedAddress(b);
+    a.value = b.value;
+    b.value = textA;
+    XevipAddressAutocomplete.setSelectedAddress(a, addrB);
+    XevipAddressAutocomplete.setSelectedAddress(b, addrA);
+  }
+
+  // Hoán đổi sân bay đã chọn giữa 2 <select>. Gán bằng JS không bắn 'change' nên phải tự
+  // bảo ô gõ-tìm phía trên vẽ lại (xem enhanceAirportSelect).
+  function swapAirportSelects(a, b) {
+    if (!a || !b) return;
+    const valueA = a.value;
+    a.value = b.value;
+    b.value = valueA;
+    a.setCustomValidity('');
+    b.setCustomValidity('');
+  }
 
   function applyAirportSwap() {
     const pickupShowsSelect = airportSwapped;
@@ -724,16 +754,19 @@ function setupBookingWidget(widget) {
     swapBtn.addEventListener('click', () => {
       const isAirportTab = !airportTab || airportTab.classList.contains('active');
       if (isAirportTab) {
+        // Thứ tự quan trọng: hoán đổi giá trị TRƯỚC, đổi trạng thái ẩn/hiện SAU, rồi mới bảo
+        // ô gõ-tìm vẽ lại - lúc đó select mới đúng cả .value lẫn .hidden.
+        swapAddressInputs(locationInput, destAddressInput);
+        swapAirportSelects(startSelect, endSelect);
         airportSwapped = !airportSwapped;
         applyAirportSwap();
-      } else if (startInput && endInput) {
-        const tmpValue = startInput.value;
-        const tmpAddress = XevipAddressAutocomplete.getSelectedAddress(startInput);
-        const endAddress = XevipAddressAutocomplete.getSelectedAddress(endInput);
-        startInput.value = endInput.value;
-        endInput.value = tmpValue;
-        XevipAddressAutocomplete.setSelectedAddress(startInput, endAddress);
-        XevipAddressAutocomplete.setSelectedAddress(endInput, tmpAddress);
+        [startSelect, endSelect].forEach((sel) => {
+          if (sel) sel.dispatchEvent(new CustomEvent('xevip:sync'));
+        });
+      } else {
+        // Tab đường dài: 2 đầu đều là ô địa chỉ nên chỉ cần hoán đổi giá trị, không có gì
+        // phải ẩn/hiện. Dùng chung đúng 1 hàm với tab sân bay.
+        swapAddressInputs(startInput, endInput);
       }
     });
   }
