@@ -320,22 +320,26 @@ def build_sitemap(posts, services):
 
 # ---------------- Dọn thư mục mồ côi ----------------
 
-def clean_orphans(post_slugs, service_slugs):
-    """Xoá bài/dịch vụ đã bị xoá qua CMS. Nếu không có bước này, trang cũ vẫn truy cập được
-    trên site vô thời hạn và Google vẫn index nội dung đã xoá."""
-    if os.path.isdir(BLOG_HTML_DIR):
-        for name in os.listdir(BLOG_HTML_DIR):
-            path = os.path.join(BLOG_HTML_DIR, name)
-            if os.path.isdir(path) and name not in post_slugs:
-                shutil.rmtree(path)
-                print("  Đã xoá bài mồ côi:", os.path.relpath(path, BASE))
-    # Chỉ đụng thư mục có tiền tố dich-vu- ở gốc html/ (quy ước slug dịch vụ, xem GAS.md mục
-    # VI) - không quét lung tung sang images/, css/, js/, area/...
-    for name in os.listdir(HTML_DIR):
-        path = os.path.join(HTML_DIR, name)
-        if os.path.isdir(path) and name.startswith(SERVICE_SLUG_PREFIX) and name not in service_slugs:
+def clean_orphans(generated_now):
+    """Xoá trang đã bị xoá qua CMS. Nếu không có bước này, trang cũ vẫn truy cập được trên
+    site vô thời hạn và Google vẫn tiếp tục index nội dung đã xoá.
+
+    ⚠️ CHỈ xoá đúng những trang mà CHÍNH build.py đã sinh ra ở lần build trước (đọc từ
+    data/.generated.json), KHÔNG xoá theo quy ước tên thư mục.
+
+    Bản đầu của hàm này xoá "mọi thư mục html/dich-vu-* không có trong services.json" — sai
+    về bản chất và suýt gây hậu quả thật: người khác thêm 11 trang sân bay viết tay
+    (html/dich-vu-xe-san-bay-noi-bai/...) thì lần build kế tiếp sẽ xoá sạch chúng, dù build.py
+    chưa hề tạo ra chúng và không có quyền gì với chúng. Quy tắc đúng: build chỉ được xoá thứ
+    do chính nó tạo ra."""
+    manifest_path = os.path.join(DATA_DIR, ".generated.json")
+    previous = set(load_json(manifest_path, []))
+    for rel in sorted(previous - set(generated_now)):
+        path = os.path.join(BASE, rel)
+        if os.path.isdir(path):
             shutil.rmtree(path)
-            print("  Đã xoá dịch vụ mồ côi:", os.path.relpath(path, BASE))
+            print("  Đã xoá trang mồ côi:", rel)
+    write(manifest_path, json.dumps(sorted(generated_now), ensure_ascii=False, indent=2) + "\n")
 
 
 # ---------------- Main ----------------
@@ -372,7 +376,12 @@ def main():
         print("  +", os.path.relpath(out_path, BASE))
 
     print("3) Dọn trang mồ côi:")
-    clean_orphans({p["slug"] for p in posts_index}, {s["slug"] for s in services})
+    # Danh sách thư mục do CHÍNH lần build này sinh ra (đường dẫn tương đối từ gốc repo).
+    generated_now = (
+        [os.path.join("html", "blog", p["slug"]) for p in posts_index] +
+        [os.path.join("html", s["slug"]) for s in services]
+    )
+    clean_orphans(generated_now)
 
     print("4) Vá menu Dịch vụ vào mọi trang:")
     patch_nav_everywhere(services)
