@@ -176,11 +176,15 @@
 - Chuyển tab chỉ là hiệu ứng giao diện — không tải lại trang, không gọi lại toàn bộ dữ liệu.
 - Đăng nhập lần đầu: 1 round-trip `boot(token)` duy nhất lấy hết (me, appHtml, posts, services,
   github). Lần sau: hiện ngay từ cache localStorage rồi revalidate ngầm.
-- ⚠️ **BẮT BUỘC**: mọi key `localStorage` (TRỪ token đăng nhập) mang hậu tố `CLIENT_BUILD`, +
-  hàm `purgeStaleCaches_()` tự dọn key khác phiên bản lúc tải script.
-  **BUMP `CLIENT_BUILD` mỗi lần sửa `app.html` hoặc `js.html`.** Không làm = khách kẹt vĩnh
-  viễn ở giao diện cũ và cách duy nhất thoát là bắt khách tự xoá localStorage — KHÔNG ĐƯỢC
-  PHÉP xảy ra (xem mục X, bug đã gặp thật ở dự án khác).
+- Mọi key `localStorage` (TRỪ token đăng nhập) mang hậu tố `CLIENT_BUILD`, + hàm
+  `purgeStaleCaches_()` tự dọn key khác phiên bản lúc tải script.
+- **`CLIENT_BUILD` TỰ SINH, không ai phải nhớ bump.** Server băm MD5 nội dung `app.html` +
+  `js.html` (`clientBuild_()` trong `Code.js`), bơm xuống client qua `index.html`
+  (`window.CLIENT_BUILD`); `js.html` chỉ đọc lại giá trị đó. Sửa 1 trong 2 file = băm ra khác
+  = mọi key cache đổi theo = cache cũ tự bị dọn.
+  Dự án khác cùng playbook dùng hằng số gõ tay và đã dính bug thật vì có người quên tăng (mục
+  X). Ở đây cố ý KHÔNG làm vậy: bắt con người nhớ một việc máy làm được là thiết kế sai — bug
+  sẽ tái diễn đúng vào lần quên đầu tiên. Không thêm lại hằng số gõ tay dưới bất kỳ hình thức nào.
 - TinyMCE chỉ `init` SAU KHI tab chứa nó đã `display:block` (init lúc còn ẩn → editor cao 0px).
 
 ## IX. Kiến trúc lưu trữ
@@ -226,9 +230,10 @@ khoảng 1–2 phút.
 - **Đăng nhập được nhưng không vào được Admin** → thường do `requestOtp` quên ngoại lệ chủ
   script (mục I.3), hoặc so email chưa `trim().toLowerCase()`.
 - **Sửa code, deploy đúng, F5 vẫn thấy giao diện CŨ** → cache `localStorage` của chính app giữ
-  `appHtml` cũ. Fix ĐỦ 2 lớp: (1) `CLIENT_BUILD` ghép vào mọi key + `purgeStaleCaches_()`;
-  (2) revalidate ngầm so `appHtml` mới ≠ cũ thì vẽ lại DOM (giữ đúng tab đang xem, KHÔNG vẽ đè
-  khi đang mở form soạn). ⛔ Không bao giờ "chữa" bằng cách bảo khách tự xoá localStorage.
+  `appHtml` cũ. Fix ĐỦ 2 lớp: (1) `CLIENT_BUILD` (tự băm từ nội dung file, mục VIII) ghép vào
+  mọi key + `purgeStaleCaches_()`; (2) revalidate ngầm so `appHtml` mới ≠ cũ thì vẽ lại DOM
+  (giữ đúng tab đang xem, KHÔNG vẽ đè khi đang mở form soạn). ⛔ Không bao giờ "chữa" bằng
+  cách bảo khách tự xoá localStorage.
   Test bắt buộc: F5 khi localStorage còn cache CŨ → giao diện phải tự đúng ngay lần F5 đầu.
 - **Hàm chạy ngầm nuốt lỗi (`.catch(() => {})`)** → luôn `console.warn`/`console.error`.
 - **TinyMCE "không chạy"** (ô nội dung trống/cao 0px) → do init lúc tab còn ẩn (mục VIII).
