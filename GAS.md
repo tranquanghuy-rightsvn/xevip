@@ -190,6 +190,21 @@
 
 ## VIII. UX chung (áp dụng cho MỌI thao tác trong Admin)
 
+- ⛔ **CẤM TUYỆT ĐỐI nhắc tới hạ tầng lưu trữ phía sau trong BẤT KỲ thứ gì gửi xuống trình
+  duyệt** — chữ trên giao diện, dòng gợi ý, thông báo lỗi, nút bấm, KỂ CẢ comment trong
+  `app.html`/`js.html`/`index.html`/`css.html` (mở F12 là đọc được hết). Không có nút/đường
+  link nào mở thẳng kho dữ liệu từ trang quản trị. Yêu cầu tường minh của chủ dự án
+  (27/08/2026): khách hàng chỉ được biết tới "trang quản trị", không được biết bên dưới chạy
+  bằng gì.
+  Chỗ nào cần nói "cái này không sửa được ở đây" thì viết đúng như vậy, hoặc "liên hệ bên kỹ
+  thuật" — không giải thích phải sửa ở đâu.
+  Kiểm nhanh trước mỗi lần deploy:
+  `grep -niE 'sheet|spreadsheet|drive' gas/app.html gas/js.html gas/index.html gas/css.html`
+  phải KHÔNG ra kết quả nào.
+  `Code.js` chạy phía máy chủ, không bao giờ gửi xuống trình duyệt — nhưng MỌI CHUỖI trong đó
+  được `throw` ra ngoài thì có (thông báo lỗi hiện lên giao diện), nên chuỗi lỗi cũng phải theo
+  luật này.
+
 - 2 loại pop-up RIÊNG BIỆT, giữa màn hình, KHÔNG dùng `alert()`/`confirm()` native, KHÔNG toast:
   1. **Xác nhận** (Huỷ / Xoá) — hỏi TRƯỚC khi bắt đầu xử lý.
   2. **Thông báo kết quả** (1 nút Đóng) — hiện SAU khi xong, không tự ẩn.
