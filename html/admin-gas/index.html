@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trang quản trị - Xe VIP Sân Bay</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="/images/cropped-logo-xe-vip-noi-bai-final-32x32.png">
+<!-- ĐƯỜNG LUI của trang quản trị: xevipsanbay.com/admin-gas/
+     Mở CMS theo cách cũ (chuyển hướng thẳng ra Apps Script). Dùng khi trình duyệt nào đó
+     không cho nhúng, khiến /admin/ (bản nhúng) không vào được. Nhược điểm so với /admin/:
+     hiện thanh cảnh báo của Google và lộ URL script.google.com trên thanh địa chỉ - chấp
+     nhận được vì đây chỉ là phương án dự phòng.
+     Đã gặp thật (27/08/2026): Chrome đăng nhập tài khoản Workspace công ty bị Google chuyển
+     hướng sang script.google.com/a/macros/<domain>/... và treo vĩnh viễn khi bị nhúng; đăng
+     nhập bằng Gmail cá nhân thì nhúng chạy bình thường.
+
+     CHẶN BOT - 3 lớp độc lập:
+       1. Thẻ meta robots/googlebot/bingbot ngay dưới đây (bot đọc được HTML).
+       2. Header HTTP X-Robots-Tag trong html/vercel.json (không phụ thuộc bot có parse HTML).
+       3. Không trang nào trên site trỏ link tới đây, và robots.txt CỐ Ý không liệt kê đường
+          dẫn admin - robots.txt là file công khai, khai ra là tự quảng cáo đường dẫn cho cả
+          thiên hạ (xem GAS.md).
+     Bảo mật THẬT nằm ở đăng nhập OTP phía Apps Script; mấy lớp trên chỉ chống lộ lên kết quả
+     tìm kiếm.
+
+     File TĨNH, sửa tay - build.py cố ý KHÔNG sinh lại. -->
+<style>
+  body { font-family: "Open Sans", sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f5f6f8; color: #1c1c1c; }
+  .box { text-align: center; padding: 32px; }
+  a { color: #d02128; }
+</style>
+</head>
+<body>
+<div class="box">
+  <p>Đang chuyển tới trang quản trị...</p>
+  <p><a id="cms-link" href="#" rel="nofollow noreferrer noopener">Bấm vào đây nếu trình duyệt không tự chuyển</a></p>
+</div>
+<script>
+  var GAS_EXEC_URL = 'https://script.google.com/macros/s/AKfycbwjfcy82c6_ywQIN_pffWpCiAEfw-pVPDR996NOPEqwq5SobbP4GiX26npARxfligFHbQ/exec';
+  if (GAS_EXEC_URL) {
+    document.getElementById('cms-link').href = GAS_EXEC_URL;
+    location.replace(GAS_EXEC_URL);
+  } else {
+    document.querySelector('.box p').textContent =
+      'Chưa cấu hình đường dẫn trang quản trị (GAS_EXEC_URL trong html/admin/index.html).';
+  }
+</script>
+</body>
+</html>

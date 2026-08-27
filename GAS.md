@@ -254,7 +254,21 @@ sheet/cột CỐ ĐỊNH:
 | `templates/*.html` | Người | ✅ — đây chính là chỗ sửa design |
 | `html/images/**` | GAS | không cần |
 
-**Trang quản trị**: `https://xevipsanbay.com/admin/` (trang tĩnh chuyển hướng) → web app GAS
+**Trang quản trị**: `https://xevipsanbay.com/admin/` — trang tĩnh NHÚNG web app GAS vào ngay
+trong domain (iframe + cắt 25px thanh cảnh báo của Google bằng CSS). Nhờ vậy thanh địa chỉ
+luôn là xevipsanbay.com và không hiện dòng "This application was created by a Google Apps
+Script user".
+**Đường lui**: `https://xevipsanbay.com/admin-gas/` — mở CMS theo cách cũ (chuyển hướng thẳng
+ra Apps Script), dùng khi trình duyệt chặn nhúng. Bản nhúng tự chuyển sang gợi ý đường lui này
+nếu 12 giây không tải được.
+⚠️ Nhúng KHÔNG chạy trên Chrome đang đăng nhập tài khoản Google Workspace của tổ chức: Google
+chuyển hướng sang `script.google.com/a/macros/<domain>/s/.../exec` và request đó treo vĩnh viễn
+khi bị nhúng (đã kiểm chứng 27/08/2026). Đăng nhập bằng Gmail cá nhân thì chạy bình thường.
+`robots.txt` CỐ Ý không khai `Disallow` cho 2 đường dẫn này — robots.txt là file công khai, khai
+ra là tự quảng cáo đường dẫn quản trị; chặn bot đã có meta robots + header `X-Robots-Tag`, và
+không trang nào trỏ link tới đó.
+
+Web app GAS →
 `https://script.google.com/macros/s/AKfycbwjfcy82c6_ywQIN_pffWpCiAEfw-pVPDR996NOPEqwq5SobbP4GiX26npARxfligFHbQ/exec`.
 URL này nằm ở 2 chỗ trong repo: `html/admin/index.html` và `html/js/main.js` (hằng
 `GAS_EXEC_URL`). Deploy lại bằng "New version" thì URL giữ nguyên; chỉ "New deployment" mới đổi.
