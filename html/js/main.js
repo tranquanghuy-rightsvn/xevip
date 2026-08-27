@@ -166,7 +166,7 @@ async function populateAirportSelects() {
     sel.innerHTML = '';
     const placeholder = document.createElement('option');
     placeholder.value = '';
-    placeholder.textContent = 'Chọn sân bay';
+    placeholder.textContent = 'Mời bạn chọn sân bay';
     placeholder.disabled = true;
     placeholder.selected = true;
     sel.appendChild(placeholder);
@@ -206,7 +206,7 @@ function enhanceAirportSelect(select) {
   const input = document.createElement('input');
   input.type = 'text';
   input.className = 'airport-search-input';
-  input.placeholder = 'Nhập hoặc chọn sân bay';
+  input.placeholder = 'Mời bạn chọn sân bay';
   input.autocomplete = 'off';
 
   const list = document.createElement('ul');
@@ -275,6 +275,63 @@ function enhanceAirportSelect(select) {
   }
   syncVisibility();
   new MutationObserver(syncVisibility).observe(select, { attributes: true, attributeFilter: ['hidden', 'disabled'] });
+  // Cho phép code ngoài gán select.value rồi yêu cầu vẽ lại ô hiển thị (ô gõ-tìm
+  // không tự biết giá trị vừa đổi vì <select> gốc không bắn 'change' khi gán bằng JS).
+  select.addEventListener('xevip:sync', syncVisibility);
+}
+
+// ---------------- Nhận diện sân bay từ địa chỉ Google Maps ----------------
+// Dùng cho tính năng "gõ điểm đi là sân bay -> tự đảo chiều" (xem setupBookingWidget).
+//
+// Tên sân bay lấy từ API /v1/airports/all, và dữ liệu thật khá lộn xộn: hoa/thường lẫn
+// lộn ("Sân bay Cần Thơ" vs "sân bay vinh"), có cái không kèm chữ sân bay ("Chu Lai"),
+// có cái thừa dấu cách ("sân bay phú quốc "), và vài cái gõ sai dấu ("pleku",
+// "buôn ma thuật"). Vì vậy so khớp phải bỏ dấu, bỏ tiền tố, và có bảng tên thay thế cho
+// mấy chỗ gõ sai — KHÔNG so khớp thẳng chuỗi.
+
+// Địa chỉ phải chứa 1 trong các từ khoá này thì mới xét tiếp. Đây chính là quy tắc chủ dự
+// án chốt: "có chữ sân bay trong tên".
+const AIRPORT_ADDRESS_KEYWORDS = ['san bay', 'airport', 'cang hang khong'];
+
+// Tên bị gõ sai trong dữ liệu API -> tên Google Maps thật sự dùng. Chỉ THÊM lựa chọn khớp,
+// không thay thế, nên khi nào API sửa lại tên đúng thì cơ chế vẫn chạy bình thường.
+const AIRPORT_NAME_ALIASES = {
+  'pleku': ['pleiku'],
+  'buon ma thuat': ['buon ma thuot'],
+};
+
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// "sân bay Nội Bài" -> "noi bai": bỏ dấu + bỏ mọi tiền tố chung, chỉ giữ phần tên riêng.
+function airportCoreName(name) {
+  return normalizeForSearch(String(name || ''))
+    .replace(/\b(cang hang khong|san bay|quoc te|international|airport)\b/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Tìm <option> sân bay khớp với chuỗi địa chỉ Google Maps trả về.
+ * Trả null nếu địa chỉ không phải sân bay, hoặc là sân bay nhưng không có trong danh sách
+ * đang phục vụ (vd sân bay nước ngoài) - lúc đó KHÔNG đảo chiều, để nguyên cho người dùng. */
+function findAirportOptionByAddress(select, addressText) {
+  if (!select) return null;
+  const addr = normalizeForSearch(String(addressText || '')).replace(/\s+/g, ' ');
+  if (!AIRPORT_ADDRESS_KEYWORDS.some((k) => addr.includes(k))) return null;
+
+  let best = null;
+  Array.from(select.options).filter((o) => o.value).forEach((o) => {
+    const core = airportCoreName(o.textContent);
+    if (!core) return;
+    const variants = [core].concat(AIRPORT_NAME_ALIASES[core] || []);
+    // Khớp theo RANH GIỚI TỪ, không phải substring trần: "vinh" mà khớp kiểu substring thì
+    // "Sân bay Nội Bài, Vĩnh Phúc" sẽ bị nhận nhầm thành sân bay Vinh.
+    const hit = variants.some((v) => new RegExp('(^|[^a-z0-9])' + escapeRegExp(v) + '($|[^a-z0-9])').test(addr));
+    // Nhiều tên cùng khớp thì lấy tên DÀI NHẤT (cụ thể nhất).
+    if (hit && (!best || core.length > best.core.length)) best = { option: o, core: core };
+  });
+  return best ? best.option : null;
 }
 
 // Báo chưa chọn sân bay từ danh sách gợi ý, cùng cơ chế bubble validate
@@ -600,6 +657,40 @@ function setupBookingWidget(widget) {
       if (startRoad) startRoad.hidden = false;
       if (destAirport) destAirport.hidden = true;
       if (destRoad) destRoad.hidden = false;
+    });
+  }
+
+  // Người dùng gõ Điểm Đi mà chọn trúng một sân bay -> tự đảo chiều và đưa luôn sân bay đó
+  // vào ô sân bay của Điểm Đi. Lý do: chiều mặc định là "địa chỉ khách -> sân bay"; nếu điểm
+  // ĐI đã là sân bay thì đó là chiều đón khách TỪ sân bay, người dùng lẽ ra phải tự bấm "Đảo
+  // chiều" rồi chọn lại sân bay từ đầu — làm thay cho họ.
+  //
+  // Chỉ chạy khi: đang ở tab sân bay, CHƯA đảo chiều, và sân bay đó có trong danh sách đang
+  // phục vụ. Sân bay lạ (vd Changi) thì để nguyên, không đụng gì.
+  if (locationInput && startSelect) {
+    locationInput.addEventListener('xevip:address-selected', (e) => {
+      const isAirportTab = !airportTab || airportTab.classList.contains('active');
+      if (!isAirportTab || airportSwapped) return;
+
+      const description = (e.detail && e.detail.description) || locationInput.value;
+      const matched = findAirportOptionByAddress(startSelect, description);
+      if (!matched) return;
+
+      startSelect.value = matched.value;
+      startSelect.setCustomValidity('');
+      // Địa chỉ vừa gõ đã được "tiêu thụ" thành lựa chọn sân bay - xoá cả ô lẫn object địa
+      // chỉ đã lưu, tránh để lại dữ liệu cũ nếu sau đó người dùng tự đảo chiều về.
+      locationInput.value = '';
+      XevipAddressAutocomplete.clearSelectedAddress(locationInput);
+
+      airportSwapped = true;
+      applyAirportSwap();
+      // <select> gán bằng JS không bắn 'change', ô gõ-tìm phía trên không tự biết -> bảo nó
+      // vẽ lại (xem enhanceAirportSelect).
+      startSelect.dispatchEvent(new CustomEvent('xevip:sync'));
+
+      // Đưa con trỏ sang ô còn thiếu để người dùng gõ tiếp ngay, không phải tự đi tìm.
+      if (destAddressInput && !destAddressInput.disabled) destAddressInput.focus();
     });
   }
 

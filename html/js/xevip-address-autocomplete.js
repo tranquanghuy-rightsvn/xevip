@@ -114,6 +114,13 @@
       input.scrollLeft = 0;
       selectedAddressByInput.set(input, item);
       closeList();
+      // Báo ra ngoài rằng người dùng vừa CHỌN 1 địa chỉ từ dropdown (khác với
+      // sự kiện "input" vốn bắn liên tục lúc đang gõ). main.js dùng tín hiệu
+      // này để tự đảo chiều khi địa chỉ điểm đi hoá ra là một sân bay.
+      input.dispatchEvent(new CustomEvent("xevip:address-selected", {
+        detail: item,
+        bubbles: true,
+      }));
     }
 
     function setActive(index) {
