@@ -36,6 +36,25 @@ Admin (Google Apps Script)  ──ghi──►  data/*.json  ──trigger──
 ⚠️ Không sửa tay file trong `html/blog/`, `html/dich-vu-*/` — lần build kế tiếp sẽ ghi đè.
 Muốn đổi giao diện các trang đó thì sửa `templates/`.
 
+## Google Analytics
+
+Mã đo lường `G-BD60VVTKRC` (gtag.js) đặt ngay đầu `<head>`, sau thẻ `charset` + `viewport`.
+
+Có mặt ở: **21 trang nội dung** + **3 file `templates/`** (để trang do CI build ra cũng có).
+
+Cố ý KHÔNG có ở:
+- `/admin/`, `/admin-gas/` — công cụ nội bộ, gắn vào sẽ trộn lượt dùng của quản trị viên
+  vào số liệu khách thật.
+- 11 trang `dich-vu-xe-san-bay/<slug>/` — đây là trang chuyển hướng tức thì sang URL phẳng;
+  gắn vào sẽ đếm 2 lượt xem cho 1 lượt truy cập và sinh ra tỉ lệ thoát ảo.
+
+⚠️ **Thêm trang mới viết tay thì nhớ chèn đoạn này vào `<head>`** — `templates/` chỉ lo được
+cho trang do CI sinh ra. Kiểm nhanh trang nào còn thiếu:
+
+```bash
+grep -rLl 'G-BD60VVTKRC' html --include='index.html'
+```
+
 ## Menu "DỊCH VỤ" tự cập nhật
 
 `build.py` vá lại danh sách dịch vụ giữa 2 mốc neo có trong **mọi** trang:
