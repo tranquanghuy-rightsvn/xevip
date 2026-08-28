@@ -254,26 +254,18 @@ sheet/cột CỐ ĐỊNH:
 | `templates/*.html` | Người | ✅ — đây chính là chỗ sửa design |
 | `html/images/**` | GAS | không cần |
 
-**Trang quản trị**: `https://xevipsanbay.com/admin/` — trang tĩnh NHÚNG web app GAS vào ngay
-trong domain (iframe + cắt 25px thanh cảnh báo của Google bằng CSS). Nhờ vậy thanh địa chỉ
-luôn là xevipsanbay.com và không hiện dòng "This application was created by a Google Apps
-Script user".
-**Đường lui**: `https://xevipsanbay.com/admin-gas/` — mở CMS theo cách cũ (chuyển hướng thẳng
-ra Apps Script), dùng khi trình duyệt chặn nhúng. Bản nhúng tự chuyển sang gợi ý đường lui này
-nếu 12 giây không tải được.
-⚠️ Nhúng KHÔNG chạy trên Chrome đang đăng nhập tài khoản Google Workspace của tổ chức: Google
-chuyển hướng sang `script.google.com/a/macros/<domain>/s/.../exec` và request đó treo vĩnh viễn
-khi bị nhúng (đã kiểm chứng 27/08/2026). Đăng nhập bằng Gmail cá nhân thì chạy bình thường.
-`robots.txt` CỐ Ý không khai `Disallow` cho 2 đường dẫn này — robots.txt là file công khai, khai
-ra là tự quảng cáo đường dẫn quản trị; chặn bot đã có meta robots + header `X-Robots-Tag`, và
-không trang nào trỏ link tới đó.
+**Trang quản trị**: `https://xevipsanbay.com/admin/` — trang tĩnh chuyển hướng thẳng sang web
+app GAS. `https://xevipsanbay.com/admin-gas/` là bản y hệt, giữ lại vì có thể đã được lưu dấu
+trang; xoá lúc nào cũng được.
 
-Web app GAS →
-`https://script.google.com/macros/s/AKfycbwjfcy82c6_ywQIN_pffWpCiAEfw-pVPDR996NOPEqwq5SobbP4GiX26npARxfligFHbQ/exec`.
-URL này nằm ở 2 chỗ trong repo: `html/admin/index.html` và `html/js/main.js` (hằng
-`GAS_EXEC_URL`). Deploy lại bằng "New version" thì URL giữ nguyên; chỉ "New deployment" mới đổi.
-Chặn bot 3 lớp: meta robots trong trang admin + `Disallow: /admin/` trong `robots.txt` +
-header `X-Robots-Tag` trong `html/vercel.json`.
+⛔ **ĐỪNG THỬ LẠI CÁCH NHÚNG CMS BẰNG IFRAME.** Đã làm thật và đã phải gỡ (28/08/2026). Nhúng
+thì được 2 thứ hình thức: giấu thanh cảnh báo 25px của Google ("This application was created by
+a Google Apps Script user") và giữ thanh địa chỉ ở domain khách. Nhưng **trình soạn thảo
+TinyMCE KHÔNG CHẠY** khi CMS nằm trong iframe lồng khác origin — mở tab soạn bài ra ô nội dung
+trống trơn, không gõ được. Xác nhận bằng cách so trực tiếp cùng thời điểm: bản chuyển hướng
+(không nhúng) thì soạn bài bình thường. Đổi 2 thứ hình thức lấy 1 editor hỏng là lỗ vốn.
+Ghi chú thêm: nhúng cũng đã không chạy sẵn trên trình duyệt đăng nhập tài khoản Workspace của
+tổ chức (Google chuyển hướng sang `/a/macros/<domain>/` rồi treo vĩnh viễn).
 
 **Hosting**: Vercel (đã nối sẵn repo này). CI GitHub Actions chỉ build `html/` rồi commit —
 Vercel tự deploy khi có commit mới. Độ trễ thực tế từ lúc bấm Lưu tới lúc thấy trên site:

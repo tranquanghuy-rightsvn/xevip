@@ -9,107 +9,40 @@
 <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" type="image/png" href="/images/cropped-logo-xe-vip-noi-bai-final-32x32.png">
-<!-- Trang quản trị chính thức: xevipsanbay.com/admin/
-     Nhúng thẳng CMS vào trong domain của mình, được 2 thứ:
-       1. Cắt thanh cảnh báo "This application was created by a Google Apps Script user"
-          (cao đúng 25px, đo bằng trình duyệt 27/08/2026).
-       2. Thanh địa chỉ luôn là xevipsanbay.com - không lộ hạ tầng bên dưới.
-     Cắt bằng CSS (kéo iframe lên 25px trong khung overflow:hidden). KHÔNG đụng vào DOM trang
-     kia - khác origin nên không thể đụng, và cũng không cần.
+<!-- Trang quản trị: xevipsanbay.com/admin/ -> chuyển hướng thẳng sang web app CMS.
 
-     ĐƯỜNG LUI: /admin-gas/ mở thẳng CMS theo cách cũ (chuyển hướng), dùng khi trình duyệt
-     nào đó chặn nhúng. Đã gặp thật: Chrome đăng nhập tài khoản Workspace công ty bị Google
-     chuyển hướng sang script.google.com/a/macros/<domain>/... và treo vĩnh viễn khi nhúng;
-     đăng nhập bằng Gmail cá nhân thì nhúng chạy bình thường.
+     ⛔ ĐỪNG THỬ LẠI CÁCH NHÚNG BẰNG IFRAME. Đã làm thật rồi và đã phải gỡ bỏ (28/08/2026):
+     nhúng thì giấu được thanh cảnh báo của Google + giữ thanh địa chỉ ở domain mình, nhưng
+     TRÌNH SOẠN THẢO (TinyMCE) KHÔNG CHẠY khi CMS nằm trong iframe lồng khác origin - mở
+     tab soạn bài ra ô nội dung trống trơn, không gõ được. Xác nhận bằng cách so trực tiếp:
+     cùng lúc đó /admin-gas/ (chuyển hướng, không nhúng) thì soạn bài bình thường.
+     Đổi 2 thứ hình thức lấy 1 editor hỏng là lỗ vốn - không đáng.
 
-     File TĨNH, sửa tay - build.py cố ý KHÔNG sinh lại (xem GAS.md). -->
+     CHẶN BOT - 2 lớp, cố ý KHÔNG khai trong robots.txt (file đó công khai, khai ra là tự
+     quảng cáo đường dẫn quản trị): thẻ meta ngay dưới đây + header X-Robots-Tag trong
+     html/vercel.json. Bảo mật THẬT nằm ở đăng nhập phía CMS.
+
+     File TĨNH, sửa tay - build.py cố ý KHÔNG sinh lại. -->
 <style>
-  html, body { height: 100%; margin: 0; overflow: hidden; background: #f5f6f8;
-               font-family: "Open Sans", "Segoe UI", sans-serif; color: #1c1c1c; }
-  /* Chiều cao thanh cảnh báo của Google, đo thật 27/08/2026. Google đổi giao diện thì sửa
-     đúng 1 con số này. */
-  :root { --gg-warning-height: 25px; }
-
-  .cms-viewport { position: fixed; inset: 0; overflow: hidden; }
-  .cms-frame {
-    position: absolute;
-    top: calc(var(--gg-warning-height) * -1);
-    left: 0;
-    width: 100%;
-    height: calc(100% + var(--gg-warning-height));
-    border: 0;
-    display: block;
-  }
-
-  /* Lớp phủ báo trạng thái. Bản trước để z-index âm nên khi iframe treo thì người dùng chỉ
-     thấy màn hình trắng, không biết chuyện gì - lần này nằm ĐÈ LÊN và tự ẩn khi iframe tải
-     xong thật. */
-  .cms-status {
-    position: fixed; inset: 0; z-index: 10;
-    display: flex; align-items: center; justify-content: center; text-align: center;
-    padding: 24px; background: #f5f6f8;
-  }
-  .cms-status.hidden { display: none; }
-  .cms-status h2 { font-size: 18px; margin: 0 0 8px; }
-  .cms-status p { font-size: 14px; color: #666; margin: 6px 0; line-height: 1.6; }
-  .cms-status a {
-    display: inline-block; margin-top: 14px; padding: 10px 18px; border-radius: 6px;
-    background: #d02128; color: #fff; text-decoration: none; font-weight: 600;
-  }
-  .spinner {
-    width: 32px; height: 32px; margin: 0 auto 16px;
-    border: 3px solid rgba(0,0,0,.1); border-top-color: #d02128; border-radius: 50%;
-    animation: spin .7s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  body { font-family: "Open Sans", sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f5f6f8; color: #1c1c1c; }
+  .box { text-align: center; padding: 32px; }
+  a { color: #d02128; }
 </style>
 </head>
 <body>
-
-<div class="cms-status" id="cms-status">
-  <div>
-    <div class="spinner" id="cms-spinner"></div>
-    <h2 id="cms-status-title">Đang mở trang quản trị...</h2>
-    <p id="cms-status-text">Nếu quá 12 giây vẫn chưa vào được, dùng nút bên dưới.</p>
-    <a id="cms-open-tab" href="#" rel="nofollow noreferrer" style="display:none">Mở ở tab riêng</a>
-  </div>
+<div class="box">
+  <p>Đang chuyển tới trang quản trị...</p>
+  <p><a id="cms-link" href="#" rel="nofollow noreferrer noopener">Bấm vào đây nếu trình duyệt không tự chuyển</a></p>
 </div>
-
-<div class="cms-viewport">
-  <iframe class="cms-frame" id="cms-frame" title="Trang quản trị" referrerpolicy="no-referrer"></iframe>
-</div>
-
 <script>
-  var CMS_URL = 'https://script.google.com/macros/s/AKfycbwjfcy82c6_ywQIN_pffWpCiAEfw-pVPDR996NOPEqwq5SobbP4GiX26npARxfligFHbQ/exec';
-
-  var frame = document.getElementById('cms-frame');
-  var statusBox = document.getElementById('cms-status');
-  var loaded = false;
-
-  // Nút thoát hiểm trỏ về /admin-gas/ (đường lui, mở CMS theo cách cũ) - dễ nhớ hơn URL
-  // dài của Apps Script, và nếu sau này URL đó đổi thì chỉ phải sửa 1 chỗ ở /admin-gas/.
-  document.getElementById('cms-open-tab').href = '/admin-gas/';
-
-  // Sự kiện load của iframe VẪN bắn kể cả khi nội dung khác origin (chỉ là không đọc được
-  // bên trong) - đủ để phân biệt "đã tải được" với "treo".
-  frame.addEventListener('load', function () {
-    loaded = true;
-    statusBox.classList.add('hidden');
-    console.log('[admin] nhúng thành công');
-  });
-
-  // Treo quá lâu -> hiện lối thoát, không để người dùng nhìn màn hình trắng.
-  setTimeout(function () {
-    if (loaded) return;
-    console.warn('[admin] không nhúng được sau 12 giây - chuyển sang dùng /admin-gas/');
-    document.getElementById('cms-spinner').style.display = 'none';
-    document.getElementById('cms-status-title').textContent = 'Không nhúng được trang quản trị';
-    document.getElementById('cms-status-text').textContent =
-      'Trình duyệt này không cho hiển thị trang quản trị bên trong website. Bấm nút bên dưới để mở theo cách thường.';
-    document.getElementById('cms-open-tab').style.display = 'inline-block';
-  }, 12000);
-
-  frame.src = CMS_URL;
+  var GAS_EXEC_URL = 'https://script.google.com/macros/s/AKfycbwjfcy82c6_ywQIN_pffWpCiAEfw-pVPDR996NOPEqwq5SobbP4GiX26npARxfligFHbQ/exec';
+  if (GAS_EXEC_URL) {
+    document.getElementById('cms-link').href = GAS_EXEC_URL;
+    location.replace(GAS_EXEC_URL);
+  } else {
+    document.querySelector('.box p').textContent =
+      'Chưa cấu hình đường dẫn trang quản trị (GAS_EXEC_URL trong html/admin/index.html).';
+  }
 </script>
 </body>
 </html>
