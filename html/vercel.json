@@ -1,8 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/dich-vu-xe-san-bay/:slug",
+      "destination": "/dich-vu-xe-san-bay-:slug/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
-      "source": "/(admin|admin-test)(/.*)?",
+      "source": "/(admin|admin-gas)(/.*)?",
       "headers": [
         {
           "key": "X-Robots-Tag",
