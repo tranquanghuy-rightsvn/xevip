@@ -5,6 +5,11 @@
       "source": "/dich-vu-xe-san-bay/:slug",
       "destination": "/dich-vu-xe-san-bay-:slug/",
       "permanent": true
+    },
+    {
+      "source": "/dich-vu-xe-san-bay/:slug/",
+      "destination": "/dich-vu-xe-san-bay-:slug/",
+      "permanent": true
     }
   ],
   "headers": [
