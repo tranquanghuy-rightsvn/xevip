@@ -272,18 +272,19 @@ sheet/cột CỐ ĐỊNH:
 | `templates/*.html` | Người | ✅ — đây chính là chỗ sửa design |
 | `html/images/**` | GAS | không cần |
 
-**Trang quản trị**: `https://xevipsanbay.com/admin/` — trang tĩnh chuyển hướng thẳng sang web
-app GAS. `https://xevipsanbay.com/admin-gas/` là bản y hệt, giữ lại vì có thể đã được lưu dấu
-trang; xoá lúc nào cũng được.
+**Trang quản trị**: `https://xevipsanbay.com/admin/` — NHÚNG CMS thẳng vào domain (iframe +
+cắt 25px thanh cảnh báo của Google bằng CSS), nên thanh địa chỉ luôn là xevipsanbay.com.
+**Đường lui**: `https://xevipsanbay.com/admin-gas/` — chuyển hướng thẳng ra Apps Script, luôn
+chạy được. Bản nhúng tự chỉ sang đây nếu 12 giây không tải được.
 
-⛔ **ĐỪNG THỬ LẠI CÁCH NHÚNG CMS BẰNG IFRAME.** Đã làm thật và đã phải gỡ (28/08/2026). Nhúng
-thì được 2 thứ hình thức: giấu thanh cảnh báo 25px của Google ("This application was created by
-a Google Apps Script user") và giữ thanh địa chỉ ở domain khách. Nhưng **trình soạn thảo
-TinyMCE KHÔNG CHẠY** khi CMS nằm trong iframe lồng khác origin — mở tab soạn bài ra ô nội dung
-trống trơn, không gõ được. Xác nhận bằng cách so trực tiếp cùng thời điểm: bản chuyển hướng
-(không nhúng) thì soạn bài bình thường. Đổi 2 thứ hình thức lấy 1 editor hỏng là lỗ vốn.
-Ghi chú thêm: nhúng cũng đã không chạy sẵn trên trình duyệt đăng nhập tài khoản Workspace của
-tổ chức (Google chuyển hướng sang `/a/macros/<domain>/` rồi treo vĩnh viễn).
+⚠️ **Bản nhúng đang trong diện THEO DÕI.** Lần đầu (28/08/2026) phải gỡ vì trình soạn thảo
+TinyMCE không chạy khi CMS nằm trong iframe lồng khác origin. Nay TinyMCE đã tự host trên
+chính domain này thay vì gọi CDN, đang thử lại xem có hết không.
+Nếu lại hỏng: dùng `/admin-gas/` để viết bài, và khung báo lỗi đỏ trong CMS sẽ in ra chết ở
+bước nào + phiên bản + nguồn tài nguyên — chụp lại là chẩn đoán được, không phải mò.
+Ghi chú thêm: bản nhúng cũng KHÔNG chạy trên trình duyệt đang đăng nhập tài khoản Google
+Workspace của tổ chức (Google chuyển hướng sang `/a/macros/<domain>/` rồi treo vĩnh viễn) —
+đây là lý do độc lập, luôn cần giữ đường lui.
 
 **Hosting**: Vercel (đã nối sẵn repo này). CI GitHub Actions chỉ build `html/` rồi commit —
 Vercel tự deploy khi có commit mới. Độ trễ thực tế từ lúc bấm Lưu tới lúc thấy trên site:

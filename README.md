@@ -103,9 +103,9 @@ Cả hai đều có cờ chặn ghi đè; chỉ chạy lại với `--force` khi
 - Vào bằng **https://xevipsanbay.com/admin/** — trang này chỉ chuyển hướng sang web app CMS
   trên Apps Script (URL `/exec` đã cấu hình sẵn trong `html/admin/index.html`).
 - `/admin-gas/` là bản y hệt, giữ lại phòng ai đã lưu dấu trang — xoá lúc nào cũng được.
-- ⛔ **Đừng thử nhúng CMS vào domain bằng iframe** để giấu thanh cảnh báo của Google: đã làm
-  thật và đã phải gỡ (28/08/2026) vì trình soạn thảo TinyMCE không chạy trong iframe lồng khác
-  origin. Chi tiết ở `GAS.md`.
+- `/admin/` hiện NHÚNG CMS vào domain (giấu thanh cảnh báo của Google, giữ thanh địa chỉ).
+  Đang theo dõi: lần đầu phải gỡ vì trình soạn thảo không chạy trong iframe lồng khác origin;
+  nay TinyMCE đã tự host nên thử lại. Hỏng thì dùng `/admin-gas/`. Chi tiết ở `GAS.md`.
 - URL `/exec` đó cũng nằm trong `html/js/main.js` (hằng `GAS_EXEC_URL`) để form Liên hệ gửi
   được về CMS. **Deploy lại GAS theo kiểu "New version" thì URL KHÔNG đổi** — chỉ khi tạo
   "New deployment" mới sinh URL mới, lúc đó phải sửa cả 2 chỗ trên.
