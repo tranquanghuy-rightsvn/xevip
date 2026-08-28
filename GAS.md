@@ -74,8 +74,16 @@
    - **Ảnh bìa** — riêng 1-1 cho từng bài, tên đặt CỨNG theo slug: `html/images/<slug>-cover.jpg`.
      Tải ảnh mới cho cùng bài = ghi đè đúng file cũ. Phải có slug (điền tiêu đề) TRƯỚC khi
      tải ảnh; tải xong thì slug tự khoá luôn.
-   - **Nội dung** — TinyMCE: link, heading h2–h4, đậm/nghiêng/gạch chân, danh sách, bảng,
-     chèn ảnh nhanh (nút `quickimage`, không dùng dialog mặc định).
+   - **Nội dung** — TinyMCE **chế độ inline** (`inline: true`): link, heading h2–h4,
+     đậm/nghiêng/gạch chân, danh sách, bảng, chèn ảnh nhanh (nút `quickimage`, không dùng
+     dialog mặc định).
+     ⚠️ **Ô nội dung PHẢI là `<div>`, KHÔNG được là `<textarea>`** — chế độ inline gắn thẳng
+     vào phần tử soạn được, textarea không dùng được. Thanh công cụ neo cố định vào 1 div
+     riêng (`fixed_toolbar_container`) cho khỏi thả nổi bám con trỏ.
+     Vì sao chọn inline: mặc định TinyMCE tự tạo 1 IFRAME CON làm vùng soạn thảo. Nếu trang
+     quản trị được nhúng vào website thì thành chuỗi 4 tầng (trang mình → khung Google →
+     khung sandbox của Google → iframe TinyMCE); cờ sandbox di truyền xuống nên tầng 4 dễ bị
+     chặn, editor chết im lặng. Inline bỏ hẳn iframe con đó.
 2. Field KHÔNG có ô nhập — server tự suy lúc Lưu:
    - `seo_title` = Tiêu đề + `" - Xe VIP Sân Bay"` (đúng quy ước `<title>` của 4 bài viết tay
      đã có từ trước — giữ nguyên để không đổi SEO). `breadcrumb` = Tiêu đề. `cover_alt` = Tiêu đề.
@@ -275,6 +283,12 @@ khoảng 1–2 phút.
 
 - **Đăng nhập được nhưng không vào được Admin** → thường do `requestOtp` quên ngoại lệ chủ
   script (mục I.3), hoặc so email chưa `trim().toLowerCase()`.
+- **Trình soạn thảo không chạy, ô nội dung trống, Console sạch trơn** → 3 nguyên nhân đã gặp,
+  loại trừ lần lượt: (a) `tinymce.init` gọi lúc tab còn ẩn (mục VIII); (b) `resetEditors_`
+  quên gọi `tinymce.remove()` nên instance cũ vẫn giữ chỗ, init lần sau bị bỏ qua im lặng;
+  (c) CMS bị nhúng trong iframe lồng nhiều tầng, iframe con của TinyMCE bị cờ sandbox chặn —
+  vá bằng `inline: true` (mục II.1). Đã thêm khung báo lỗi đỏ ở đầu trang (`#fatal-error`) +
+  đồng hồ 10 giây: từ nay 3 ca này đều hiện lỗi ra màn hình chứ không hỏng im lặng nữa.
 - **Sửa code, deploy đúng, F5 vẫn thấy giao diện CŨ** → cache `localStorage` của chính app giữ
   `appHtml` cũ. Fix ĐỦ 2 lớp: (1) `CLIENT_BUILD` (tự băm từ nội dung file, mục VIII) ghép vào
   mọi key + `purgeStaleCaches_()`; (2) revalidate ngầm so `appHtml` mới ≠ cũ thì vẽ lại DOM
