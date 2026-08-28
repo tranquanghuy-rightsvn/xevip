@@ -80,10 +80,20 @@
      ⚠️ **Ô nội dung PHẢI là `<div>`, KHÔNG được là `<textarea>`** — chế độ inline gắn thẳng
      vào phần tử soạn được, textarea không dùng được. Thanh công cụ neo cố định vào 1 div
      riêng (`fixed_toolbar_container`) cho khỏi thả nổi bám con trỏ.
-     Vì sao chọn inline: mặc định TinyMCE tự tạo 1 IFRAME CON làm vùng soạn thảo. Nếu trang
-     quản trị được nhúng vào website thì thành chuỗi 4 tầng (trang mình → khung Google →
-     khung sandbox của Google → iframe TinyMCE); cờ sandbox di truyền xuống nên tầng 4 dễ bị
-     chặn, editor chết im lặng. Inline bỏ hẳn iframe con đó.
+     ⚠️ **TinyMCE TỰ HOST tại `https://xevipsanbay.com/vendor/tinymce/`, KHÔNG dùng CDN.**
+     Bản 6.8.5, file nằm trong repo site (`html/vendor/tinymce/`), chỉ giữ đúng phần đang
+     dùng: theme silver, model dom, icon default, skin oxide, 5 plugin lists/link/autolink/
+     table/code. TinyMCE tự suy ra chỗ lấy skin/plugin từ đường dẫn thẻ `<script>`, nên đổi
+     1 dòng đầu `js.html` là đổi hết. Nâng cấp thì thay cả thư mục đó.
+     Lý do: CDN chết là mất luôn trình soạn thảo; và tài nguyên đến từ domain của mình thì
+     loại bỏ hẳn nhóm nguyên nhân "bị chặn khi tải từ miền lạ".
+     ⚠️ **Thứ tự triển khai bắt buộc**: deploy site (để `/vendor/tinymce/` sống) TRƯỚC, rồi
+     mới `clasp push` CMS. Làm ngược là CMS trỏ vào đường dẫn chưa tồn tại → mất editor.
+
+     ⛔ **ĐỪNG đổi sang `inline: true`.** Đã thử 28/08/2026 và phải gỡ ngay: nó chết cả khi
+     mở trang quản trị TRỰC TIẾP, không riêng lúc nhúng. Cấu hình inline đó đã được kiểm
+     chứng chạy tốt ở trang thường ngoài Apps Script, nên lỗi ở môi trường chứ không ở cấu
+     hình. Triệu chứng: `setup()` không hề chạy → chết ngay khâu nạp tài nguyên.
 2. Field KHÔNG có ô nhập — server tự suy lúc Lưu:
    - `seo_title` = Tiêu đề + `" - Xe VIP Sân Bay"` (đúng quy ước `<title>` của 4 bài viết tay
      đã có từ trước — giữ nguyên để không đổi SEO). `breadcrumb` = Tiêu đề. `cover_alt` = Tiêu đề.

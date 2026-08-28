@@ -36,6 +36,18 @@ Admin (Google Apps Script)  ──ghi──►  data/*.json  ──trigger──
 ⚠️ Không sửa tay file trong `html/blog/`, `html/dich-vu-*/` — lần build kế tiếp sẽ ghi đè.
 Muốn đổi giao diện các trang đó thì sửa `templates/`.
 
+## Thư viện tự host
+
+`html/vendor/tinymce/` — TinyMCE 6.8.5, dùng bởi trình soạn thảo trong trang quản trị. Cố ý
+**tự host thay vì gọi CDN**: CDN chết là mất luôn khả năng viết bài, và tài nguyên cùng domain
+thì không dính nhóm lỗi "bị chặn khi tải từ miền lạ".
+
+Chỉ giữ đúng phần đang dùng (theme silver, model dom, icon default, skin oxide, 5 plugin
+lists/link/autolink/table/code) — 1.2MB thay vì 8.4MB của gói đầy đủ.
+
+⚠️ Thư mục này KHÔNG do build sinh ra, cũng không được xoá. Nâng cấp thì thay cả thư mục và
+sửa số phiên bản ghi trong `gas/js.html`.
+
 ## Google Analytics
 
 Mã đo lường `G-BD60VVTKRC` (gtag.js) đặt ngay đầu `<head>`, sau thẻ `charset` + `viewport`.
