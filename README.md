@@ -67,6 +67,48 @@ cho trang do CI sinh ra. Kiểm nhanh trang nào còn thiếu:
 grep -rLl 'G-BD60VVTKRC' html --include='index.html'
 ```
 
+### Google Tag Manager — `GTM-W4RQ6L4G`, CHỈ trang chủ
+
+Chủ dự án chốt: chỉ gắn ở **trang chủ** (`html/index.html`), không gắn ở trang khác và
+KHÔNG đưa vào `templates/` — đưa vào template là mọi trang bài viết/dịch vụ do CI sinh ra
+đều bắn GTM, tức là đo cả site chứ không còn là "chỉ trang chủ" nữa.
+
+Trang chủ là trang VIẾT TAY, `build.py` không sinh lại nó (chỉ vá vùng giữa 2 mốc neo
+`NAV_SERVICES`), nên đoạn mã này không thể bị build ghi đè mất. Chép lại nguyên văn ở đây
+để có nguồn khôi phục nếu ai đó lỡ xoá:
+
+Ngay đầu `<head>`, sau `charset` + `viewport` (không đặt TRƯỚC `charset`: thẻ charset phải
+nằm trong 1024 byte đầu tài liệu, đẩy nó xuống là hỏng hiển thị tiếng Việt):
+
+```html
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RQ6L4G');</script>
+<!-- End Google Tag Manager -->
+```
+
+Ngay sau thẻ `<body>`:
+
+```html
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W4RQ6L4G"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+```
+
+Kiểm nhanh (phải ra đúng 1 dòng `html/index.html`):
+
+```bash
+grep -rl 'GTM-W4RQ6L4G' html --include='index.html'
+```
+
+⚠️ GTM này chạy SONG SONG với gtag.js `G-BD60VVTKRC` ở trên. Nếu sau này khai thêm thẻ GA4
+cùng mã `G-BD60VVTKRC` bên trong giao diện GTM, trang chủ sẽ đếm đôi mỗi lượt xem — lúc đó
+phải gỡ 1 trong 2 bên, đừng để cả hai cùng bắn.
+
 ## Menu "DỊCH VỤ" tự cập nhật
 
 `build.py` vá lại danh sách dịch vụ giữa 2 mốc neo có trong **mọi** trang:
