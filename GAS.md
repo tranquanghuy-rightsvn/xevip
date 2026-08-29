@@ -134,7 +134,8 @@
 - Xoá đủ trong 1 thao tác: `data/blog/<slug>.json` + ảnh bìa `<slug>-cover.jpg` + mọi ảnh
   nội dung `<slug>-content-*.jpg` + gỡ khỏi `data/posts.json` (ghi SAU CÙNG).
   An toàn xoá ảnh vì ảnh đặt tên tất định theo slug, không có cơ chế dùng chung giữa các bài.
-- `build.py` tự xoá thư mục `html/blog/<slug>/` mồ côi ở lần build kế tiếp.
+- `build.py` tự xoá thư mục `html/blog/<slug>/` mồ côi ở lần build kế tiếp — nhận ra
+  trang của mình nhờ dấu `<!-- build.py:generated -->` đóng sẵn trong file HTML.
 - Bắt buộc pop-up xác nhận trước khi xoá (không hoàn tác được).
 
 ## V. Liên hệ (form công khai `/lien-he/`)
@@ -189,7 +190,7 @@
 - Ảnh trong nội dung dịch vụ: `html/images/<slug>-content-<N>.jpg`, cùng cơ chế với bài viết.
 - Dịch vụ KHÔNG có ảnh bìa riêng (2 trang dịch vụ hiện tại không dùng ảnh bìa).
 - Xoá dịch vụ: gỡ khỏi `data/services.json` + xoá ảnh nội dung của nó; `build.py` xoá thư mục
-  `html/<slug>/` mồ côi. Có pop-up xác nhận.
+  `html/<slug>/` mồ côi (theo dấu `<!-- build.py:generated -->`). Có pop-up xác nhận.
 - Quyền: `editor` trở lên — thêm/sửa/xoá dịch vụ đầy đủ, giống bài viết.
 - **Menu "DỊCH VỤ" trên toàn site tự cập nhật theo danh sách này** — `build.py` vá lại vùng
   giữa 2 mốc neo `<!-- NAV_SERVICES_START -->` / `<!-- NAV_SERVICES_END -->` (có ở cả sub-menu

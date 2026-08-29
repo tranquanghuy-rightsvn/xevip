@@ -40,11 +40,18 @@ jobs:
       - name: Build html/ từ data/ + templates/
         run: python3 scripts/build.py
 
+      # build.py chỉ ghi vào html/ và KHÔNG giữ file state nào trong data/ — trang do nó sinh
+      # ra tự mang dấu <!-- build.py:generated --> trong chính file HTML. Nên `git add -A html/`
+      # là đủ và không bao giờ lệch. (Bản cũ nhớ bằng data/.generated.json nhưng bước này không
+      # add data/ -> manifest không được commit -> build sau không nhận ra trang của chính mình
+      # -> bài xoá qua CMS vẫn nằm lại trên site. Nếu sau này thêm output ngoài html/, PHẢI add
+      # ở đây, nếu không lỗi đó quay lại y hệt.)
+      # -A để chắc chắn stage cả file bị build xoá, không phụ thuộc config của runner.
       - name: Commit html/ đã build
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add html/
+          git add -A html/
           git diff --cached --quiet && echo "Không có thay đổi để commit." && exit 0
           git commit -m "CI: build html từ data/"
           git push

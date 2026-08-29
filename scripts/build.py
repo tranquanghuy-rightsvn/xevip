@@ -21,7 +21,8 @@ Ghi:
   html/**/index.html            VÁ lại menu Dịch vụ giữa 2 mốc neo NAV_SERVICES (mọi trang,
                                 kể cả trang viết tay như trang chủ / liên hệ / về chúng tôi)
 Dọn:
-  html/blog/<slug>/ và html/dich-vu-*/ không còn trong data/ (đã xoá qua CMS) -> xoá thư mục
+  mọi trang MANG DẤU build.py (GENERATED_MARKER) mà không còn trong data/ (đã xoá qua CMS)
+  -> xoá. Trang viết tay không mang dấu nên build không bao giờ đụng vào.
 """
 import html as html_mod
 import json
@@ -46,6 +47,13 @@ DEFAULT_OG_IMAGE = "/images/xevipsanbay-banner2.jpeg"
 # này: sidebar liệt kê các sân bay khác, breadcrumb có 3 cấp đi qua đây. Trang tổng do người
 # viết tay, build.py không sinh lại (xem STATIC_PAGES).
 AIRPORT_HUB = {"name": "Dịch vụ xe taxi sân bay", "url": "/dich-vu-xe-san-bay/"}
+
+# Dấu đóng ngay trong TRANG được sinh ra: "trang này do build.py tạo". Đây là NGUỒN CHÂN LÝ
+# duy nhất để clean_orphans() biết trang nào nó có quyền xoá — không dùng file state riêng
+# (bản cũ dùng data/.generated.json và đã hỏng thật: workflow chỉ `git add html/` nên manifest
+# không bao giờ được commit lại, build sau đọc phải manifest cũ và không nhận ra các trang do
+# chính nó sinh ra sau đó -> xoá bài qua CMS mà trang HTML vẫn nằm lại trên site).
+GENERATED_MARKER = "<!-- build.py:generated -->"
 
 NAV_START = "<!-- NAV_SERVICES_START -->"
 NAV_END = "<!-- NAV_SERVICES_END -->"
@@ -101,6 +109,31 @@ def write(path, content):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         f.write(content)
+
+
+def write_generated_page(path, content):
+    """Ghi 1 trang do build sinh ra, có đóng GENERATED_MARKER.
+
+    Chèn SAU <head>, không chèn trước <!DOCTYPE html>: bất kỳ thứ gì đứng trước doctype đều
+    đẩy trình duyệt về quirks mode và làm vỡ layout toàn trang."""
+    if GENERATED_MARKER not in content:
+        if "<head>" in content:
+            content = content.replace("<head>", "<head>\n  " + GENERATED_MARKER, 1)
+        else:
+            # Template không có <head> (không nên xảy ra) — vẫn phải đóng dấu, nếu không
+            # trang đó thành "mồ côi vĩnh viễn": xoá qua CMS mà build không dám dọn.
+            print("  CẢNH BÁO: không thấy <head> trong", path, "- đóng dấu ở cuối trang.")
+            content = content + "\n" + GENERATED_MARKER + "\n"
+    write(path, content)
+
+
+def is_generated_page(path):
+    """Trang có dấu của build.py hay không. Đọc từ chính file, nên đúng kể cả khi file được
+    tạo bởi một lần build khác / trên máy khác / ở commit khác."""
+    try:
+        return GENERATED_MARKER in read(path)
+    except (OSError, UnicodeDecodeError):
+        return False
 
 
 def render_placeholders(tpl, mapping):
@@ -400,22 +433,39 @@ def clean_orphans(generated_now):
     """Xoá trang đã bị xoá qua CMS. Nếu không có bước này, trang cũ vẫn truy cập được trên
     site vô thời hạn và Google vẫn tiếp tục index nội dung đã xoá.
 
-    ⚠️ CHỈ xoá đúng những trang mà CHÍNH build.py đã sinh ra ở lần build trước (đọc từ
-    data/.generated.json), KHÔNG xoá theo quy ước tên thư mục.
+    ⚠️ CHỈ xoá trang do CHÍNH build.py sinh ra — nhận biết bằng GENERATED_MARKER nằm trong
+    chính file HTML, KHÔNG theo quy ước tên thư mục và KHÔNG theo file state bên ngoài.
 
-    Bản đầu của hàm này xoá "mọi thư mục html/dich-vu-* không có trong services.json" — sai
-    về bản chất và suýt gây hậu quả thật: người khác thêm 11 trang sân bay viết tay
-    (html/dich-vu-xe-san-bay-noi-bai/...) thì lần build kế tiếp sẽ xoá sạch chúng, dù build.py
-    chưa hề tạo ra chúng và không có quyền gì với chúng. Quy tắc đúng: build chỉ được xoá thứ
-    do chính nó tạo ra."""
-    manifest_path = os.path.join(DATA_DIR, ".generated.json")
-    previous = set(load_json(manifest_path, []))
-    for rel in sorted(previous - set(generated_now)):
-        path = os.path.join(BASE, rel)
-        if os.path.isdir(path):
-            shutil.rmtree(path)
-            print("  Đã xoá trang mồ côi:", rel)
-    write(manifest_path, json.dumps(sorted(generated_now), ensure_ascii=False, indent=2) + "\n")
+    Hai cái bẫy đã gặp thật, đừng lặp lại:
+      1. Xoá theo tên ("mọi html/dich-vu-* không có trong services.json"): người khác thêm 11
+         trang sân bay viết tay thì lần build sau xoá sạch, dù build chưa hề tạo ra chúng.
+      2. Nhớ bằng file state data/.generated.json: workflow chỉ `git add html/` nên state
+         không bao giờ được commit lại; build sau đọc state cũ, không nhận ra trang do chính
+         nó sinh ra sau đó, và trang test xoá qua CMS vẫn nằm lại trên site.
+    Dấu nằm trong chính trang thì không có gì để lệch: file còn đó là bằng chứng còn đó."""
+    keep = set(generated_now)
+    removed = 0
+    for root, _dirs, files in os.walk(HTML_DIR):
+        if "index.html" not in files:
+            continue
+        page = os.path.join(root, "index.html")
+        rel_dir = os.path.relpath(root, BASE)
+        if rel_dir in keep or not is_generated_page(page):
+            continue
+        # Thư mục trang thường chỉ có mỗi index.html. Có file lạ nằm cùng (ảnh ai đó bỏ vào,
+        # trang con viết tay...) thì chỉ xoá đúng index.html của mình, không kéo theo đồ của
+        # người khác.
+        leftovers = [f for f in os.listdir(root) if f != "index.html"]
+        if leftovers:
+            os.remove(page)
+            print("  Đã xoá trang mồ côi:", rel_dir + "/index.html",
+                  "(giữ lại", len(leftovers), "file khác trong thư mục)")
+        else:
+            shutil.rmtree(root)
+            print("  Đã xoá trang mồ côi:", rel_dir)
+        removed += 1
+    if not removed:
+        print("  Không có trang mồ côi.")
 
 
 # ---------------- Main ----------------
@@ -433,11 +483,11 @@ def main():
         slug = p["slug"]
         detail = load_json(os.path.join(POSTS_DATA_DIR, slug + ".json"))
         out_path = os.path.join(BLOG_HTML_DIR, slug, "index.html")
-        write(out_path, render_post_page(post_tpl, detail))
+        write_generated_page(out_path, render_post_page(post_tpl, detail))
         print("  +", os.path.relpath(out_path, BASE))
 
     index_path = os.path.join(BLOG_HTML_DIR, "index.html")
-    write(index_path, render_placeholders(read_template("blog-index.html"), {
+    write_generated_page(index_path, render_placeholders(read_template("blog-index.html"), {
         "POST_CARDS": build_post_cards(posts_index),
         "SIDEBAR": build_category_sidebar(),
         "NAV_SERVICES": "",
@@ -449,12 +499,13 @@ def main():
     service_tpl = read_template("service.html")
     for s in services:
         out_path = os.path.join(HTML_DIR, s["slug"], "index.html")
-        write(out_path, render_service_page(service_tpl, s, services))
+        write_generated_page(out_path, render_service_page(service_tpl, s, services))
         print("  +", os.path.relpath(out_path, BASE))
 
     print("3) Dọn trang mồ côi:")
     # Danh sách thư mục do CHÍNH lần build này sinh ra (đường dẫn tương đối từ gốc repo).
     generated_now = (
+        [os.path.join("html", "blog")] +
         [os.path.join("html", "blog", p["slug"]) for p in posts_index] +
         [os.path.join("html", s["slug"]) for s in services]
     )
