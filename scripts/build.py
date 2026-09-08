@@ -9,14 +9,17 @@ Chỉ dùng thư viện chuẩn của Python — chạy được cả trên máy
   data/posts.json           index nhẹ mọi bài viết (CMS ghi khi Lưu/Xoá)
   data/blog/<slug>.json     nội dung đầy đủ 1 bài
   data/services.json        toàn bộ dịch vụ, kèm nội dung
+  data/subservices.json     index nhẹ mọi danh mục con (cấp 3) của trang dịch vụ
+  data/subservices/<parent>/<slug>.json   nội dung đầy đủ 1 danh mục con
   templates/post.html       khung trang bài viết   ) SỬA DESIGN Ở ĐÂY - không sửa file
   templates/blog-index.html khung trang danh sách  ) trong html/ (build sẽ ghi đè)
-  templates/service.html    khung trang dịch vụ    )
+  templates/service.html    khung trang dịch vụ    ) - dùng cho CẢ trang danh mục con
 
 Ghi:
   html/blog/<slug>/index.html   ghi đè mỗi lần build
   html/blog/index.html          ghi đè mỗi lần build
   html/<slug>/index.html        trang dịch vụ, ghi đè mỗi lần build
+  html/<parent>/<slug>/index.html  trang danh mục con, ghi đè mỗi lần build
   html/sitemap.xml              dựng lại danh sách URL
   html/**/index.html            VÁ lại menu Dịch vụ giữa 2 mốc neo NAV_SERVICES (mọi trang,
                                 kể cả trang viết tay như trang chủ / liên hệ / về chúng tôi)
@@ -37,6 +40,12 @@ TEMPLATES_DIR = os.path.join(BASE, "templates")
 HTML_DIR = os.path.join(BASE, "html")
 BLOG_HTML_DIR = os.path.join(HTML_DIR, "blog")
 SITEMAP_PATH = os.path.join(HTML_DIR, "sitemap.xml")
+# Danh mục con (cấp 3) nằm DƯỚI 1 trang dịch vụ: URL /<slug-cha>/<slug-con>/. Tách index/detail
+# như bài viết (KHÔNG gom hết vào 1 file như services.json): số bản ghi có thể lớn dần, mà
+# GitHub Contents API chỉ trả nội dung file dưới ~1MB - gom hết vào 1 file là tự đặt trần cứng
+# cho CMS. Index nhẹ cũng là thứ boot() gửi xuống trình duyệt mỗi lần đăng nhập.
+SUBSERVICES_INDEX_PATH = os.path.join(DATA_DIR, "subservices.json")
+SUBSERVICES_DATA_DIR = os.path.join(DATA_DIR, "subservices")
 
 SITE_URL = "https://xevipsanbay.com"
 SITE_NAME = "Xe VIP Sân Bay"
@@ -143,9 +152,15 @@ def render_placeholders(tpl, mapping):
     return re.sub(r"\{\{(\w+)\}\}", lambda m: mapping.get(m.group(1), m.group(0)), tpl)
 
 
-def first_content_image(content_html):
+def find_content_image(content_html):
+    """Ảnh đầu tiên trong nội dung, hoặc None nếu không có (khác first_content_image: hàm này
+    KHÔNG rơi về ảnh mặc định, để nơi gọi còn chèn được nấc dự phòng riêng của mình)."""
     m = re.search(r'<img[^>]+src="(/images/[^"]+)"', content_html or "")
-    return m.group(1) if m else DEFAULT_OG_IMAGE
+    return m.group(1) if m else None
+
+
+def first_content_image(content_html):
+    return find_content_image(content_html) or DEFAULT_OG_IMAGE
 
 
 # ---------------- Menu Dịch vụ (vá vào MỌI trang qua mốc neo) ----------------
@@ -305,31 +320,67 @@ POST_CATEGORIES = [
 CATEGORY_URL = "/blog/"
 
 
+def sidebar_box(heading, items, heading_url=None):
+    """1 khối cột phải — ĐÚNG cấu trúc <div class="sidebar-box"> + <h3> + <ul> mà CSS của site
+    đang có (html/css/style.css). Thẻ bọc trước đây nằm sẵn trong templates/*.html nên cột phải
+    chỉ có được ĐÚNG 1 khối; nay build sinh cả thẻ bọc để xếp được nhiều khối chồng nhau (trang
+    sân bay có thêm khối danh mục con của chính nó). Đổi ở đây thì cả 3 template ăn theo."""
+    head = ('<a href="%s">%s</a>' % (esc(heading_url), esc(heading))) if heading_url else esc(heading)
+    return ('    <div class="sidebar-box">\n'
+            "      <h3>%s</h3>\n"
+            "      <ul>\n%s\n      </ul>\n"
+            "    </div>") % (head, items)
+
+
+def sidebar_links(pairs, current_url=None):
+    """pairs: [(url, nhãn)]. Mục ứng với TRANG ĐANG MỞ in đậm và bỏ thẻ <a> — link tự trỏ về
+    chính trang đang xem vừa vô nghĩa với người đọc vừa là tín hiệu xấu với công cụ tìm kiếm."""
+    rows = []
+    for url, label in pairs:
+        if current_url and url == current_url:
+            rows.append("        <li><strong>%s</strong></li>" % esc(label))
+        else:
+            rows.append('        <li><a href="%s">%s</a></li>' % (esc(url), esc(label)))
+    return "\n".join(rows)
+
+
 def build_category_sidebar():
-    items = "\n".join(
-        '        <li><a href="%s">%s</a></li>' % (CATEGORY_URL, esc(name))
-        for name in POST_CATEGORIES
-    )
-    return "      <h3>Chuyên mục bài viết</h3>\n      <ul>\n" + items + "\n      </ul>"
+    return sidebar_box("Chuyên mục bài viết",
+                       sidebar_links([(CATEGORY_URL, name) for name in POST_CATEGORIES]))
 
 
-def build_service_sidebar(service, services):
+def build_children_box(service, children, current_url=None, heading_url=None):
+    """Khối liệt kê danh mục con (cấp 3) của 1 trang dịch vụ.
+
+    Tiêu đề khối = NHÃN CỦA CHÍNH TRANG CHA (vd "Dịch vụ Sân bay Nội Bài") — chốt với chủ dự
+    án, không phải một cái tên chung chung kiểu "Danh mục khác". Trên trang con, tiêu đề đó là
+    link về trang cha (đường về duy nhất trong cột phải); trên chính trang cha thì để chữ
+    thường."""
+    pairs = [("/%s/%s/" % (service["slug"], c["slug"]), c.get("title") or c["slug"])
+             for c in children]
+    return sidebar_box(service.get("nav_label") or service["title"],
+                       sidebar_links(pairs, current_url), heading_url=heading_url)
+
+
+def build_service_sidebar(service, services, children):
     """Trang sân bay: liệt kê CÁC SÂN BAY KHÁC (tự cập nhật khi thêm/xoá dịch vụ qua CMS).
     Trang khác: khối chuyên mục bài viết tĩnh. Chọn kiểu nào là do field `group` trong
     data/services.json quyết định — KHÔNG suy đoán theo tên slug (thêm 1 dịch vụ tên na ná
-    là suy đoán sai ngay)."""
-    if service.get("group") != "airports":
-        return build_category_sidebar()
-    others = [s for s in services
-              if s["slug"] != service["slug"] and s.get("group") == "airports"]
-    items = "\n".join(
-        '        <li><a href="/%s/">%s</a></li>' % (esc(s["slug"]), esc(s.get("nav_label") or s["title"]))
-        for s in others
-    )
-    return "      <h3>Các sân bay khác</h3>\n      <ul>\n" + items + "\n      </ul>"
+    là suy đoán sai ngay).
+    Có danh mục con thì nối thêm 1 khối nữa NGAY DƯỚI khối trên, cùng kiểu trình bày."""
+    if service.get("group") == "airports":
+        others = [s for s in services
+                  if s["slug"] != service["slug"] and s.get("group") == "airports"]
+        boxes = [sidebar_box("Các sân bay khác", sidebar_links(
+            [("/%s/" % s["slug"], s.get("nav_label") or s["title"]) for s in others]))]
+    else:
+        boxes = [build_category_sidebar()]
+    if children:
+        boxes.append(build_children_box(service, children))
+    return "\n".join(boxes)
 
 
-def render_service_page(tpl, service, services):
+def render_service_page(tpl, service, services, children):
     slug = service["slug"]
     url = f"{SITE_URL}/{slug}/"
     # Ưu tiên og_image đã lưu trong dữ liệu (các trang sân bay dùng ảnh ngoài, không nằm trong
@@ -379,7 +430,100 @@ def render_service_page(tpl, service, services):
         "JSONLD_SERVICE": jsonld_service,
         "TITLE": esc(service["title"]),
         "CONTENT_HTML": service.get("content_html") or "",
-        "SIDEBAR": build_service_sidebar(service, services),
+        "SIDEBAR": build_service_sidebar(service, services, children),
+        "NAV_SERVICES": "",
+        "NAV_SERVICES_DRAWER": "",
+    })
+
+
+# ---------------- Danh mục con (cấp 3) ----------------
+# Trang /<slug-cha>/<slug-con>/ — KHÔNG có mặt trong menu Dịch vụ (chốt với chủ dự án), lối vào
+# duy nhất là khối danh mục ở cột phải trang cha. Dùng CHUNG templates/service.html: bố cục,
+# header, footer, cột phải của nó giống hệt trang dịch vụ, nên tách ra file template thứ 2 chỉ
+# tạo ra 2 bản design phải nhớ sửa song song — đúng loại lỗi mà GAS.md đã dặn né.
+
+def load_subservices(services):
+    """Đọc index + nội dung đầy đủ từng danh mục con. Bản ghi trỏ tới dịch vụ cha KHÔNG CÒN
+    tồn tại thì BỎ QUA (kèm cảnh báo) chứ không làm hỏng cả lần build: trang cũ của nó không
+    nằm trong danh sách trang vừa sinh nên clean_orphans() sẽ tự dọn."""
+    index = load_json(SUBSERVICES_INDEX_PATH, [])
+    known = {s["slug"] for s in services}
+    items = []
+    for meta in index:
+        parent, slug = meta.get("parent"), meta.get("slug")
+        if parent not in known:
+            print("  CẢNH BÁO: bỏ qua danh mục con", str(parent) + "/" + str(slug),
+                  "- không còn dịch vụ cha tương ứng.")
+            continue
+        items.append(load_json(os.path.join(SUBSERVICES_DATA_DIR, parent, slug + ".json")))
+    items.sort(key=lambda c: (c["parent"], int(c.get("order") or 0)))
+    return items
+
+
+def group_by_parent(subservices):
+    grouped = {}
+    for c in subservices:
+        grouped.setdefault(c["parent"], []).append(c)
+    return grouped
+
+
+def render_subservice_page(tpl, service, child, children):
+    slug = child["slug"]
+    url = f"{SITE_URL}/{service['slug']}/{slug}/"
+    # Danh mục con KHÔNG có ô nhập ảnh (chốt với chủ dự án): lấy ảnh đầu tiên trong chính nội
+    # dung của nó, không có thì THỪA KẾ ảnh chia sẻ của trang cha (11 trang sân bay đang dùng
+    # ảnh ngoài Wikimedia), cuối cùng mới tới ảnh mặc định của site.
+    own = find_content_image(child.get("content_html"))
+    parent_og = str(service.get("og_image") or "").strip()
+    if own:
+        og_image = SITE_URL + own
+    elif parent_og:
+        og_image = parent_og if parent_og.startswith("http") else SITE_URL + parent_og
+    else:
+        og_image = SITE_URL + DEFAULT_OG_IMAGE
+
+    crumbs = [{"@type": "ListItem", "position": 1, "name": "Trang chủ", "item": f"{SITE_URL}/"}]
+    if service.get("group") == "airports":
+        crumbs.append({"@type": "ListItem", "position": 2,
+                       "name": AIRPORT_HUB["name"], "item": SITE_URL + AIRPORT_HUB["url"]})
+    crumbs.append({"@type": "ListItem", "position": len(crumbs) + 1,
+                   "name": service["title"], "item": f"{SITE_URL}/{service['slug']}/"})
+    crumbs.append({"@type": "ListItem", "position": len(crumbs) + 1,
+                   "name": child["title"], "item": url})
+    jsonld_breadcrumb = json_ld({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": crumbs,
+    })
+    jsonld_service = json_ld({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": child["title"],
+        "name": child["title"],
+        "description": child.get("description") or "",
+        "provider": {"@type": "Organization", "name": SITE_NAME, "url": f"{SITE_URL}/"},
+        # Khu vực phục vụ THỪA KẾ của trang cha: danh mục con của trang Nội Bài thì vẫn phục vụ
+        # Hà Nội - không có ô nhập riêng để người viết bài phải khai lại (và khai lệch).
+        "areaServed": str(service.get("area_served") or "VN"),
+        # Nêu rõ quan hệ cha-con cho công cụ tìm kiếm, đúng thứ mà cấu trúc URL đang thể hiện.
+        "isPartOf": {"@type": "Service", "name": service["title"],
+                     "url": f"{SITE_URL}/{service['slug']}/"},
+        "url": url,
+        "image": og_image,
+    })
+    return render_placeholders(tpl, {
+        "SEO_TITLE": esc(child.get("seo_title") or child["title"]),
+        "DESCRIPTION": esc(child.get("description") or ""),
+        "CANONICAL_URL": url,
+        "OG_IMAGE": og_image,
+        "JSONLD_BREADCRUMB": jsonld_breadcrumb,
+        "JSONLD_SERVICE": jsonld_service,
+        "TITLE": esc(child["title"]),
+        "CONTENT_HTML": child.get("content_html") or "",
+        # Cột phải: ĐÚNG 1 khối "<nhãn trang cha>" liệt kê các danh mục cùng cha, tiêu đề khối
+        # là link về trang cha (chốt với chủ dự án).
+        "SIDEBAR": build_children_box(service, children, current_url=f"/{service['slug']}/{slug}/",
+                                      heading_url=f"/{service['slug']}/"),
         "NAV_SERVICES": "",
         "NAV_SERVICES_DRAWER": "",
     })
@@ -398,7 +542,7 @@ def existing_lastmods():
     }
 
 
-def build_sitemap(posts, services):
+def build_sitemap(posts, services, subservices):
     known = existing_lastmods()
     fallback = max([p["date"] for p in posts] + [str(s.get("updated_at") or "")[:10] for s in services] or [""]) or "2026-01-01"
 
@@ -409,6 +553,9 @@ def build_sitemap(posts, services):
     for s in services:
         loc = f"{SITE_URL}/{s['slug']}/"
         entries.append((loc, str(s.get("updated_at") or fallback)[:10], "monthly", "0.8"))
+    for c in subservices:
+        loc = f"{SITE_URL}/{c['parent']}/{c['slug']}/"
+        entries.append((loc, str(c.get("updated_at") or fallback)[:10], "monthly", "0.7"))
     for p in posts:
         loc = f"{SITE_URL}/blog/{p['slug']}/"
         entries.append((loc, str(p.get("updated_at") or p["date"])[:10], "monthly", "0.6"))
@@ -476,6 +623,8 @@ def main():
     # Bài mới hơn lên trước; cùng ngày thì giữ nguyên thứ tự trong posts.json (sort ổn định).
     posts_index = sorted(posts_index, key=lambda p: p["date"], reverse=True)
     services = sorted(services, key=lambda s: int(s.get("order") or 0))
+    subservices = load_subservices(services)
+    children_of = group_by_parent(subservices)
 
     print("1) Bài viết:")
     post_tpl = read_template("post.html")
@@ -499,25 +648,39 @@ def main():
     service_tpl = read_template("service.html")
     for s in services:
         out_path = os.path.join(HTML_DIR, s["slug"], "index.html")
-        write_generated_page(out_path, render_service_page(service_tpl, s, services))
+        write_generated_page(out_path,
+                             render_service_page(service_tpl, s, services, children_of.get(s["slug"], [])))
         print("  +", os.path.relpath(out_path, BASE))
 
-    print("3) Dọn trang mồ côi:")
+    print("3) Danh mục con:")
+    by_slug = {s["slug"]: s for s in services}
+    for c in subservices:
+        parent = by_slug[c["parent"]]
+        out_path = os.path.join(HTML_DIR, parent["slug"], c["slug"], "index.html")
+        write_generated_page(out_path, render_subservice_page(
+            service_tpl, parent, c, children_of[parent["slug"]]))
+        print("  +", os.path.relpath(out_path, BASE))
+    if not subservices:
+        print("  (chưa có danh mục con nào)")
+
+    print("4) Dọn trang mồ côi:")
     # Danh sách thư mục do CHÍNH lần build này sinh ra (đường dẫn tương đối từ gốc repo).
     generated_now = (
         [os.path.join("html", "blog")] +
         [os.path.join("html", "blog", p["slug"]) for p in posts_index] +
-        [os.path.join("html", s["slug"]) for s in services]
+        [os.path.join("html", s["slug"]) for s in services] +
+        [os.path.join("html", c["parent"], c["slug"]) for c in subservices]
     )
     clean_orphans(generated_now)
 
-    print("4) Vá menu Dịch vụ vào mọi trang:")
+    print("5) Vá menu Dịch vụ vào mọi trang:")
     patch_nav_everywhere(services)
 
-    print("5) Sitemap:")
-    build_sitemap(posts_index, services)
+    print("6) Sitemap:")
+    build_sitemap(posts_index, services, subservices)
 
-    print(f"Build xong: {len(posts_index)} bài viết, {len(services)} dịch vụ.")
+    print(f"Build xong: {len(posts_index)} bài viết, {len(services)} dịch vụ, "
+          f"{len(subservices)} danh mục con.")
 
 
 if __name__ == "__main__":

@@ -10,7 +10,8 @@
 
 1. Viết bài viết (blog).
 2. Quản lý liên hệ (form `/lien-he/`).
-3. Quản lý dịch vụ (ít — lưu trực tiếp trong repo website, không tách DB riêng).
+3. Quản lý dịch vụ (ít — lưu trực tiếp trong repo website, không tách DB riêng), kèm
+   **danh mục con cấp 3** nằm bên trong từng trang dịch vụ (mục VI-B).
 4. Quản lý người dùng (root / admin / editor).
 
 ⛔ **TUYỆT ĐỐI KHÔNG ĐỤNG TỚI LUỒNG ĐẶT XE.** Form đặt xe (`#quickBookingForm`,
@@ -197,6 +198,67 @@
   desktop lẫn drawer mobile) trong MỌI file `html/**/index.html`. Đổi design header phải GIỮ
   NGUYÊN 2 mốc neo này, nếu không build sẽ log CẢNH BÁO và bỏ qua.
 
+## VI-B. Danh mục con của dịch vụ (cấp 3)
+
+Trang cấp 3 nằm BÊN TRONG một trang dịch vụ. URL công khai:
+`https://xevipsanbay.com/<slug-dịch-vụ-cha>/<slug-danh-mục-con>/`
+(vd `/dich-vu-xe-san-bay-noi-bai/don-tien-khach-vip/`).
+
+- **Tab quản trị RIÊNG** ("Danh mục con"), tách hẳn khỏi tab Dịch vụ. Quyền: `editor` trở lên,
+  giống bài viết/dịch vụ.
+- **Thư mục cha chọn bằng dropdown**, danh sách lấy từ ĐÚNG các dịch vụ đang có trong
+  `data/services.json` (cả 12, không giới hạn nhóm sân bay). Server tự kiểm tra cha có thật,
+  KHÔNG tin `<select>` phía giao diện.
+- **KHÔNG lên menu "DỊCH VỤ"** (cả desktop lẫn mobile) — `build_nav_blocks()` chỉ đọc
+  `services.json`. Lối vào duy nhất: khối liên kết ở cột phải TRANG CHA.
+- Field CÓ ô nhập: **Thư mục cha, Tiêu đề, URL (slug), Tiêu đề SEO (tuỳ chọn), Thứ tự, Mô tả,
+  Nội dung** (TinyMCE, dùng chung cấu hình với bài viết/dịch vụ).
+  Cố ý KHÔNG có: **ảnh bìa** (chốt với chủ dự án), `nav_label` (không lên menu),
+  `group`/`area_served` (thừa kế của trang cha).
+- Field server tự suy: `seo_title` trống → `title` (giống dịch vụ, KHÔNG cộng hậu tố như bài
+  viết); `created_at` giữ nguyên khi sửa; `updated_at` mỗi lần Lưu.
+- **`parent` + `slug` BẤT BIẾN sau lần Lưu đầu** — 2 thứ này hợp thành URL công khai. Chặn ở
+  CẢ server (báo lỗi nói rõ) LẪN client (`disabled` cả dropdown cha lẫn ô URL). Muốn đổi thì
+  xoá đi tạo lại.
+- Slug con chỉ cần duy nhất TRONG CÙNG 1 cha — 2 cha khác nhau được phép trùng slug con.
+- Ảnh trong nội dung: `html/images/<cha>__<con>-content-<N>.jpg`.
+  ⚠️ Dấu nối là **`__` (gạch dưới đôi), KHÔNG phải `-`**: `slugify_()` chỉ sinh ra `[a-z0-9-]`
+  nên `__` không bao giờ xuất hiện trong một slug → tiền tố ảnh của danh mục con không thể
+  trùng tiền tố ảnh của một dịch vụ. Dùng `-` thì một dịch vụ đặt tên khéo (`dich-vu-a-b`) sẽ
+  khiến `deleteContentImages_` xoá nhầm ảnh của danh mục con `a/b`.
+- **Xoá dịch vụ cha = xoá KÉO THEO mọi danh mục con** của nó (detail + ảnh + gỡ khỏi index),
+  pop-up xác nhận nói rõ số lượng sẽ mất. Không làm vậy thì bản ghi con thành mồ côi: trang
+  biến mất khỏi site (build.py bỏ qua vì không còn cha) nhưng vẫn hiện trong CMS.
+
+### Trang cha hiển thị gì
+
+`build.py` thêm **1 khối nữa vào cột phải trang cha**, NGAY DƯỚI khối đang có
+("Các sân bay khác" với trang sân bay, "Chuyên mục bài viết" với dịch vụ thường):
+
+- **Tiêu đề khối = nhãn của CHÍNH TRANG CHA** (vd `Dịch vụ Sân bay Nội Bài`) — chốt với chủ
+  dự án, không phải một cái tên chung chung kiểu "Danh mục khác".
+- Bố cục y hệt khối trên: `<div class="sidebar-box"><h3>…</h3><ul><li><a>…</a></li></ul></div>`,
+  không thêm CSS mới.
+- Trên CHÍNH trang cấp 3, cột phải chỉ có ĐÚNG khối này (không lặp lại "Các sân bay khác"):
+  tiêu đề khối là link về trang cha, mục đang mở in đậm và bỏ thẻ `<a>`.
+
+⚠️ Thẻ `<div class="sidebar-box">` trước đây nằm trong `templates/*.html` nên cột phải chỉ có
+được ĐÚNG 1 khối. Nay **build.py sinh cả thẻ bọc** (`sidebar_box()`) và cả 3 template chỉ còn
+`{{SIDEBAR}}` trần trong `<aside>`. Sửa design cột phải thì sửa `sidebar_box()`, không sửa
+template.
+
+### Trang cấp 3 dùng CHUNG `templates/service.html`
+
+Cố ý KHÔNG tách file template thứ 2: bố cục, header, footer, cột phải giống hệt trang dịch vụ,
+tách ra là tạo 2 bản design phải nhớ sửa song song — đúng loại lỗi file này đã dặn né.
+
+- `<title>` = `seo_title` (trống thì = tiêu đề). Breadcrumb JSON-LD **4 cấp**:
+  Trang chủ → `/dich-vu-xe-san-bay/` (chỉ khi cha thuộc nhóm sân bay) → trang cha → trang con.
+- JSON-LD `Service` có thêm `isPartOf` trỏ về trang cha; `areaServed` **thừa kế của cha**.
+- `og:image`: ảnh đầu tiên trong nội dung → không có thì lấy `og_image` CỦA CHA (11 trang sân
+  bay đang dùng ảnh ngoài Wikimedia) → cuối cùng mới tới ảnh mặc định của site.
+- Có mặt trong `sitemap.xml`, priority `0.7`.
+
 ## VII. Người dùng
 
 - Tab chỉ hiện với `admin`/`root` (server vẫn tự chặn `requireRole_(token, "admin")`).
@@ -258,6 +320,11 @@ sheet/cột CỐ ĐỊNH:
 - `data/posts.json` — index nhẹ mọi bài viết. **Commit CHỐT** của Lưu/Xoá bài → trigger CI.
 - `data/blog/<slug>.json` — nội dung đầy đủ 1 bài.
 - `data/services.json` — TOÀN BỘ dịch vụ (kèm content). **Commit CHỐT** của Lưu/Xoá dịch vụ.
+- `data/subservices.json` — index nhẹ mọi danh mục con cấp 3. **Commit CHỐT** của Lưu/Xoá danh
+  mục con. (Tách index/detail như bài viết chứ KHÔNG gom hết vào 1 file như `services.json`:
+  số bản ghi lớn dần, mà Contents API chỉ trả nội dung file dưới ~1MB — gom hết là tự đặt trần
+  cứng cho CMS. Index nhẹ cũng là thứ `boot()` nhét vào `localStorage` mỗi lần đăng nhập.)
+- `data/subservices/<cha>/<con>.json` — nội dung đầy đủ 1 danh mục con.
 - `html/images/<slug>-cover.jpg`, `html/images/<slug>-content-<N>.jpg` — ảnh, ghi THẲNG vào
   vị trí site thật.
 
@@ -268,7 +335,7 @@ sheet/cột CỐ ĐỊNH:
 | Thư mục | Ai ghi | Sửa tay được? |
 |---|---|---|
 | `data/**` | GAS (CMS) | ❌ (build lại sẽ mất) |
-| `html/blog/<slug>/index.html`, `html/blog/index.html`, `html/dich-vu-*/index.html` | `build.py` (CI) | ❌ (CI ghi đè) |
+| `html/blog/<slug>/index.html`, `html/blog/index.html`, `html/dich-vu-*/index.html`, `html/<cha>/<con>/index.html` | `build.py` (CI) | ❌ (CI ghi đè) |
 | `html/index.html`, `html/ve-chung-toi/`, `html/lien-he/` | Người | ✅ (CI chỉ vá vùng NAV_SERVICES) |
 | `templates/*.html` | Người | ✅ — đây chính là chỗ sửa design |
 | `html/images/**` | GAS | không cần |
@@ -329,6 +396,12 @@ khoảng 1–2 phút.
   dữ liệu nằm ở file nào trong Drive. Tab Liên hệ trong CMS có nút **"⧉ Mở Google Sheet"** trỏ
   đúng file thật (`getDataSheetUrl`) — dùng nút đó thay vì tự tìm trong Drive.
 - **Đổi `let` → `const` khi dọn code** mà biến còn bị gán lại ở nhánh khác → `TypeError`.
+- **Thêm tab mới mà quên khai trong `revalidateBootInBackground_`** → `getElementById(...)` trả
+  `null`, `.style` ném `TypeError`, cả nhánh revalidate chết im lặng và người dùng KẸT VĨNH
+  VIỄN ở giao diện cũ (đúng nhóm bug ngay trên). Mọi truy cập DOM trong hàm chạy ngầm phải
+  null-safe — DOM lúc đó có thể vẫn là `appHtml` bản cũ.
+- **Đặt tên ảnh ghép 2 slug bằng dấu `-`** → tiền tố ảnh của bản ghi này lọt vào tiền tố của
+  bản ghi khác, `deleteContentImages_` xoá nhầm. Ghép bằng `__` (xem mục VI-B).
 
 ## XI. Script Properties (Project Settings > Script Properties) — TÊN CỐ ĐỊNH
 

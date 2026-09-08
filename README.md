@@ -25,9 +25,11 @@ Admin (Google Apps Script)  ──ghi──►  data/*.json  ──trigger──
 | `data/posts.json` | Danh sách bài viết (commit CHỐT, trigger CI) | ❌ CMS ghi |
 | `data/blog/<slug>.json` | Nội dung 1 bài viết | ❌ CMS ghi |
 | `data/services.json` | Toàn bộ dịch vụ, kèm nội dung (commit CHỐT) | ❌ CMS ghi |
+| `data/subservices.json` | Danh sách danh mục con cấp 3 (commit CHỐT, trigger CI) | ❌ CMS ghi |
+| `data/subservices/<cha>/<con>.json` | Nội dung 1 danh mục con | ❌ CMS ghi |
 | `templates/*.html` | **Design gốc** của trang bài viết / danh sách / dịch vụ | ✅ đây là chỗ sửa giao diện |
 | `scripts/build.py` | Sinh `html/` từ `data/` + `templates/` | ✅ |
-| `html/blog/**`, `html/dich-vu-*/**` | Trang do build sinh ra | ❌ build ghi đè |
+| `html/blog/**`, `html/dich-vu-*/**` | Trang do build sinh ra (kể cả trang cấp 3 `<cha>/<con>/`) | ❌ build ghi đè |
 | `html/index.html`, `html/ve-chung-toi/`, `html/lien-he/` | Trang viết tay | ✅ (build chỉ vá vùng menu Dịch vụ) |
 | `html/admin/index.html` | Trang chuyển hướng tới CMS | ✅ |
 | `html/images/**` | Ảnh (CMS upload thẳng vào đây) | — |
@@ -108,6 +110,17 @@ grep -rl 'GTM-W4RQ6L4G' html --include='index.html'
 ⚠️ GTM này chạy SONG SONG với gtag.js `G-BD60VVTKRC` ở trên. Nếu sau này khai thêm thẻ GA4
 cùng mã `G-BD60VVTKRC` bên trong giao diện GTM, trang chủ sẽ đếm đôi mỗi lượt xem — lúc đó
 phải gỡ 1 trong 2 bên, đừng để cả hai cùng bắn.
+
+## Danh mục con cấp 3
+
+Trang `/<slug-dịch-vụ>/<slug-danh-mục-con>/` — quản lý ở tab **"Danh mục con"** riêng trong CMS,
+chọn dịch vụ cha bằng dropdown. **KHÔNG hiện trên menu**; khách vào được qua khối liên kết ở cột
+phải trang dịch vụ cha (tiêu đề khối = nhãn của chính trang cha). Dùng chung
+`templates/service.html`. Chi tiết ở [`GAS.md`](GAS.md) mục VI-B.
+
+⚠️ Thẻ `<div class="sidebar-box">` của cột phải **đã chuyển từ `templates/*.html` vào
+`build.py`** (`sidebar_box()`) để xếp được nhiều khối chồng nhau. Cả 3 template giờ chỉ còn
+`{{SIDEBAR}}` trần trong `<aside>` — sửa design cột phải thì sửa `sidebar_box()`.
 
 ## Menu "DỊCH VỤ" tự cập nhật
 

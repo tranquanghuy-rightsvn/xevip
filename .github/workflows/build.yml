@@ -6,12 +6,14 @@ name: Build site tĩnh từ data/
 # nhật) và deploy nhầm trạng thái dở dang.
 #   data/posts.json    -> commit chốt của Lưu/Xoá bài viết (Code.js ghi SAU CÙNG)
 #   data/services.json -> commit chốt của Lưu/Xoá dịch vụ (1 file duy nhất, tự nó là chốt)
+#   data/subservices.json -> commit chốt của Lưu/Xoá danh mục con (Code.js ghi SAU CÙNG)
 on:
   push:
     branches: [master]
     paths:
       - "data/posts.json"
       - "data/services.json"
+      - "data/subservices.json"
       - "templates/**"
       - "scripts/build.py"
   workflow_dispatch: {}
