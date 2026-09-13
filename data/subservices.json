@@ -30,5 +30,13 @@
     "description": "Xe đón sân bay Nội Bài là lựa chọn thuận tiện cho khách hàng cần di chuyển nhanh chóng giữa Hà Nội và sân bay. Xe VIP Sân Bay cung cấp dịch vụ đón trả tận nơi 24/7, đa dạng xe 4–16 chỗ, phù hợp cá nhân, gia đình và nhóm đông người. Liên hệ 1900.9144 để được tư vấn.",
     "order": 4,
     "updated_at": "2026-09-13T14:42:12Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "xe-san-bay-ha-noi",
+    "title": "xe sân bay Hà Nội",
+    "description": "Bạn đang tìm xe sân bay Hà Nội uy tín, giá hợp lý và có dịch vụ đón trả tận nơi? Xe VIP Sân Bay cung cấp dịch vụ đưa đón Hà Nội – Nội Bài 24/7, đa dạng xe 4–16 chỗ, phù hợp cá nhân, gia đình và nhóm đông người. Liên hệ 1900.9144 để được tư vấn.",
+    "order": 5,
+    "updated_at": "2026-09-13T15:01:42Z"
   }
 ]
