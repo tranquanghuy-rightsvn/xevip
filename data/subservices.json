@@ -1,5 +1,13 @@
 [
   {
+    "parent": "dich-vu-xe-san-bay-gia-binh",
+    "slug": "xe-di-san-bay-gia-binh",
+    "title": "Xe đi sân bay Gia Bình",
+    "description": "Xe đi sân bay Gia Bình là lựa chọn phù hợp cho khách hàng cần di chuyển thuận tiện giữa khu vực Gia Bình, Bắc Ninh, Hà Nội, Bắc Giang và các tỉnh lân cận. Xe VIP Sân Bay cung cấp dịch vụ đưa đón tận nơi, đa dạng loại xe, tài xế chuyên nghiệp và hỗ trợ tư vấn lịch trình, báo giá nhanh qua hotline 1900.9144.",
+    "order": 1,
+    "updated_at": "2026-09-13T16:28:18Z"
+  },
+  {
     "parent": "dich-vu-xe-san-bay-noi-bai",
     "slug": "taxi-ha-noi-di-noi-bai-gia-re-bang-gia-va-cach-dat-xe-nhanh",
     "title": "Taxi Hà Nội đi Nội Bài giá rẻ",
