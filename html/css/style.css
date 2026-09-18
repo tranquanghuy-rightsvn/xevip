@@ -1857,6 +1857,9 @@ body.nav-open .site-header {
   background: linear-gradient(135deg, #0b7cff, #00a4ff);
   padding: 6px 18px 6px 6px;
 }
+.floating-call-btn {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+}
 .floating-zalo-btn img {
   width: 26px;
   height: 26px;
