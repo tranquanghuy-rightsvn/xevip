@@ -1867,10 +1867,11 @@ body.nav-open .site-header {
   background: #fff;
 }
 .phone-icon {
-  width: 26px;
-  height: 26px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.25);
+  background: #fff;
+  color: var(--color-primary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1878,8 +1879,9 @@ body.nav-open .site-header {
   animation: phonePulse 1.4s ease-in-out infinite;
 }
 .phone-icon svg {
-  width: 14px;
-  height: 14px;
+  width: 32px;
+  height: 32px;
+  stroke-width: 2.75;
 }
 .phone-text {
   font-weight: 800;
@@ -1914,14 +1916,17 @@ body.nav-open .site-header {
     padding: 8px 14px;
     justify-content: center;
   }
-  .floating-zalo-btn img,
-  .phone-icon {
+  .floating-zalo-btn img {
     width: 22px;
     height: 22px;
   }
+  .phone-icon {
+    width: 34px;
+    height: 34px;
+  }
   .phone-icon svg {
-    width: 16px;
-    height: 16px;
+    width: 28px;
+    height: 28px;
   }
   .phone-text {
     font-size: 18px;
