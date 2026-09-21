@@ -8,6 +8,14 @@
     "updated_at": "2026-09-21T10:09:05Z"
   },
   {
+    "parent": "dich-vu-xe-duong-dai",
+    "slug": "xe-san-bay-noi-bai-di-ninh-binh",
+    "title": "Xe sân bay Nội Bài đi Ninh Bình",
+    "description": "Xe sân bay Nội Bài đi Ninh Bình là lựa chọn thuận tiện cho hành khách cần di chuyển từ sân bay về Ninh Bình nhanh chóng, riêng tư. Xe VIP Sân Bay cung cấp xe 4–16 chỗ, đón trả tận nơi, hỗ trợ đặt xe theo lịch trình và tư vấn nhanh qua hotline 1900.9144.",
+    "order": 2,
+    "updated_at": "2026-09-21T10:46:04Z"
+  },
+  {
     "parent": "dich-vu-xe-san-bay-gia-binh",
     "slug": "xe-di-san-bay-gia-binh",
     "title": "Xe đi sân bay Gia Bình",
