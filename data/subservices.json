@@ -16,6 +16,14 @@
     "updated_at": "2026-09-21T10:46:04Z"
   },
   {
+    "parent": "dich-vu-xe-duong-dai",
+    "slug": "xe-san-bay-noi-bai-ve-hai-phong",
+    "title": "xe sân bay nội bài về hải phòng",
+    "description": "Xe sân bay Nội Bài về Hải Phòng phù hợp với hành khách cần di chuyển nhanh chóng, thuận tiện sau khi hạ cánh. Xe VIP Sân Bay cung cấp xe 4–16 chỗ, hỗ trợ đón trả tận nơi, đặt xe theo lịch trình và tư vấn phương án phù hợp qua hotline 1900.9144.",
+    "order": 3,
+    "updated_at": "2026-09-22T02:08:18Z"
+  },
+  {
     "parent": "dich-vu-xe-san-bay-gia-binh",
     "slug": "xe-di-san-bay-gia-binh",
     "title": "Xe đi sân bay Gia Bình",
