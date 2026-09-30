@@ -102,5 +102,13 @@
     "description": "Bảng giá taxi Nội Bài là thông tin được nhiều hành khách quan tâm khi cần di chuyển giữa Hà Nội và sân bay Nội Bài. Xe VIP Sân Bay cung cấp nhiều lựa chọn xe 4–16 chỗ, hỗ trợ đón trả tận nơi với mức giá tham khảo rõ ràng, giúp khách hàng dễ dàng lựa chọn dịch vụ phù hợp.",
     "order": 9,
     "updated_at": "2026-09-21T09:38:28Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "dat-xe-ha-noi-di-san-bay-noi-bai-tron-goi-dung-gio",
+    "title": "Đặt Xe Hà Nội Đi Sân Bay Nội Bài Trọn Gói, Đúng Giờ",
+    "description": "Thấu hiểu những rắc rối đó, Xe VIP Sân Bay mang đến dịch vụ đặt xe Hà Nội đi sân bay Nội Bài chuyên nghiệp. Chúng tôi tập trung vào 3 yếu tố cốt lõi: Đúng giờ – Xe sạch – Giá minh bạch, giúp hành trình ra sân bay của bạn trở nên thư thái và an tâm tuyệt đối.",
+    "order": 10,
+    "updated_at": "2026-09-30T23:37:23Z"
   }
 ]
