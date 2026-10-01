@@ -40,6 +40,14 @@
     "updated_at": "2026-10-01T05:23:17Z"
   },
   {
+    "parent": "dich-vu-xe-duong-dai",
+    "slug": "taxi-noi-bai-di-thai-binh",
+    "title": "Taxi Nội Bài đi Thái Bình",
+    "description": "Nhằm đáp ứng nhu cầu đi lại thuận tiện, Xe VIP Sân Bay cung cấp dịch vụ đặt xe taxi Nội Bài đi Thái Bình trọn gói. Chúng tôi hướng tới sự minh bạch về giá cước và sự đúng giờ, giúp bạn chủ động hoàn toàn cho chuyến đi của mình.",
+    "order": 6,
+    "updated_at": "2026-10-01T05:29:07Z"
+  },
+  {
     "parent": "dich-vu-xe-san-bay-gia-binh",
     "slug": "xe-di-san-bay-gia-binh",
     "title": "Xe đi sân bay Gia Bình",
