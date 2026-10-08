@@ -64,6 +64,14 @@
     "updated_at": "2026-10-08T03:08:56Z"
   },
   {
+    "parent": "dich-vu-xe-duong-dai",
+    "slug": "taxi-noi-bai-di-bac-ninh",
+    "title": "taxi Nội Bài đi Bắc Ninh",
+    "description": "Dịch vụ taxi Nội Bài đi Bắc Ninh đáp ứng trọn vẹn nhu cầu di chuyển ngày càng tăng cao của du khách và chuyên gia. Taxi Nội Bài Bắc Ninh cam kết mang lại trải nghiệm êm ái, xe đời mới, giá cước niêm yết công khai cùng tài xế giàu kinh nghiệm.",
+    "order": 9,
+    "updated_at": "2026-10-08T03:31:11Z"
+  },
+  {
     "parent": "dich-vu-xe-san-bay-gia-binh",
     "slug": "xe-di-san-bay-gia-binh",
     "title": "Xe đi sân bay Gia Bình",
