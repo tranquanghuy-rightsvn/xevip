@@ -142,5 +142,13 @@
     "description": "Thấu hiểu những rắc rối đó, Xe VIP Sân Bay mang đến dịch vụ đặt xe Hà Nội đi sân bay Nội Bài chuyên nghiệp. Chúng tôi tập trung vào 3 yếu tố cốt lõi: Đúng giờ – Xe sạch – Giá minh bạch, giúp hành trình ra sân bay của bạn trở nên thư thái và an tâm tuyệt đối.",
     "order": 10,
     "updated_at": "2026-10-02T09:30:46Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "vi-sao-xe-7-cho-di-noi-bai-duoc-nhieu-nguoi-lua-chon",
+    "title": "Vì sao xe 7 chỗ đi nội bài được nhiều người lựa chọn?",
+    "description": "Bạn đang tìm kiếm phương tiện di chuyển ra sân bay tiện lợi, thoải mái và tối ưu chi phí? Tìm hiểu ngay vì sao xe 7 chỗ đi nội bài được nhiều người lựa chọn cho mỗi chuyến đi. Dịch vụ đưa đón tận nơi, khoang hành lý rộng rãi, giá cước hợp lý giúp hành trình của bạn trọn vẹn nhất.",
+    "order": 11,
+    "updated_at": "2026-10-08T02:36:42Z"
   }
 ]
