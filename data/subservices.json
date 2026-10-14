@@ -230,5 +230,13 @@
     "description": "Bạn thắc mắc taxi sân bay nội bài phục vụ những khung giờ nào để chủ động cho chuyến bay? Dịch vụ đưa đón hoạt động liên tục 24/7 kể cả ngày lễ và đêm muộn. Đặt xe taxi sân bay nội bài trọn gói, đúng giờ, giá rẻ giúp chuyến đi của bạn luôn an toàn, nhanh chóng và thoải mái nhất.",
     "order": 18,
     "updated_at": "2026-10-14T02:46:07Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "xe-dua-don-san-bay-gia-re",
+    "title": "Xe đưa đón sân bay giá rẻ",
+    "description": "Cần di chuyển ra sân bay nhưng lo ngại chi phí đắt đỏ? Xe VIP Sân Bay mang đến giải pháp xe đưa đón sân bay giá rẻ, kết nối trọn gói với mức cước tiết kiệm tối đa. Chúng tôi phục vụ hành khách tại Nội Bài, Tân Sơn Nhất, Đà Nẵng, Cam Ranh và các cảng hàng không lớn trên cả nước.",
+    "order": 19,
+    "updated_at": "2026-10-14T11:11:57Z"
   }
 ]
