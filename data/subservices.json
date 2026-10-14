@@ -246,5 +246,13 @@
     "description": "Bạn đang tìm hiểu giá xe sân bay Nội Bài cho chuyến đi sắp tới? Xe VIP Sân Bay tự hào cung cấp dịch vụ đưa đón trọn gói bằng dàn xe 4-16 chỗ đời mới. Với cước phí minh bạch, cam kết không phát sinh, chúng tôi mang đến cho bạn hành trình tiết kiệm và an tâm nhất!",
     "order": 20,
     "updated_at": "2026-10-14T11:16:10Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "di-noi-bai-taxi-nao-re-nhat",
+    "title": "Đi Nội Bài taxi nào rẻ nhất",
+    "description": "Bạn đang thắc mắc đi Nội Bài taxi nào rẻ nhất? Hãy cùng phân tích ưu nhược điểm các loại hình di chuyển hiện nay và bỏ túi kinh nghiệm đặt xe riêng đưa đón tận nơi trọn gói, không phát sinh chi phí chỉ từ 170.000đ cùng Xe VIP Sân Bay.",
+    "order": 21,
+    "updated_at": "2026-10-14T11:21:21Z"
   }
 ]
