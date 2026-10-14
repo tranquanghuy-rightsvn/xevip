@@ -182,5 +182,13 @@
     "description": "Dịch vụ taxi Hà Nội Nội Bài ngày càng phát triển với sự xuất hiện của nhiều mẫu xe hiện đại. Cùng khám phá các dòng xe taxi Hà Nội đi Nội Bài được ưa chuộng nhất hiện nay, từ sedan 4 chỗ nhỏ gọn đến SUV 7 chỗ tiện nghi, giúp bạn dễ dàng chọn lựa phương tiện đưa đón sân bay phù hợp.",
     "order": 13,
     "updated_at": "2026-10-08T03:19:00Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "dat-xe-di-san-bay-noi-bai",
+    "title": "Đặt Xe Đi Sân Bay Nội Bài",
+    "description": "Bạn đang tìm kiếm dịch vụ đặt xe đi sân bay Nội Bài uy tín, giá rẻ và đúng giờ? Đừng bỏ lỡ bài viết tổng hợp các hãng xe công nghệ, taxi truyền thống và xe riêng tốt nhất hiện nay. So sánh giá cước chi tiết giúp bạn dễ dàng đưa ra lựa chọn phù hợp nhất cho chuyến đi của mình!",
+    "order": 14,
+    "updated_at": "2026-10-14T02:06:52Z"
   }
 ]
