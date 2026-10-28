@@ -80,6 +80,14 @@
     "updated_at": "2026-10-14T11:08:30Z"
   },
   {
+    "parent": "dich-vu-xe-duong-dai",
+    "slug": "dich-vu-xe-phuc-vu-san-bay-gia-binh-theo-yeu-cau",
+    "title": "Dịch Vụ Xe Phục Vụ Sân Bay Gia Bình",
+    "description": "Dịch vụ xe phục vụ sân bay Gia Bình có thể được tìm kiếm theo nhiều nhu cầu như xe 4 chỗ, xe 5 chỗ, xe 7 chỗ và xe 16 chỗ. Việc lựa chọn đúng loại xe giúp hành khách có không gian ngồi phù hợp, đồng thời đáp ứng nhu cầu chứa hành lý.",
+    "order": 11,
+    "updated_at": "2026-10-28T09:27:58Z"
+  },
+  {
     "parent": "dich-vu-xe-san-bay-gia-binh",
     "slug": "xe-di-san-bay-gia-binh",
     "title": "Xe đi sân bay Gia Bình",
