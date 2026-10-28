@@ -88,6 +88,14 @@
     "updated_at": "2026-10-28T09:28:55Z"
   },
   {
+    "parent": "dich-vu-xe-duong-dai",
+    "slug": "gia-taxi-ha-noi-gia-binh-moi-nhat-va-cach-dat-xe",
+    "title": "Giá Taxi Hà Nội Gia Bình",
+    "description": "Chi phí taxi không chỉ phụ thuộc vào mức giá taxi Hà Nội Gia Bình ban đầu mà còn liên quan đến cách lựa chọn phương tiện và sắp xếp lịch trình. Một số kinh nghiệm dưới đây sẽ giúp bạn kiểm soát ngân sách tốt hơn.",
+    "order": 12,
+    "updated_at": "2026-10-28T09:33:09Z"
+  },
+  {
     "parent": "dich-vu-xe-san-bay-gia-binh",
     "slug": "xe-di-san-bay-gia-binh",
     "title": "Xe đi sân bay Gia Bình",
