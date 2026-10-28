@@ -262,5 +262,13 @@
     "description": "Dịch vụ taxi đón sân bay Nội Bài là giải pháp được nhiều người lựa chọn nhờ khả năng đặt xe trước, chủ động thời gian và lựa chọn loại xe phù hợp với nhu cầu. Thay vì mất thời gian tìm phương tiện sau khi hạ cánh, hành khách có thể liên hệ đơn vị vận chuyển để thống nhất lịch trình",
     "order": 22,
     "updated_at": "2026-10-28T08:56:04Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "gia-gui-xe-san-bay-noi-bai",
+    "title": "Giá Gửi Xe Sân Bay Nội Bài",
+    "description": "Khi có kế hoạch di chuyển bằng đường hàng không, nhiều người thường cân nhắc giữa việc tự lái xe đến sân bay, gửi ô tô tại bãi đỗ và sử dụng dịch vụ đưa đón tận nơi. Trong đó, giá gửi xe sân bay Nội Bài là vấn đề được nhiều hành khách quan tâm, đặc biệt với những chuyến đi dài ngày hoặc lịch trình cần chủ động thời gian.",
+    "order": 23,
+    "updated_at": "2026-10-28T09:07:03Z"
   }
 ]
