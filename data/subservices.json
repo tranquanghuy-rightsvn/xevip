@@ -302,5 +302,13 @@
     "description": "Dịch vụ xe đón sân bay Nội Bài là giải pháp phù hợp cho những ai muốn chủ động lịch trình, lựa chọn loại xe theo nhu cầu và biết trước chi phí di chuyển. Thay vì mất thời gian tìm xe sau khi hạ cánh, hành khách có thể đặt xe trước, thống nhất điểm đón và chuẩn bị tốt hơn cho hành trình tiếp theo.",
     "order": 25,
     "updated_at": "2026-10-28T09:21:45Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "xe-taxi-noi-bai-gia-re",
+    "title": "Xe Taxi Nội Bài Giá Rẻ",
+    "description": "Nếu bạn đang tìm kiếm dịch vụ xe taxi nội bài giá rẻ, uy tín và đúng giờ tại Hà Nội, Xe VIP Sân Bay chính là sự lựa chọn hoàn hảo. Chúng tôi cam kết đưa đón tận nơi, xe đời mới, giá cước trọn gói minh bạch. Đặt xe nhanh chóng để nhận nhiều ưu đãi hấp dẫn ngay hôm nay!",
+    "order": 26,
+    "updated_at": "2026-11-02T07:44:44Z"
   }
 ]
