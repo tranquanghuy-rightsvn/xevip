@@ -326,5 +326,13 @@
     "description": "Bạn đang tìm hiểu giá xe đi sân bay Nội Bài mới nhất? Xe VIP Sân Bay cung cấp dịch vụ đưa đón taxi Hà Nội Nội Bài trọn gói, giá rẻ, xe đời mới và phục vụ 24/7. Xem ngay bảng giá chi tiết cùng ưu đãi cực sốc hôm nay để nhận tư vấn lịch trình tốt nhất cho chuyến đi của bạn!",
     "order": 28,
     "updated_at": "2026-11-02T08:19:09Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "dat-xe-noi-bai-ve-ha-noi",
+    "title": "Đặt Xe Nội Bài Về Hà Nội",
+    "description": "Dịch vụ đặt xe Nội Bài về Hà Nội trọn gói, giá rẻ, xe đời mới và đón tận nơi 24/7. Xe VIP Sân Bay cam kết đúng giờ, không phí ẩn và lịch trình linh hoạt. Đặt xe Nội Bài Hà Nội ngay hôm nay để nhận báo giá ưu đãi tốt nhất cho chuyến đi của bạn!",
+    "order": 29,
+    "updated_at": "2026-11-02T08:26:11Z"
   }
 ]
