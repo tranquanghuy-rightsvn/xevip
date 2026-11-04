@@ -363,6 +363,28 @@ function findAirportOptionByAddress(select, addressText) {
   return best ? best.option : null;
 }
 
+/** Bản chặt hơn của findAirportOptionByAddress, dùng cho tab đường dài (nơi nhận nhầm sẽ
+ * làm sai giá). Tách địa chỉ theo "," và " - ", chỉ nhận đoạn MỞ ĐẦU bằng tên sân bay:
+ *   "Sân bay Nội Bài, Nội Bài, Hà Nội"                         -> Nội Bài
+ *   "Noi Bai International Airport - Domestic Terminal, ..."    -> Nội Bài
+ *   "Fresh Garden, Tầng 3, Nhà ga T2 - Sân bay Quốc tế Nội Bài" -> Nội Bài (nằm trong sân bay)
+ *   "Taxi Sân bay nội bài, 93 Ngõ 342 Khương Đình, Hà Nội"      -> null (chỉ mang tên sân bay)
+ * Không nhận ra thì trả null -> giữ nguyên chuyến OTHER như cũ. */
+function findAirportOptionInDescription(select, addressText) {
+  const parts = String(addressText || '').split(/,|\s-\s/);
+  for (const part of parts) {
+    const option = findAirportOptionByAddress(select, part);
+    if (!option) continue;
+    const p = normalizeForSearch(part).replace(/\s+/g, ' ').trim();
+    const core = airportCoreName(option.textContent);
+    const variants = [core].concat(AIRPORT_NAME_ALIASES[core] || []);
+    if (AIRPORT_ADDRESS_KEYWORDS.some((k) => p.startsWith(k)) || variants.some((v) => p.startsWith(v))) {
+      return option;
+    }
+  }
+  return null;
+}
+
 // Báo chưa chọn sân bay từ danh sách gợi ý, cùng cơ chế bubble validate
 // native với reportAddressNotSelected ở trên.
 function reportAirportNotSelected(bookingForm, select) {
@@ -809,16 +831,35 @@ function setupBookingWidget(widget) {
         checkPayload = { airportId: startSelect?.value, address: addressObj, tripType, timeAt, isRoundTrip, vehicleType: carTypeValue };
         registerAddresses = { airportId: startSelect?.value, fromAddressBooking: null, toAddressBooking: addressObj };
       } else {
-        // OTHER: đi đường dài, cả 2 đầu đều là địa chỉ tự do
-        tripType = 'OTHER';
         const fromAddressObj = XevipAddressAutocomplete.getSelectedAddress(startInput);
         if (!fromAddressObj) { reportAddressNotSelected(bookingForm, startInput); return; }
         const toAddressObj = XevipAddressAutocomplete.getSelectedAddress(endInput);
         if (!toAddressObj) { reportAddressNotSelected(bookingForm, endInput); return; }
         startValue = startInput?.value || '';
         endValue = endInput?.value || '';
-        checkPayload = { tripType, isRoundTrip, vehicleType: carTypeValue, fromPlaceId: fromAddressObj.place_id, toPlaceId: toAddressObj.place_id };
-        registerAddresses = { airportId: null, fromAddressBooking: fromAddressObj, toAddressBooking: toAddressObj };
+
+        // Tab đường dài nhưng 1 đầu là sân bay đang phục vụ (vd chọn "Sân bay Nội Bài") thì
+        // đây thực chất là chuyến sân bay: phải tính theo bảng giá sân bay (FARE_WELL/PICK_UP).
+        // Gửi OTHER thì backend áp bảng giá đường dài -> ra giá sai (vd Hoàn Kiếm -> Nội Bài
+        // trả 100k, trong khi giá sân bay đúng là 200k). Cả 2 đầu đều là sân bay thì giữ OTHER.
+        const airportSource = startSelect || endSelect;
+        const fromAirport = findAirportOptionInDescription(airportSource, fromAddressObj.description || startValue);
+        const toAirport = findAirportOptionInDescription(airportSource, toAddressObj.description || endValue);
+
+        if (toAirport && !fromAirport) {
+          tripType = 'FARE_WELL';
+          checkPayload = { airportId: toAirport.value, address: fromAddressObj, tripType, timeAt, isRoundTrip, vehicleType: carTypeValue };
+          registerAddresses = { airportId: toAirport.value, fromAddressBooking: fromAddressObj, toAddressBooking: null };
+        } else if (fromAirport && !toAirport) {
+          tripType = 'PICK_UP';
+          checkPayload = { airportId: fromAirport.value, address: toAddressObj, tripType, timeAt, isRoundTrip, vehicleType: carTypeValue };
+          registerAddresses = { airportId: fromAirport.value, fromAddressBooking: null, toAddressBooking: toAddressObj };
+        } else {
+          // OTHER: đi đường dài, cả 2 đầu đều là địa chỉ tự do
+          tripType = 'OTHER';
+          checkPayload = { tripType, isRoundTrip, vehicleType: carTypeValue, fromPlaceId: fromAddressObj.place_id, toPlaceId: toAddressObj.place_id };
+          registerAddresses = { airportId: null, fromAddressBooking: fromAddressObj, toAddressBooking: toAddressObj };
+        }
       }
 
       const originalBtnText = submitBtn?.textContent;
