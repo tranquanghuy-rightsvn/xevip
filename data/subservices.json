@@ -104,6 +104,14 @@
     "updated_at": "2026-09-13T16:35:27Z"
   },
   {
+    "parent": "dich-vu-xe-san-bay-gia-binh",
+    "slug": "gia-taxi-san-bay-gia-binh-bang-gia-va-cach-dat-xe",
+    "title": "Giá Taxi Sân Bay Gia Bình: Bảng Giá Và Cách Đặt Xe",
+    "description": "Có thể liên hệ đơn vị vận chuyển để tư vấn các tuyến xe từ sân bay Gia Bình về Hà Nội, Bắc Giang, Hải Dương, Hưng Yên, Hải Phòng và những địa phương khác. Giá taxi sân bay Gia Bình sẽ được tính theo quãng đường, loại xe và lịch trình cụ thể khi sân bay chính thức khai thác.",
+    "order": 2,
+    "updated_at": "2026-11-11T13:57:28Z"
+  },
+  {
     "parent": "dich-vu-xe-san-bay-noi-bai",
     "slug": "taxi-ha-noi-di-noi-bai-gia-re-bang-gia-va-cach-dat-xe-nhanh",
     "title": "Taxi Hà Nội đi Nội Bài giá rẻ",
