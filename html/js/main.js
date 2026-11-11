@@ -816,6 +816,49 @@ function setupBookingWidget(widget) {
     });
   }
 
+  // Tab đường dài mà 1 đầu chọn trúng sân bay đang phục vụ -> tự chuyển sang tab sân bay,
+  // đưa sân bay vào ô sân bay đúng chiều và mang địa chỉ đầu kia sang (nếu đã chọn):
+  //   Điểm Đến là sân bay -> FARE_WELL (chưa đảo chiều), Điểm Đi là sân bay -> PICK_UP (đảo chiều).
+  // Đầu kia cũng là sân bay (sân bay -> sân bay) thì để nguyên ở tab đường dài.
+  if (airportTab && roadTab && startInput && endInput && startSelect && endSelect) {
+    const onRoadAddressSelected = (e) => {
+      if (!roadTab.classList.contains('active')) return;
+      const input = e.currentTarget;
+      const otherInput = input === startInput ? endInput : startInput;
+      const description = (e.detail && e.detail.description) || input.value;
+      const matched = findAirportOptionInDescription(startSelect, description);
+      if (!matched) return;
+
+      const otherAddr = XevipAddressAutocomplete.getSelectedAddress(otherInput);
+      const otherText = otherAddr ? otherInput.value : '';
+      if (otherAddr && findAirportOptionInDescription(startSelect, otherAddr.description || otherText)) return;
+
+      const airportIsStart = input === startInput;
+      airportTab.click();
+      // Xoá 2 ô của tab đường dài, tránh dữ liệu cũ khi người dùng quay lại tab đó.
+      [startInput, endInput].forEach((el) => { el.value = ''; XevipAddressAutocomplete.clearSelectedAddress(el); });
+
+      const airportSelect = airportIsStart ? startSelect : endSelect;
+      const addressInput = airportIsStart ? destAddressInput : locationInput;
+      startSelect.value = '';
+      endSelect.value = '';
+      airportSelect.value = matched.value;
+      airportSelect.setCustomValidity('');
+      if (addressInput) {
+        addressInput.value = otherText;
+        XevipAddressAutocomplete.setSelectedAddress(addressInput, otherAddr);
+      }
+
+      airportSwapped = airportIsStart;
+      applyAirportSwap();
+      [startSelect, endSelect].forEach((sel) => sel.dispatchEvent(new CustomEvent('xevip:sync')));
+
+      if (addressInput && !otherAddr) addressInput.focus();
+    };
+    startInput.addEventListener('xevip:address-selected', onRoadAddressSelected);
+    endInput.addEventListener('xevip:address-selected', onRoadAddressSelected);
+  }
+
   if (swapBtn) {
     swapBtn.addEventListener('click', () => {
       const isAirportTab = !airportTab || airportTab.classList.contains('active');
