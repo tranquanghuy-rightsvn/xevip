@@ -358,5 +358,13 @@
     "description": "Khách hàng có nhu cầu đặt xe đi Nội Bài giá rẻ có thể liên hệ trực tiếp qua hotline để cung cấp lịch trình và nhận thông tin báo giá. Nên xác nhận trước loại xe, thời gian đón, địa điểm trả khách và tổng chi phí để đảm bảo chuyến đi diễn ra theo đúng kế hoạch.",
     "order": 32,
     "updated_at": "2026-11-11T13:32:31Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "tong-dai-taxi-noi-bai-so-dien-thoai-dat-xe-nhanh-247",
+    "title": "Tổng Đài Taxi Nội Bài: Số Điện Thoại Đặt Xe Nhanh 24/7",
+    "description": "Việc lựa chọn dịch vụ đặt xe qua tổng đài taxi Nội Bài giúp hành khách chủ động phương tiện, tiết kiệm thời gian và thuận tiện hơn trong quá trình di chuyển. Tùy theo nhu cầu thực tế, khách hàng có thể tìm hiểu các dòng xe 4 chỗ, 7 chỗ, xe du lịch hoặc xe VIP để lựa chọn phương án phù hợp.",
+    "order": 33,
+    "updated_at": "2026-11-11T13:41:40Z"
   }
 ]
