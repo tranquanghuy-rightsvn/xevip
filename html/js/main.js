@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDateDefault();
   initPriceModalSubmit();
   populateAirportSelects();
+  initAirportCommuneRewrite();
   initPricingTabs();
   initVideoShowcase();
   initContactForm();
@@ -383,6 +384,49 @@ function findAirportOptionInDescription(select, addressText) {
     }
   }
   return null;
+}
+
+// ---------------- Chọn tên XÃ trùng tên sân bay -> coi là sân bay ----------------
+// Gõ "Nội Bài", Goong trả mục đầu là "Nội Bài, Hà Nội" - đó là XÃ Nội Bài (compound.commune
+// = "Nội Bài"), không có chữ "sân bay" nên không bị nhận là sân bay -> tab sân bay không tự
+// đảo chiều, tab đường dài tính theo bảng giá OTHER. Khách gõ "Nội Bài" thì gần như chắc
+// chắn là muốn ra sân bay, nên chọn mục xã này thì đổi luôn thành "Sân bay Nội Bài".
+//
+// Chỉ áp cho các tên trong danh sách dưới (đã bỏ dấu). KHÔNG áp đại trà cho mọi sân bay: vd
+// "Vinh", "Đồng Hới" là tên cả thành phố/phường, chọn chúng không có nghĩa là ra sân bay.
+const AIRPORT_COMMUNE_NAMES = ['noi bai'];
+
+/** Mục gợi ý là đúng cái xã (không phải thôn/đường cùng tên ở nơi khác, vd "Nội Bài, Quy
+ * Mông, Lào Cai" có commune = Quy Mông nên bị loại) và tên xã nằm trong danh sách trên. */
+function isAirportCommuneItem(item) {
+  if (!item) return false;
+  const main = normalizeForSearch(String((item.structured_formatting || {}).main_text || '')).trim();
+  const commune = normalizeForSearch(String((item.compound || {}).commune || '')).trim();
+  return AIRPORT_COMMUNE_NAMES.includes(main) && main === commune;
+}
+
+function initAirportCommuneRewrite() {
+  // Bắt ở pha CAPTURE trên document để chạy TRƯỚC các handler 'xevip:address-selected'
+  // gắn trên từng ô (vd tự đảo chiều ở tab sân bay) - chúng sẽ thấy ngay chữ "Sân bay ...".
+  document.addEventListener('xevip:address-selected', (e) => {
+    const input = e.target;
+    const item = e.detail;
+    if (!isAirportCommuneItem(item)) return;
+
+    const fmt = item.structured_formatting || {};
+    const airportName = 'Sân bay ' + fmt.main_text;
+    const description = airportName + (fmt.secondary_text ? ', ' + fmt.secondary_text : '');
+    // Chỉ đổi khi sân bay này thật sự có trong danh sách đang phục vụ.
+    const select = document.querySelector('.airport-select');
+    if (select && select.options.length > 1 && !findAirportOptionByAddress(select, description)) return;
+
+    // Sửa thẳng trên object đã lưu (chính là e.detail) - main.js nhận diện sân bay qua
+    // description, nên vừa hiển thị đúng vừa tính đúng giá sân bay lúc bấm Kiểm tra giá.
+    item.description = description;
+    item.structured_formatting = Object.assign({}, fmt, { main_text: airportName });
+    input.value = description;
+    XevipAddressAutocomplete.setSelectedAddress(input, item);
+  }, true);
 }
 
 // Báo chưa chọn sân bay từ danh sách gợi ý, cùng cơ chế bubble validate
