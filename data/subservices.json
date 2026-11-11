@@ -366,5 +366,13 @@
     "description": "Việc lựa chọn dịch vụ đặt xe qua tổng đài taxi Nội Bài giúp hành khách chủ động phương tiện, tiết kiệm thời gian và thuận tiện hơn trong quá trình di chuyển. Tùy theo nhu cầu thực tế, khách hàng có thể tìm hiểu các dòng xe 4 chỗ, 7 chỗ, xe du lịch hoặc xe VIP để lựa chọn phương án phù hợp.",
     "order": 33,
     "updated_at": "2026-11-11T13:41:40Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "taxi-san-bay-noi-bai-ve-ha-noi-bang-gia-va-cach-dat-xe",
+    "title": "Taxi Sân Bay Nội Bài Về Hà Nội: Bảng Giá Và Cách Đặt Xe",
+    "description": "Giá taxi sân bay Nội Bài về Hà Nội phụ thuộc vào loại xe, điểm đến, thời gian phục vụ và lịch trình cụ thể. Để giúp khách hàng dễ dàng lựa chọn phương tiện và dự trù ngân sách, Xe VIP Sân Bay cung cấp bảng giá tham khảo theo từng dòng xe.",
+    "order": 34,
+    "updated_at": "2026-11-11T13:47:14Z"
   }
 ]
