@@ -342,5 +342,13 @@
     "description": "Dịch vụ xe lên sân bay Nội Bài giá rẻ, uy tín, đưa đón tận nơi 24/7. Xe VIP Sân Bay cung cấp dòng xe đời mới, tài xế chuyên nghiệp, đúng giờ và cước phí minh bạch. Đặt xe sân bay Nội Bài ngay hôm nay để nhận báo giá ưu đãi nhất cùng lịch trình di chuyển linh hoạt cho chuyến đi của bạn.",
     "order": 30,
     "updated_at": "2026-11-02T08:33:18Z"
+  },
+  {
+    "parent": "dich-vu-xe-san-bay-noi-bai",
+    "slug": "xe-taxi-noi-bai-ha-noi-bang-gia-va-kinh-nghiem-dat-xe",
+    "title": "Xe Taxi Nội Bài Hà Nội: Bảng Giá Và Kinh Nghiệm Đặt Xe",
+    "description": "Sau mỗi chuyến bay, việc tìm được một chiếc xe taxi Nội Bài Hà Nội chất lượng, đúng giờ, giá cả hợp lý sẽ giúp hành trình trở nên thuận tiện và thoải mái hơn. Đặc biệt, với những hành khách đi cùng gia đình, mang nhiều hành lý hoặc cần không gian riêng tư",
+    "order": 31,
+    "updated_at": "2026-11-11T13:25:13Z"
   }
 ]
